@@ -6,6 +6,9 @@
     <title>Dexomed Biologicals Group - Client Dashboard</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
+
+    <link rel="icon" href="{{ asset('Img/Logo.jpg') }}" type="image/jpeg">
+    <link rel="shortcut icon" href="{{ asset('Img/Logo.jpg') }}" type="image/jpeg">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
