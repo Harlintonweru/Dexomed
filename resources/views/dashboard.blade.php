@@ -63,7 +63,7 @@
             display: flex;
             min-height: 100vh;
             background-image: linear-gradient(rgba(9, 9, 9, 0.08), rgba(9, 9, 9, 0.15)), 
-                              url('Img/services.png');
+                              url('Img/medical_equipment.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -1105,6 +1105,47 @@
         .dark .btn-outline:hover {
             background: #2a2a2a;
         }
+.dark .action-btn {
+    background: rgba(0, 0, 0, 0.8); /* Fixed syntax error */
+    color: #e5e7eb;
+}
+
+.dark .user-menu:hover {
+    background: rgba(0, 0, 0, 0.8); /* Fixed syntax error */
+}
+
+.dark .calendar-day.other-month {
+    color: #6b7280;
+    background: #3a3a3a; /* Fixed syntax error */
+}
+
+        /* Enhanced modal styling */
+.modal-content {
+    animation: slideUp 0.3s ease-out;
+}
+
+.status-badge, .priority-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-operational, .priority-low {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-maintenance, .priority-medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-attention, .priority-high, .priority-urgent {
+    background: #fee2e2;
+    color: #991b1b;
+}
     </style>
 </head>
 
@@ -1199,12 +1240,15 @@
                     </button>
                     
                     <div class="user-menu relative">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=e8a00f&color=fff" 
-                             alt="User Avatar" class="user-avatar-small cursor-pointer">
-                        <div class="hidden md:block cursor-pointer">
-                            <div class="font-medium">John</div>
-                            <div class="text-xs text-gray-500">Medical Director</div>
-                        </div>
+                        <img 
+        src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=e8a00f&color=fff" 
+        alt="{{ Auth::user()->name }} Avatar" 
+        class="user-avatar-small cursor-pointer"
+    >
+                        <div class="card-header">
+    <h2 class="card-title"> {{ Auth::user()->name }}!</h2>
+</div>
+
                         <i class="fas fa-chevron-down text-gray-400 ml-2 cursor-pointer" 
                            onclick="document.getElementById('dropdownMenu').classList.toggle('hidden')"></i>
 
@@ -1236,9 +1280,9 @@
                     <!-- Welcome Card -->
                     <div class="card slide-up">
                         <div class="card-header">
-                            <h2 class="card-title">Welcome back, John!</h2>
-                            <span class="text-sm text-gray-500">Last login: Today, 09:42 AM</span>
-                        </div>
+    <h2 class="card-title">Welcome, {{ Auth::user()->name }}!</h2>
+</div>
+
                         <p class="text-gray-600 dark:text-gray-300 mb-4">
                             Here's an overview of your equipment and recent activities. You have <span class="font-semibold text-dexomed-500">2 pending service requests</span> and <span class="font-semibold text-dexomed-500">1 calibration due</span> this week.
                         </p>
@@ -1493,213 +1537,246 @@
                 </div>
                 
                 <!-- Equipment Section -->
-                <div id="equipment" class="content-section">
-                    <h1 class="page-title">My Equipment</h1>
-                    
-                    <div class="card slide-up">
-                        <div class="card-header">
-                            <h2 class="card-title">All Equipment</h2>
-                            <div class="flex gap-2">
-                                <button class="btn btn-outline btn-sm">
-                                    <i class="fas fa-filter mr-1"></i>
-                                    Filter
-                                </button>
-                                <button class="btn btn-primary btn-sm" id="addEquipmentBtn3">
-                                    <i class="fas fa-plus mr-1"></i>
-                                    Add Equipment
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="grid-3">
-                            <div class="card">
-                                <div class="flex items-center mb-4">
-                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-microscope text-blue-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold">Hematology Analyzer</h3>
-                                        <p class="text-sm text-gray-500">HA-2200</p>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="status-badge status-operational">Operational</span>
-                                    <button class="btn btn-outline btn-sm">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="card">
-                                <div class="flex items-center mb-4">
-                                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-cogs text-yellow-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold">Centrifuge</h3>
-                                        <p class="text-sm text-gray-500">CF-2000</p>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="status-badge status-attention">Needs Attention</span>
-                                    <button class="btn btn-outline btn-sm">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="card">
-                                <div class="flex items-center mb-4">
-                                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <i class="fas fa-heartbeat text-green-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold">ECG Machine</h3>
-                                        <p class="text-sm text-gray-500">ECG-Pro</p>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="status-badge status-operational">Operational</span>
-                                    <button class="btn btn-outline btn-sm">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div id="equipment" class="content-section">
+    <h1 class="page-title">My Equipment</h1>
+    
+    <div class="card slide-up">
+        <div class="card-header">
+            <h2 class="card-title">All Equipment</h2>
+            <div class="flex gap-2">
+                <button class="btn btn-outline btn-sm">
+                    <i class="fas fa-filter mr-1"></i>
+                    Filter
+                </button>
+                <button class="btn btn-primary btn-sm" id="addEquipmentBtn3">
+                    <i class="fas fa-plus mr-1"></i>
+                    Add Equipment
+                </button>
+            </div>
+        </div>
+        
+        <!-- Equipment Stats -->
+        <div class="stats-grid mb-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fas fa-microscope"></i>
                 </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalEquipmentCount">0</div>
+                    <div class="stat-label">Total Equipment</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="operationalEquipmentCount">0</div>
+                    <div class="stat-label">Operational</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="maintenanceEquipmentCount">0</div>
+                    <div class="stat-label">Under Maintenance</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="attentionEquipmentCount">0</div>
+                    <div class="stat-label">Needs Attention</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Equipment Grid -->
+        <div class="grid-3" id="equipmentGrid">
+            <div class="text-center py-8 text-gray-500">
+                <i class="fas fa-spinner fa-spin fa-2x mb-2"></i>
+                <p>Loading equipment...</p>
+            </div>
+        </div>
+    </div>
+</div>
                 
-                <!-- Service Requests Section -->
-                <div id="service-requests" class="content-section">
-                    <h1 class="page-title">Service Requests</h1>
-                    
-                    <div class="card slide-up">
-                        <div class="card-header">
-                            <h2 class="card-title">Active Service Requests</h2>
-                            <button class="btn btn-primary btn-sm" id="newRequestBtn2">
-                                <i class="fas fa-plus mr-1"></i>
-                                New Request
-                            </button>
-                        </div>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Request ID</th>
-                                        <th>Equipment</th>
-                                        <th>Issue</th>
-                                        <th>Status</th>
-                                        <th>Submitted</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="font-medium">SR-2023-045</td>
-                                        <td>Centrifuge CF-2000</td>
-                                        <td>Unusual noise during operation</td>
-                                        <td><span class="status-badge status-maintenance">In Progress</span></td>
-                                        <td>Oct 15, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">SR-2023-044</td>
-                                        <td>Patient Monitor PM-450</td>
-                                        <td>Display flickering</td>
-                                        <td><span class="status-badge status-operational">Completed</span></td>
-                                        <td>Oct 10, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">SR-2023-043</td>
-                                        <td>Ultrasound System US-360</td>
-                                        <td>Calibration required</td>
-                                        <td><span class="status-badge status-attention">Pending</span></td>
-                                        <td>Oct 5, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+               <!-- Service Requests Section -->
+<div id="service-requests" class="content-section">
+    <h1 class="page-title">Service Requests</h1>
+    
+    <div class="card slide-up">
+        <div class="card-header">
+            <h2 class="card-title">Service Requests</h2>
+            <div class="flex gap-2">
+                <button class="btn btn-outline btn-sm">
+                    <i class="fas fa-filter mr-1"></i>
+                    Filter
+                </button>
+                <button class="btn btn-primary btn-sm" id="newRequestBtn2">
+                    <i class="fas fa-plus mr-1"></i>
+                    New Request
+                </button>
+            </div>
+        </div>
+        
+        <!-- Service Request Stats -->
+        <div class="stats-grid mb-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fas fa-list"></i>
                 </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalRequestsCount">0</div>
+                    <div class="stat-label">Total Requests</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="pendingRequestsCount">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="inProgressRequestsCount">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="completedRequestsCount">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Equipment</th>
+                        <th>Issue Type</th>
+                        <th>Problem Description</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Submitted</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="serviceRequestsTableBody">
+                    <tr>
+                        <td colspan="9" class="text-center py-4">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Loading service requests...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
                 
-                <!-- Calibration Section -->
-                <div id="calibration" class="content-section">
-                    <h1 class="page-title">Calibration</h1>
-                    
-                    <div class="card slide-up">
-                        <div class="card-header">
-                            <h2 class="card-title">Upcoming Calibrations</h2>
-                            <button class="btn btn-primary btn-sm" id="scheduleCalibrationBtn">
-                                <i class="fas fa-plus mr-1"></i>
-                                Schedule Calibration
-                            </button>
-                        </div>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Equipment</th>
-                                        <th>Last Calibration</th>
-                                        <th>Next Due</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="font-medium">Ventilator V-200</td>
-                                        <td>Apr 20, 2023</td>
-                                        <td>Oct 20, 2023</td>
-                                        <td><span class="status-badge status-attention">Due Soon</span></td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm">
-                                                Schedule
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">Hematology Analyzer</td>
-                                        <td>Jul 15, 2023</td>
-                                        <td>Jan 15, 2024</td>
-                                        <td><span class="status-badge status-operational">On Track</span></td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                View
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">ECG Machine</td>
-                                        <td>Aug 5, 2023</td>
-                                        <td>Feb 5, 2024</td>
-                                        <td><span class="status-badge status-operational">On Track</span></td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                View
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+               <!-- Calibration Section -->
+<div id="calibration" class="content-section">
+    <h1 class="page-title">Calibration</h1>
+    
+    <div class="card slide-up">
+        <div class="card-header">
+            <h2 class="card-title">Calibration Schedule</h2>
+            <div class="flex gap-2">
+                <button class="btn btn-outline btn-sm">
+                    <i class="fas fa-filter mr-1"></i>
+                    Filter
+                </button>
+                <button class="btn btn-primary btn-sm" id="scheduleCalibrationBtn">
+                    <i class="fas fa-plus mr-1"></i>
+                    Schedule Calibration
+                </button>
+            </div>
+        </div>
+        
+        <!-- Calibration Stats -->
+        <div class="stats-grid mb-6">
+            <div class="stat-card">
+                <div class="stat-icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+                    <i class="fas fa-calendar"></i>
                 </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalCalibrationsCount">0</div>
+                    <div class="stat-label">Total Calibrations</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="dueSoonCalibrationsCount">0</div>
+                    <div class="stat-label">Due Soon</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="overdueCalibrationsCount">0</div>
+                    <div class="stat-label">Overdue</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="completedCalibrationsCount">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Equipment</th>
+                        <th>Calibration Type</th>
+                        <th>Last Calibration</th>
+                        <th>Next Due</th>
+                        <th>Status</th>
+                        <th>Technician</th>
+                        <th>Certificate No.</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="calibrationsTableBody">
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Loading calibrations...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
                 
                 <!-- Schedule Section -->
                 <div id="schedule" class="content-section">
@@ -1823,14 +1900,14 @@
                                     <i class="fas fa-phone text-dexomed-500 mr-3"></i>
                                     <div>
                                         <div class="font-medium">Phone Support</div>
-                                        <div class="text-sm text-gray-500">1-800-DEXOMED</div>
+                                        <div class="text-sm text-gray-500">+254 705953914</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
                                     <i class="fas fa-envelope text-dexomed-500 mr-3"></i>
                                     <div>
                                         <div class="font-medium">Email Support</div>
-                                        <div class="text-sm text-gray-500">support@dexomed.com</div>
+                                        <div class="text-sm text-gray-500">support@dexomed.co.ke</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
@@ -1888,32 +1965,83 @@
                     <h1 class="page-title">Settings</h1>
                     
                     <div class="grid-2">
-                        <div class="card slide-up">
-                            <div class="card-header">
-                                <h2 class="card-title">Account Settings</h2>
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" value="John Doe">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                                    <input type="email" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" value="john.doe@hospital.com">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone</label>
-                                    <input type="tel" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" value="+1 (555) 123-4567">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role</label>
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" value="Medical Director" disabled>
-                                </div>
-                                <button class="btn btn-primary">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
+                        <div class="card slide-up" id="settingsSection">
+    <div class="card-header">
+        <h2 class="card-title">Account Settings</h2>
+    </div>
+
+    <div class="space-y-4">
+        {{-- Full Name --}}
+        <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+            <input 
+                type="text" 
+                name="name" 
+                class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" 
+                value="{{ Auth::user()->name ?? '' }}"
+            >
+            @if(empty(Auth::user()->name))
+                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center text-sm text-gray-600">
+                    Empty field
+                </div>
+            @endif
+        </div>
+
+        {{-- Email --}}
+        <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+            <input 
+                type="email" 
+                name="email" 
+                class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" 
+                value="{{ Auth::user()->email ?? '' }}"
+            >
+            @if(empty(Auth::user()->email))
+                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center text-sm text-gray-600">
+                    Empty field
+                </div>
+            @endif
+        </div>
+
+        {{-- Phone --}}
+        <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone</label>
+            <input 
+                type="tel" 
+                name="phone" 
+                class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" 
+                value="{{ Auth::user()->phone ?? '' }}"
+            >
+            @if(empty(Auth::user()->phone))
+                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center text-sm text-gray-600">
+                    Empty field
+                </div>
+            @endif
+        </div>
+
+        {{-- Role --}}
+        <div class="relative">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role</label>
+            <input 
+                type="text" 
+                name="role" 
+                class="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-700" 
+                value="{{ Auth::user()->role ?? '' }}" 
+                disabled
+            >
+            @if(empty(Auth::user()->role))
+                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center text-sm text-gray-600">
+                    Empty field
+                </div>
+            @endif
+        </div>
+
+        <button class="btn btn-primary">
+            Save Changes
+        </button>
+    </div>
+</div>
+
                         
                         <div class="card slide-up" style="animation-delay: 0.2s">
                             <div class="card-header">
@@ -1969,14 +2097,15 @@
     </div>
 
     <!-- Add Equipment Modal -->
-    <div id="addEquipmentModal" class="modal">
+<div id="addEquipmentModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2 class="modal-title">Add New Equipment</h2>
             <button class="modal-close" id="closeEquipmentModal">&times;</button>
         </div>
         <div class="modal-body">
-            <form id="equipmentForm" method="POST" action="save_equipment.php">
+            <form id="equipmentForm" method="POST">
+                @csrf
                 <div class="form-group">
                     <label class="form-label">Equipment Name</label>
                     <input type="text" class="form-input" name="name" placeholder="Enter equipment name" required>
@@ -2038,361 +2167,3595 @@
     </div>
 </div>
 
+<!-- Edit Equipment Modal -->
+<div id="editEquipmentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Edit Equipment</h2>
+            <button class="modal-close" id="closeEditEquipmentModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editEquipmentForm" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="equipment_id" id="edit_equipment_id">
+                
+                <div class="form-group">
+                    <label class="form-label">Equipment Name</label>
+                    <input type="text" class="form-input" name="name" id="edit_equipment_name" placeholder="Enter equipment name" required>
+                </div>
 
-    <!-- New Service Request Modal -->
-    <div id="newRequestModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">New Service Request</h2>
-                <button class="modal-close" id="closeRequestModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="requestForm">
+                <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Select Equipment</label>
-                        <select class="form-select" required>
-                            <option value="">Choose equipment...</option>
-                            <option value="ha-2200">Hematology Analyzer HA-2200</option>
-                            <option value="cf-2000">Centrifuge CF-2000</option>
-                            <option value="ecg-pro">ECG Machine ECG-Pro</option>
-                            <option value="pm-450">Patient Monitor PM-450</option>
-                            <option value="us-360">Ultrasound System US-360</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Issue Type</label>
-                            <select class="form-select" required>
-                                <option value="">Select issue type...</option>
-                                <option value="mechanical">Mechanical Failure</option>
-                                <option value="electrical">Electrical Issue</option>
-                                <option value="software">Software Problem</option>
-                                <option value="calibration">Calibration Required</option>
-                                <option value="performance">Performance Issue</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Priority</label>
-                            <select class="form-select" required>
-                                <option value="low">Low</option>
-                                <option value="medium" selected>Medium</option>
-                                <option value="high">High</option>
-                                <option value="urgent">Urgent</option>
-                            </select>
-                        </div>
+                        <label class="form-label">Model</label>
+                        <input type="text" class="form-input" name="model" id="edit_equipment_model" placeholder="Enter model" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Problem Description</label>
-                        <textarea class="form-textarea" rows="4" placeholder="Please describe the issue in detail..." required></textarea>
+                        <label class="form-label">Serial Number</label>
+                        <input type="text" class="form-input" name="serial_number" id="edit_equipment_serial" placeholder="Enter serial number" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Manufacturer</label>
+                    <input type="text" class="form-input" name="manufacturer" id="edit_equipment_manufacturer" placeholder="Enter manufacturer" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Purchase Date</label>
+                        <input type="date" class="form-input" name="purchase_date" id="edit_equipment_purchase_date" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">When did the issue start?</label>
-                        <input type="datetime-local" class="form-input" required>
+                        <label class="form-label">Warranty Expiry</label>
+                        <input type="date" class="form-input" name="warranty_expiry" id="edit_equipment_warranty">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Contact Person</label>
-                        <input type="text" class="form-input" placeholder="Enter contact person name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contact Phone</label>
-                        <input type="tel" class="form-input" placeholder="Enter contact phone number" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelRequest">Cancel</button>
-                <button class="btn btn-primary" id="submitRequest">Submit Request</button>
-            </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Location/Department</label>
+                    <input type="text" class="form-input" name="location_department" id="edit_equipment_location" placeholder="Enter location/department" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status" id="edit_equipment_status" required>
+                        <option value="">Select status</option>
+                        <option value="operational">Operational</option>
+                        <option value="maintenance">Under Maintenance</option>
+                        <option value="attention">Needs Attention</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea class="form-textarea" name="notes" id="edit_equipment_notes" placeholder="Any additional notes about the equipment"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="cancelEditEquipment">Cancel</button>
+            <button type="button" class="btn btn-primary" id="updateEquipmentBtn">
+                <i class="fas fa-save mr-2"></i>
+                Update Equipment
+            </button>
         </div>
     </div>
+</div>
+
+
+
+
+<!-- New Service Request Modal -->
+<div id="newRequestModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">New Service Request</h2>
+            <button class="modal-close" id="closeRequestModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="requestForm">
+                @csrf
+                <div class="form-group">
+                    <label class="form-label">Select Equipment</label>
+                    <select class="form-select" name="equipment_id" required>
+                        <option value="">Choose equipment...</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Issue Type</label>
+                        <select class="form-select" name="issue_type" required>
+                            <option value="">Select issue type...</option>
+                            <option value="mechanical">Mechanical Failure</option>
+                            <option value="electrical">Electrical Issue</option>
+                            <option value="software">Software Problem</option>
+                            <option value="calibration">Calibration Required</option>
+                            <option value="performance">Performance Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" name="priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Problem Description</label>
+                    <textarea class="form-textarea" name="problem_description" rows="4" placeholder="Please describe the issue in detail..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Preferred Service Date?</label>
+                    <input type="datetime-local" class="form-input" name="issue_start_time" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact Person</label>
+                    <input type="text" class="form-input" name="contact_person" placeholder="Enter contact person name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact Phone</label>
+                    <input type="tel" class="form-input" name="contact_phone" placeholder="Enter contact phone number" required>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+    <button type="button" class="btn btn-outline" id="cancelRequest">Cancel</button>
+    <!-- Remove the old submit button and replace with this -->
+    <button type="button" class="btn btn-primary" id="newSubmitRequestBtn">
+        <i class="fas fa-paper-plane mr-2"></i>
+        Submit Service Request
+    </button>
+</div>
+    </div>
+</div>
+
+<!-- Edit Service Request Modal -->
+<div id="editRequestModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Edit Service Request</h2>
+            <button class="modal-close" id="closeEditRequestModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editRequestForm">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="request_id" id="edit_request_id">
+                
+                <div class="form-group">
+                    <label class="form-label">Select Equipment</label>
+                    <select class="form-select" name="equipment_id" id="edit_request_equipment" required>
+                        <option value="">Choose equipment...</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Issue Type</label>
+                        <select class="form-select" name="issue_type" id="edit_request_issue_type" required>
+                            <option value="">Select issue type...</option>
+                            <option value="mechanical">Mechanical Failure</option>
+                            <option value="electrical">Electrical Issue</option>
+                            <option value="software">Software Problem</option>
+                            <option value="calibration">Calibration Required</option>
+                            <option value="performance">Performance Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" name="priority" id="edit_request_priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Problem Description</label>
+                    <textarea class="form-textarea" name="problem_description" id="edit_request_description" rows="4" placeholder="Please describe the issue in detail..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Prefered service Date?</label>
+                    <input type="datetime-local" class="form-input" name="issue_start_time" id="edit_request_start_time" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact Person</label>
+                    <input type="text" class="form-input" name="contact_person" id="edit_request_contact_person" placeholder="Enter contact person name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact Phone</label>
+                    <input type="tel" class="form-input" name="contact_phone" id="edit_request_contact_phone" placeholder="Enter contact phone number" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status" id="edit_request_status" required>
+                        <option value="pending">Pending</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="cancelEditRequest">Cancel</button>
+            <button type="button" class="btn btn-primary" id="updateRequestBtn">
+                <i class="fas fa-save mr-2"></i>
+                Update Request
+            </button>
+        </div>
+    </div>
+</div>
 
     <!-- Schedule Calibration Modal -->
-    <div id="scheduleCalibrationModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Schedule Calibration</h2>
-                <button class="modal-close" id="closeCalibrationModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="calibrationForm">
+<div id="scheduleCalibrationModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Schedule Calibration</h2>
+            <button class="modal-close" id="closeCalibrationModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="calibrationForm" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label class="form-label">Select Equipment</label>
+                    <select class="form-select" name="equipment_id" required>
+                        <option value="">Choose equipment...</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Select Equipment</label>
-                        <select class="form-select" required>
-                            <option value="">Choose equipment...</option>
-                            <option value="ventilator">Ventilator V-200</option>
-                            <option value="ha-2200">Hematology Analyzer HA-2200</option>
-                            <option value="ecg-pro">ECG Machine ECG-Pro</option>
-                            <option value="us-360">Ultrasound System US-360</option>
+                        <label class="form-label">Calibration Type</label>
+                        <select class="form-select" name="calibration_type" required>
+                            <option value="">Select calibration type...</option>
+                            <option value="routine">Routine Calibration</option>
+                            <option value="preventive">Preventive Maintenance</option>
+                            <option value="corrective">Corrective Calibration</option>
+                            <option value="certification">Certification Calibration</option>
                         </select>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Calibration Type</label>
-                            <select class="form-select" required>
-                                <option value="">Select calibration type...</option>
-                                <option value="routine">Routine Calibration</option>
-                                <option value="preventive">Preventive Maintenance</option>
-                                <option value="corrective">Corrective Calibration</option>
-                                <option value="certification">Certification Calibration</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Priority</label>
-                            <select class="form-select" required>
-                                <option value="routine">Routine</option>
-                                <option value="urgent">Urgent</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" name="priority" required>
+                            <option value="routine">Routine</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Preferred Date</label>
-                            <input type="date" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Preferred Time</label>
-                            <select class="form-select" required>
-                                <option value="morning">Morning (8 AM - 12 PM)</option>
-                                <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
-                                <option value="evening">Evening (4 PM - 7 PM)</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Preferred Date</label>
+                        <input type="date" class="form-input" name="preferred_date" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Special Requirements</label>
-                        <textarea class="form-textarea" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                        <label class="form-label">Preferred Time</label>
+                        <select class="form-select" name="preferred_time" required>
+                            <option value="morning">Morning (8 AM - 12 PM)</option>
+                            <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                            <option value="evening">Evening (4 PM - 7 PM)</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Calibration Technician</label>
-                        <input type="text" class="form-input" placeholder="Preferred technician (if any)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Special Requirements</label>
+                    <textarea class="form-textarea" name="special_requirements" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Calibration Technician</label>
+                    <input type="text" class="form-input" name="preferred_technician" placeholder="Preferred technician (if any)">
+                </div>
+                <div class="form-group">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="urgentCalibration" name="is_urgent" value="1" class="mr-2">
+                        <label for="urgentCalibration" class="form-label">Mark as urgent calibration</label>
                     </div>
-                    <div class="form-group">
-                        <div class="flex items-center">
-                            <input type="checkbox" id="urgentCalibration" class="mr-2">
-                            <label for="urgentCalibration" class="form-label">Mark as urgent calibration</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelCalibration">Cancel</button>
-                <button class="btn btn-primary" id="submitCalibration">Schedule Calibration</button>
-            </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="cancelCalibration">Cancel</button>
+            <button type="button" class="btn btn-primary" id="newSubmitCalibrationBtn">
+                <i class="fas fa-calendar-plus mr-2"></i>
+                Schedule Calibration
+            </button>
         </div>
     </div>
+</div>
+
+<!-- Edit Calibration Modal -->
+<div id="editCalibrationModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Edit Calibration</h2>
+            <button class="modal-close" id="closeEditCalibrationModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editCalibrationForm" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="calibration_id" id="edit_calibration_id">
+                
+                <div class="form-group">
+                    <label class="form-label">Select Equipment</label>
+                    <select class="form-select" name="equipment_id" id="edit_calibration_equipment" required>
+                        <option value="">Choose equipment...</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Calibration Type</label>
+                        <select class="form-select" name="calibration_type" id="edit_calibration_type" required>
+                            <option value="">Select calibration type...</option>
+                            <option value="routine">Routine Calibration</option>
+                            <option value="preventive">Preventive Maintenance</option>
+                            <option value="corrective">Corrective Calibration</option>
+                            <option value="certification">Certification Calibration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" name="priority" id="edit_calibration_priority" required>
+                            <option value="routine">Routine</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Preferred Date</label>
+                        <input type="date" class="form-input" name="preferred_date" id="edit_calibration_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred Time</label>
+                        <select class="form-select" name="preferred_time" id="edit_calibration_time" required>
+                            <option value="morning">Morning (8 AM - 12 PM)</option>
+                            <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                            <option value="evening">Evening (4 PM - 7 PM)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Special Requirements</label>
+                    <textarea class="form-textarea" name="special_requirements" id="edit_calibration_requirements" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Calibration Technician</label>
+                    <input type="text" class="form-input" name="preferred_technician" id="edit_calibration_technician" placeholder="Preferred technician (if any)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status" id="edit_calibration_status" required>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="due_soon">Due Soon</option>
+                        <option value="overdue">Overdue</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="edit_urgent_calibration" name="is_urgent" value="1" class="mr-2">
+                        <label for="edit_urgent_calibration" class="form-label">Mark as urgent calibration</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="cancelEditCalibration">Cancel</button>
+            <button type="button" class="btn btn-primary" id="updateCalibrationBtn">
+                <i class="fas fa-save mr-2"></i>
+                Update Calibration
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- View Service Request Details Modal -->
+<div id="viewRequestModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h2 class="modal-title">
+                <i class="fas fa-tools mr-2"></i>
+                Service Request Details
+            </h2>
+            <button class="modal-close" id="closeViewRequestModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="space-y-6">
+                <!-- Header Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-semibold" id="view_request_id">Request #</h3>
+                            <p class="text-gray-600 dark:text-gray-300" id="view_request_created">Created: </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="status-badge text-sm" id="view_request_status">Status</span>
+                            <span class="priority-badge text-sm ml-2" id="view_request_priority">Priority</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Equipment</label>
+                            <p class="text-gray-900 dark:text-white font-medium" id="view_equipment_name">-</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400" id="view_equipment_details">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Issue Type</label>
+                            <p class="text-gray-900 dark:text-white" id="view_issue_type">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Preferred Service Date</label>
+                            <p class="text-gray-900 dark:text-white" id="view_issue_start">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Contact Person</label>
+                            <p class="text-gray-900 dark:text-white" id="view_contact_person">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Contact Phone</label>
+                            <p class="text-gray-900 dark:text-white" id="view_contact_phone">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Updated</label>
+                            <p class="text-gray-900 dark:text-white" id="view_updated_at">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem Description -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Problem Description</label>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-900 dark:text-white whitespace-pre-wrap" id="view_problem_description">-</p>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Request Timeline</label>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Request Created</p>
+                                <p class="text-xs text-gray-500" id="view_created_at">-</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Last Updated</p>
+                                <p class="text-xs text-gray-500" id="view_last_updated">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="closeViewRequestBtn">Close</button>
+            <button type="button" class="btn btn-primary" id="editFromViewBtn">
+                <i class="fas fa-edit mr-2"></i>
+                Edit Request
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- View Equipment Details Modal -->
+<div id="viewEquipmentModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h2 class="modal-title">
+                <i class="fas fa-microscope mr-2"></i>
+                Equipment Details
+            </h2>
+            <button class="modal-close" id="closeViewEquipmentModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="space-y-6">
+                <!-- Header Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-semibold" id="view_equipment_name">Equipment Name</h3>
+                            <p class="text-gray-600 dark:text-gray-300" id="view_equipment_model">Model: </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="status-badge text-sm" id="view_equipment_status">Status</span>
+                            <div class="mt-2">
+                                <span class="text-xs text-gray-500" id="view_equipment_serial">Serial: </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Manufacturer</label>
+                            <p class="text-gray-900 dark:text-white font-medium" id="view_equipment_manufacturer">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location/Department</label>
+                            <p class="text-gray-900 dark:text-white" id="view_equipment_location">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Purchase Date</label>
+                            <p class="text-gray-900 dark:text-white" id="view_equipment_purchase_date">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Warranty Expiry</label>
+                            <p class="text-gray-900 dark:text-white" id="view_equipment_warranty">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Equipment Type</label>
+                            <p class="text-gray-900 dark:text-white" id="view_equipment_type">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Service</label>
+                            <p class="text-gray-900 dark:text-white" id="view_equipment_last_service">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Health & Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Health Indicator -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Equipment Health</label>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium">Operational Status</span>
+                                <span class="text-sm" id="view_health_status">-</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                                <div class="h-2 rounded-full" id="view_health_bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Quick Stats</label>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-sm">Service Requests:</span>
+                                <span class="text-sm font-medium" id="view_service_requests">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm">Calibrations:</span>
+                                <span class="text-sm font-medium" id="view_calibrations">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm">Uptime:</span>
+                                <span class="text-sm font-medium" id="view_uptime">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes & Additional Information</label>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-900 dark:text-white whitespace-pre-wrap" id="view_equipment_notes">No additional notes provided.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Equipment Timeline</label>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Equipment Registered</p>
+                                <p class="text-xs text-gray-500" id="view_created_at">-</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Last Updated</p>
+                                <p class="text-xs text-gray-500" id="view_updated_at">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="closeViewEquipmentBtn">Close</button>
+            <button type="button" class="btn btn-primary" id="editEquipmentFromViewBtn">
+                <i class="fas fa-edit mr-2"></i>
+                Edit Equipment
+            </button>
+        </div>
+    </div>
+</div>
+<!-- View Calibration Details Modal -->
+<div id="viewCalibrationModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h2 class="modal-title">
+                <i class="fas fa-ruler-combined mr-2"></i>
+                Calibration Details
+            </h2>
+            <button class="modal-close" id="closeViewCalibrationModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="space-y-6">
+                <!-- Header Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-semibold" id="view_calibration_equipment">Equipment Name</h3>
+                            <p class="text-gray-600 dark:text-gray-300" id="view_calibration_type">Calibration Type: </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="status-badge text-sm" id="view_calibration_status">Status</span>
+                            <div class="mt-2">
+                                <span class="priority-badge text-sm" id="view_calibration_priority">Priority</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Preferred Date</label>
+                            <p class="text-gray-900 dark:text-white font-medium" id="view_calibration_date">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Preferred Time</label>
+                            <p class="text-gray-900 dark:text-white" id="view_calibration_time">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Calibration</label>
+                            <p class="text-gray-900 dark:text-white" id="view_last_calibration">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Next Due Date</label>
+                            <p class="text-gray-900 dark:text-white" id="view_next_due">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assigned Technician</label>
+                            <p class="text-gray-900 dark:text-white" id="view_calibration_technician">-</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Certificate Number</label>
+                            <p class="text-gray-900 dark:text-white" id="view_certificate_number">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Urgent Flag & Special Requirements -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Urgent Flag -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Calibration Priority</label>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-flag mr-3" id="view_urgent_icon"></i>
+                                <div>
+                                    <p class="font-medium" id="view_urgent_text">Standard Priority</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400" id="view_urgent_description">Routine calibration</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Calibration Timeline</label>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-sm">Created:</span>
+                                <span class="text-sm font-medium" id="view_created_at">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm">Last Updated:</span>
+                                <span class="text-sm font-medium" id="view_updated_at">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm">Completed:</span>
+                                <span class="text-sm font-medium" id="view_completed_at">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Special Requirements -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Special Requirements & Notes</label>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-900 dark:text-white whitespace-pre-wrap" id="view_special_requirements">No special requirements specified.</p>
+                    </div>
+                </div>
+
+                <!-- Status Timeline -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Calibration Status Timeline</label>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Calibration Scheduled</p>
+                                <p class="text-xs text-gray-500" id="view_scheduled_date">-</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Last Status Update</p>
+                                <p class="text-xs text-gray-500" id="view_status_updated">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="closeViewCalibrationBtn">Close</button>
+            <button type="button" class="btn btn-primary" id="editCalibrationFromViewBtn">
+                <i class="fas fa-edit mr-2"></i>
+                Edit Calibration
+            </button>
+        </div>
+    </div>
+</div>
 
     <!-- JavaScript -->
-    <script>
-        // Toggle Sidebar
+   <script>
+    // ========== DASHBOARD INITIALIZATION ==========
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Dashboard initialized');
+        
+        // Initialize all functionality
+        initializeSidebar();
+        initializeNavigation();
+        initializeModals();
+        initializeCalendar();
+        initializeAnimations();
+        
+        // Load initial data
+        loadInitialData();
+        
+        // Set up responsive handling
+        setupResponsiveHandling();
+    });
+
+    // ========== SIDEBAR FUNCTIONALITY ==========
+    
+    function initializeSidebar() {
         const toggleSidebar = document.getElementById('toggleSidebar');
         const sidebar = document.getElementById('sidebar');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         
-        toggleSidebar.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-        });
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.add('mobile-open');
-            sidebarOverlay.classList.add('active');
-        });
-        
-        sidebarOverlay.addEventListener('click', () => {
-            sidebar.classList.remove('mobile-open');
-            sidebarOverlay.classList.remove('active');
-        });
-        
-        // Dark Mode Toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const html = document.documentElement;
-        
-        // Check for saved theme preference or respect OS setting
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-        } else {
-            html.classList.remove('dark');
+        // Toggle sidebar collapse/expand
+        if (toggleSidebar && sidebar) {
+            toggleSidebar.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                console.log('Sidebar toggled:', sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded');
+            });
         }
         
-        darkModeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-        });
+        // Mobile menu toggle
+        if (mobileMenuBtn && sidebar && sidebarOverlay) {
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.add('mobile-open');
+                sidebarOverlay.classList.add('active');
+                console.log('Mobile menu opened');
+            });
+        }
         
-        // Active Menu Item and Content Switching
+        // Close mobile sidebar when clicking overlay
+        if (sidebarOverlay && sidebar) {
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.remove('mobile-open');
+                sidebarOverlay.classList.remove('active');
+                console.log('Mobile menu closed');
+            });
+        }
+    }
+
+    // ========== NAVIGATION FUNCTIONALITY ==========
+    
+    function initializeNavigation() {
         const menuItems = document.querySelectorAll('.menu-item');
         const contentSections = document.querySelectorAll('.content-section');
         
+        console.log(`Found ${menuItems.length} menu items and ${contentSections.length} content sections`);
+        
+        // Initialize all sections as hidden except dashboard
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Show dashboard by default
+        const dashboardSection = document.getElementById('dashboard');
+        if (dashboardSection) {
+            dashboardSection.classList.add('active');
+            console.log('Dashboard section activated');
+        }
+        
+        // Add click handlers to all menu items
         menuItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
                 
+                const targetSectionId = this.getAttribute('data-section');
+                console.log(`Menu clicked: ${targetSectionId}`);
+                
+                if (!targetSectionId) {
+                    console.error('No data-section attribute found on menu item');
+                    return;
+                }
+                
                 // Update active menu item
                 menuItems.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
-                
-                // Get the target section
-                const targetSection = this.getAttribute('data-section');
                 
                 // Hide all content sections
                 contentSections.forEach(section => {
                     section.classList.remove('active');
                 });
                 
-                // Show the target section
-                document.getElementById(targetSection).classList.add('active');
-                
-                // Update page title based on active section
-                updatePageTitle(targetSection);
-                
-                // Close mobile sidebar after selection
-                if (window.innerWidth < 1024) {
-                    sidebar.classList.remove('mobile-open');
-                    sidebarOverlay.classList.remove('active');
+                // Show target section
+                const targetSection = document.getElementById(targetSectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    console.log(`Section activated: ${targetSectionId}`);
+                    
+                    // Update page title
+                    updatePageTitle(targetSectionId);
+                    
+                    // Load data for this section
+                    loadSectionData(targetSectionId);
+                } else {
+                    console.error(`Content section not found: ${targetSectionId}`);
                 }
+                
+                // Close mobile sidebar if open
+                closeMobileSidebar();
             });
         });
+    }
+    
+    function updatePageTitle(section) {
+        const titles = {
+            'dashboard': 'Dashboard Overview',
+            'equipment': 'My Equipment',
+            'service-requests': 'Service Requests',
+            'calibration': 'Calibration',
+            'schedule': 'Schedule',
+            'invoices': 'Invoices',
+            'support': 'Support',
+            'settings': 'Settings'
+        };
         
-        // Update page title based on active section
-        function updatePageTitle(section) {
-            const titles = {
-                'dashboard': 'Dashboard Overview',
-                'equipment': 'My Equipment',
-                'service-requests': 'Service Requests',
-                'calibration': 'Calibration',
-                'schedule': 'Schedule',
-                'invoices': 'Invoices',
-                'support': 'Support',
-                'settings': 'Settings'
-            };
+        const pageTitle = document.querySelector('.page-title');
+        if (pageTitle && titles[section]) {
+            pageTitle.textContent = titles[section];
+        }
+    }
+    
+    function loadSectionData(section) {
+        console.log(`Loading data for section: ${section}`);
+        
+        switch(section) {
+            case 'dashboard':
+                fetchDashboardStats();
+                break;
+            case 'equipment':
+                fetchEquipmentData();
+                break;
+            case 'service-requests':
+                fetchServiceRequests();
+                break;
+            case 'calibration':
+                fetchCalibrations();
+                break;
+            default:
+                console.log(`No data loading required for section: ${section}`);
+        }
+    }
+    
+    function loadInitialData() {
+        console.log('Loading initial dashboard data...');
+        fetchDashboardStats();
+    }
+    
+    function closeMobileSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        if (window.innerWidth < 1024 && sidebar && sidebarOverlay) {
+            sidebar.classList.remove('mobile-open');
+            sidebarOverlay.classList.remove('active');
+        }
+    }
+
+    // ========== DARK MODE FUNCTIONALITY ==========
+    
+    // Add this to your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', () => {
+    // Your existing initialization code...
+    initTheme();
+    initCarousel();
+    initCounters();
+    enhanceResponsiveness();
+    window.addEventListener('scroll', setActiveNavLink);
+    
+    // Add dark mode initialization
+    initializeDarkMode();
+});
+
+   // ========== DARK MODE FUNCTIONALITY ==========
+
+function initializeDarkMode() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const html = document.documentElement;
+    
+    console.log('🌙 Initializing dark mode...');
+    
+    // Check for saved theme preference or respect OS setting
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+        console.log('🌙 Dark mode enabled (saved preference or OS setting)');
+    } else {
+        html.classList.remove('dark');
+        console.log('☀️ Light mode enabled');
+    }
+    
+    if (darkModeToggle) {
+        console.log('✅ Dark mode toggle button found');
+        
+        // Remove any existing event listeners to avoid duplicates
+        darkModeToggle.replaceWith(darkModeToggle.cloneNode(true));
+        const freshToggle = document.getElementById('darkModeToggle');
+        
+        freshToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
             
-            const pageTitle = document.querySelector('.page-title');
-            if (pageTitle && titles[section]) {
-                pageTitle.textContent = titles[section];
+            if (html.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+                console.log('🌙 Dark mode enabled manually');
+            } else {
+                localStorage.theme = 'light';
+                console.log('☀️ Light mode enabled manually');
             }
-        }
+            
+            // Update the icon
+            updateDarkModeIcon();
+        });
         
-        // Calendar Functionality
-        let currentDate = new Date();
-        const calendarGrid = document.getElementById('calendarGrid');
-        const calendarTitle = document.getElementById('calendarTitle');
-        const prevMonthBtn = document.getElementById('prevMonth');
-        const nextMonthBtn = document.getElementById('nextMonth');
+        // Initial icon update
+        updateDarkModeIcon();
+        
+    } else {
+        console.error('❌ Dark mode toggle element not found');
+    }
+}
 
-        // Sample events data
-        const events = [
-            { date: new Date(2023, 9, 15), title: 'Service: Centrifuge', type: 'maintenance' },
-            { date: new Date(2023, 9, 20), title: 'Calibration: Ventilator', type: 'calibration' },
-            { date: new Date(2023, 9, 22), title: 'Maintenance: Analyzer', type: 'maintenance' },
-            { date: new Date(2023, 9, 25), title: 'Urgent: Monitor Repair', type: 'urgent' },
-            { date: new Date(2023, 9, 28), title: 'Calibration: ECG', type: 'calibration' },
-            { date: new Date(2023, 10, 5), title: 'Service: Ultrasound', type: 'maintenance' }
-        ];
-
-        function renderCalendar() {
-            // Clear previous calendar
-            if (calendarGrid) {
-                calendarGrid.innerHTML = '';
-
-                // Set calendar title
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'
-                ];
-                calendarTitle.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-
-                // Create day headers
-                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                dayHeaders.forEach(day => {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day header';
-                    dayElement.textContent = day;
-                    calendarGrid.appendChild(dayElement);
-                });
-
-                // Get first day of month and total days
-                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                const totalDays = lastDay.getDate();
-                const startingDay = firstDay.getDay();
-
-                // Add empty days for previous month
-                for (let i = 0; i < startingDay; i++) {
-                    const prevMonthDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), -i);
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day other-month';
-                    dayElement.innerHTML = `<div class="day-number">${prevMonthDay.getDate()}</div>`;
-                    calendarGrid.appendChild(dayElement);
-                }
-
-                // Add current month days
-                const today = new Date();
-                for (let day = 1; day <= totalDays; day++) {
-                    const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-                    const dayElement = document.createElement('div');
-                    
-                    // Check if this is today
-                    const isToday = dayDate.toDateString() === today.toDateString();
-                    
-                    dayElement.className = `calendar-day ${isToday ? 'today' : ''}`;
-                    dayElement.innerHTML = `<div class="day-number">${day}</div>`;
-                    
-                    // Add events for this day
-                    const dayEvents = events.filter(event => 
-                        event.date.toDateString() === dayDate.toDateString()
-                    );
-                    
-                    dayEvents.forEach(event => {
-                        const eventElement = document.createElement('div');
-                        eventElement.className = `calendar-event ${event.type}`;
-                        eventElement.textContent = event.title;
-                        eventElement.title = event.title;
-                        dayElement.appendChild(eventElement);
-                    });
-                    
-                    // Add event count badge if there are events
-                    if (dayEvents.length > 0) {
-                        const eventCount = document.createElement('div');
-                        eventCount.className = 'event-count';
-                        eventCount.textContent = dayEvents.length;
-                        dayElement.appendChild(eventCount);
-                    }
-                    
-                    calendarGrid.appendChild(dayElement);
-                }
-
-                // Calculate how many empty days we need to add to complete the grid (always 42 cells total)
-                const totalCells = 42; // 6 rows x 7 days
-                const existingCells = startingDay + totalDays;
-                const remainingCells = totalCells - existingCells;
-
-                // Add empty days for next month
-                for (let i = 1; i <= remainingCells; i++) {
-                    const nextMonthDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i);
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day other-month';
-                    dayElement.innerHTML = `<div class="day-number">${nextMonthDay.getDate()}</div>`;
-                    calendarGrid.appendChild(dayElement);
-                }
+function updateDarkModeIcon() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const html = document.documentElement;
+    
+    if (darkModeToggle) {
+        const icon = darkModeToggle.querySelector('i');
+        if (icon) {
+            if (html.classList.contains('dark')) {
+                icon.className = 'fas fa-sun';
+                icon.title = 'Switch to light mode';
+            } else {
+                icon.className = 'fas fa-moon';
+                icon.title = 'Switch to dark mode';
             }
         }
+    }
+}
 
-        // Navigation between months
-        if (prevMonthBtn && nextMonthBtn) {
-            prevMonthBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar();
-            });
-
-            nextMonthBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar();
+// Enhanced dark mode initialization with better error handling
+function initDarkModeWithFallback() {
+    try {
+        initializeDarkMode();
+    } catch (error) {
+        console.error('Error initializing dark mode:', error);
+        
+        // Fallback: simple dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
             });
         }
+    }
+} 
+   
+    
+   // ========== CALENDAR FUNCTIONALITY ==========
 
-        // Initialize calendar
+let currentDate = new Date();
+
+function initializeCalendar() {
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarTitle = document.getElementById('calendarTitle');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    
+    if (!calendarGrid) return;
+    
+    // Navigation between months - PROPERLY FIXED VERSION
+if (prevMonthBtn) {
+    prevMonthBtn.addEventListener('click', () => {
+        // CORRECT: Create new date with explicit month/day
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
         renderCalendar();
+    });
+}
+
+if (nextMonthBtn) {
+    nextMonthBtn.addEventListener('click', () => {
+        // CORRECT: Create new date with explicit month/day  
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+        renderCalendar();
+    });
+}
+    
+    // Add "Today" button functionality
+    const todayBtn = document.querySelector('.calendar-header .btn-primary');
+    if (todayBtn) {
+        todayBtn.addEventListener('click', () => {
+            currentDate = new Date();
+            renderCalendar();
+        });
+    }
+    
+    // Initial render
+    renderCalendar();
+}
+
+async function renderCalendar() {
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarTitle = document.getElementById('calendarTitle');
+    
+    if (!calendarGrid || !calendarTitle) return;
+    
+    // Show loading state
+    calendarGrid.innerHTML = `
+        <div class="col-span-7 text-center py-8 text-gray-500">
+            <i class="fas fa-spinner fa-spin fa-2x mb-2"></i>
+            <p>Loading calendar events...</p>
+        </div>
+    `;
+    
+    try {
+        // Fetch both service requests and calibrations
+        const [serviceRequestsResponse, calibrationsResponse] = await Promise.all([
+            fetch('{{ route("service-requests.index") }}'),
+            fetch('{{ route("calibrations.index") }}')
+        ]);
         
+        const serviceRequestsData = await serviceRequestsResponse.json();
+        const calibrationsData = await calibrationsResponse.json();
+        
+        // Clear previous calendar
+        calendarGrid.innerHTML = '';
+        
+        // Set calendar title
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        calendarTitle.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        
+        // Create day headers
+        const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        dayHeaders.forEach(day => {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day header';
+            dayElement.textContent = day;
+            calendarGrid.appendChild(dayElement);
+        });
+        
+        // Get first day of month and total days - FIXED CALCULATION
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const totalDays = lastDay.getDate();
+        const startingDay = firstDay.getDay();
+        
+        // Add empty days for previous month - FIXED CALCULATION
+        const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+        for (let i = startingDay - 1; i >= 0; i--) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day other-month';
+            dayElement.innerHTML = `<div class="day-number">${prevMonthLastDay - i}</div>`;
+            calendarGrid.appendChild(dayElement);
+        }
+        
+        // Add current month days
+        const today = new Date();
+        for (let day = 1; day <= totalDays; day++) {
+            const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+            const dayElement = document.createElement('div');
+            
+            // Check if this is today
+            const isToday = dayDate.toDateString() === today.toDateString() && 
+                           currentDate.getMonth() === today.getMonth() && 
+                           currentDate.getFullYear() === today.getFullYear();
+            
+            dayElement.className = `calendar-day ${isToday ? 'today' : ''}`;
+            dayElement.innerHTML = `<div class="day-number">${day}</div>`;
+            
+            // Get events for this date
+            const events = await getEventsForDate(dayDate, serviceRequestsData, calibrationsData);
+            
+            // Add events to calendar day
+            events.forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.className = `calendar-event ${event.type}`;
+                eventElement.textContent = event.title;
+                eventElement.title = `${event.type.toUpperCase()}: ${event.title}\n${event.description || ''}`;
+                eventElement.style.cursor = 'pointer';
+                
+                // Add click handler to view details
+                eventElement.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (event.eventType === 'service_request') {
+                        viewServiceRequest(event.id);
+                    } else if (event.eventType === 'calibration') {
+                        viewCalibration(event.id);
+                    }
+                });
+                
+                dayElement.appendChild(eventElement);
+            });
+            
+            // Add event count badge if there are events
+            if (events.length > 0) {
+                const eventCount = document.createElement('div');
+                eventCount.className = 'event-count';
+                eventCount.textContent = events.length;
+                eventCount.title = `${events.length} events scheduled`;
+                dayElement.appendChild(eventCount);
+            }
+            
+            // Add click handler to the day itself
+            dayElement.style.cursor = 'pointer';
+            dayElement.addEventListener('click', () => {
+                showDayEvents(dayDate, events);
+            });
+            
+            calendarGrid.appendChild(dayElement);
+        }
+        
+        // Calculate how many empty days we need to add to complete the grid
+        const totalCells = 42; // 6 rows x 7 days
+        const existingCells = startingDay + totalDays;
+        const remainingCells = totalCells - existingCells;
+        
+        // Add empty days for next month - FIXED CALCULATION
+        for (let i = 1; i <= remainingCells; i++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day other-month';
+            dayElement.innerHTML = `<div class="day-number">${i}</div>`;
+            calendarGrid.appendChild(dayElement);
+        }
+        
+    } catch (error) {
+        console.error('Error loading calendar events:', error);
+        calendarGrid.innerHTML = `
+            <div class="col-span-7 text-center py-8 text-red-500">
+                <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                <p>Failed to load calendar events</p>
+                <button class="btn btn-primary btn-sm mt-2" onclick="renderCalendar()">
+                    <i class="fas fa-redo mr-1"></i>
+                    Retry
+                </button>
+            </div>
+        `;
+    }
+}
+
+async function getEventsForDate(date, serviceRequestsData, calibrationsData) {
+    const events = [];
+    
+    // Create date strings for comparison (using local date, ignoring timezone)
+    const targetYear = date.getFullYear();
+    const targetMonth = date.getMonth();
+    const targetDay = date.getDate();
+    
+    // Process service requests
+    if (serviceRequestsData.success && serviceRequestsData.requests) {
+        serviceRequestsData.requests.forEach(request => {
+            // Check if the issue_start_time matches the current date
+            if (request.issue_start_time) {
+                const issueStartDate = new Date(request.issue_start_time);
+                const issueStartYear = issueStartDate.getFullYear();
+                const issueStartMonth = issueStartDate.getMonth();
+                const issueStartDay = issueStartDate.getDate();
+                
+                if (issueStartYear === targetYear && 
+                    issueStartMonth === targetMonth && 
+                    issueStartDay === targetDay) {
+                    events.push({
+                        id: request.id,
+                        type: 'service-request',
+                        eventType: 'service_request',
+                        title: `Service: ${request.equipment?.name || 'Unknown Equipment'}`,
+                        description: `Issue: ${request.issue_type}\nPriority: ${request.priority}\nStatus: ${request.status}`,
+                        date: issueStartDate,
+                        priority: request.priority,
+                        status: request.status,
+                        originalDate: issueStartDate
+                    });
+                }
+            }
+            
+            // Also show creation date as secondary event
+            const requestDate = new Date(request.created_at);
+            const requestYear = requestDate.getFullYear();
+            const requestMonth = requestDate.getMonth();
+            const requestDay = requestDate.getDate();
+            
+            if (requestYear === targetYear && 
+                requestMonth === targetMonth && 
+                requestDay === targetDay && 
+                (!request.issue_start_time || 
+                 requestYear !== new Date(request.issue_start_time).getFullYear() ||
+                 requestMonth !== new Date(request.issue_start_time).getMonth() ||
+                 requestDay !== new Date(request.issue_start_time).getDate())) {
+                events.push({
+                    id: request.id,
+                    type: 'service-created',
+                    eventType: 'service_request',
+                    title: `Request Created`,
+                    description: `Request Created\nPriority: ${request.priority}`,
+                    date: requestDate,
+                    priority: request.priority,
+                    status: request.status,
+                    originalDate: requestDate
+                });
+            }
+        });
+    }
+    
+    // Process calibrations
+    if (calibrationsData.success && calibrationsData.calibrations) {
+        calibrationsData.calibrations.forEach(calibration => {
+            // Check preferred date (scheduled calibration date)
+            if (calibration.preferred_date) {
+                const calibrationDate = new Date(calibration.preferred_date);
+                const calibrationYear = calibrationDate.getFullYear();
+                const calibrationMonth = calibrationDate.getMonth();
+                const calibrationDay = calibrationDate.getDate();
+                
+                if (calibrationYear === targetYear && 
+                    calibrationMonth === targetMonth && 
+                    calibrationDay === targetDay) {
+                    const eventType = calibration.status === 'scheduled' ? 'calibration-scheduled' : 'calibration';
+                    
+                    events.push({
+                        id: calibration.id,
+                        type: eventType,
+                        eventType: 'calibration',
+                        title: `Calibration: ${calibration.equipment?.name || 'Unknown Equipment'}`,
+                        description: `Type: ${calibration.calibration_type}\nPriority: ${calibration.priority}\nStatus: ${calibration.status}`,
+                        date: calibrationDate,
+                        priority: calibration.priority,
+                        status: calibration.status,
+                        originalDate: calibrationDate
+                    });
+                }
+            }
+            
+            // Check next due date (important deadlines)
+            if (calibration.next_calibration_date) {
+                const dueDate = new Date(calibration.next_calibration_date);
+                const dueYear = dueDate.getFullYear();
+                const dueMonth = dueDate.getMonth();
+                const dueDay = dueDate.getDate();
+                
+                if (dueYear === targetYear && 
+                    dueMonth === targetMonth && 
+                    dueDay === targetDay) {
+                    // Only show due date if it's different from preferred date
+                    const preferredDate = calibration.preferred_date ? new Date(calibration.preferred_date) : null;
+                    const isSameDate = preferredDate && 
+                        preferredDate.getFullYear() === dueYear &&
+                        preferredDate.getMonth() === dueMonth &&
+                        preferredDate.getDate() === dueDay;
+                    
+                    if (!isSameDate) {
+                        let dueEventType = 'calibration-due';
+                        let dueTitle = `Due: ${calibration.equipment?.name || 'Unknown Equipment'}`;
+                        
+                        // Check if it's overdue
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const dueDateOnly = new Date(dueYear, dueMonth, dueDay);
+                        if (dueDateOnly < today) {
+                            dueEventType = 'calibration-overdue';
+                            dueTitle = `OVERDUE: ${calibration.equipment?.name || 'Unknown Equipment'}`;
+                        }
+                        
+                        events.push({
+                            id: calibration.id,
+                            type: dueEventType,
+                            eventType: 'calibration',
+                            title: dueTitle,
+                            description: `Calibration Due\nType: ${calibration.calibration_type}\nStatus: ${calibration.status}`,
+                            date: dueDate,
+                            priority: 'urgent',
+                            status: calibration.status,
+                            originalDate: dueDate
+                        });
+                    }
+                }
+            }
+            
+            // Show creation date only if no other dates match
+            const createdDate = new Date(calibration.created_at);
+            const createdYear = createdDate.getFullYear();
+            const createdMonth = createdDate.getMonth();
+            const createdDay = createdDate.getDate();
+            
+            const hasOtherDates = calibration.preferred_date || calibration.next_calibration_date;
+            const hasMatchingOtherDate = 
+                (calibration.preferred_date && 
+                 new Date(calibration.preferred_date).getFullYear() === createdYear &&
+                 new Date(calibration.preferred_date).getMonth() === createdMonth &&
+                 new Date(calibration.preferred_date).getDate() === createdDay) ||
+                (calibration.next_calibration_date &&
+                 new Date(calibration.next_calibration_date).getFullYear() === createdYear &&
+                 new Date(calibration.next_calibration_date).getMonth() === createdMonth &&
+                 new Date(calibration.next_calibration_date).getDate() === createdDay);
+            
+            if (createdYear === targetYear && 
+                createdMonth === targetMonth && 
+                createdDay === targetDay && 
+                !hasMatchingOtherDate) {
+                events.push({
+                    id: calibration.id,
+                    type: 'calibration-created',
+                    eventType: 'calibration',
+                    title: `New Calibration`,
+                    description: `Calibration Created\nType: ${calibration.calibration_type}`,
+                    date: createdDate,
+                    priority: calibration.priority,
+                    status: calibration.status,
+                    originalDate: createdDate
+                });
+            }
+        });
+    }
+    
+    // Sort events by date and priority
+    events.sort((a, b) => {
+        // First sort by the original date (chronological order)
+        if (a.originalDate.getTime() !== b.originalDate.getTime()) {
+            return a.originalDate - b.originalDate;
+        }
+        
+        // Then sort by priority
+        const priorityOrder = { 
+            'urgent': 0, 
+            'high': 1, 
+            'medium': 2, 
+            'low': 3, 
+            'routine': 4 
+        };
+        const aPriority = priorityOrder[a.priority] || 5;
+        const bPriority = priorityOrder[b.priority] || 5;
+        
+        return aPriority - bPriority;
+    });
+    
+    return events;
+}
+// Update the loadSectionData function to refresh calendar when schedule section is activated
+function loadSectionData(section) {
+    console.log(`Loading data for section: ${section}`);
+    
+    switch(section) {
+        case 'dashboard':
+            fetchDashboardStats();
+            break;
+        case 'equipment':
+            fetchEquipmentData();
+            break;
+        case 'service-requests':
+            fetchServiceRequests();
+            break;
+        case 'calibration':
+            fetchCalibrations();
+            break;
+        case 'schedule':
+            renderCalendar(); // Refresh calendar when schedule section is opened
+            break;
+        default:
+            console.log(`No data loading required for section: ${section}`);
+    }
+}
+
+// Add calendar refresh when service requests or calibrations are updated
+function refreshCalendar() {
+    console.log('🔄 Refreshing calendar...');
+    
+    // Check if schedule section is active
+    const scheduleSection = document.getElementById('schedule');
+    if (scheduleSection && scheduleSection.classList.contains('active')) {
+        // If schedule section is currently visible, reload the calendar
+        console.log('📅 Schedule section is active, reloading calendar...');
+        renderCalendar();
+    } else {
+        // If schedule section is not visible, we still want to ensure
+        // the calendar data is fresh when user navigates to it
+        console.log('📅 Schedule section not active, calendar will refresh when opened');
+        // We can force a reload of the calendar data by resetting current date
+        currentDate = new Date(); // Reset to current month
+    }
+    
+    // Also refresh the dashboard if it's active (for stats)
+    const dashboardSection = document.getElementById('dashboard');
+    if (dashboardSection && dashboardSection.classList.contains('active')) {
+        fetchDashboardStats();
+    }
+}
+
+// Update your existing functions to refresh the calendar when changes are made
+async function handleServiceRequestManual() {
+    // ... existing code ...
+    
+    if (data.success) {
+        alert(`Service request submitted successfully! Request ID: ${data.request_id}`);
+        closeModal('newRequestModal');
+        form.reset();
+        fetchServiceRequests();
+        refreshCalendar(); // Refresh calendar
+    }
+    // ... rest of the code ...
+}
+
+async function handleCalibrationManual() {
+    // ... existing code ...
+    
+    if (data.success) {
+        alert('Calibration scheduled successfully!');
+        closeModal('scheduleCalibrationModal');
+        form.reset();
+        fetchCalibrations();
+        refreshCalendar(); // Refresh calendar
+    }
+    // ... rest of the code ...
+}
+
+// Update the delete functions to refresh calendar
+async function deleteServiceRequest(requestId, requestTitle) {
+    // ... existing code ...
+    
+    if (data.success) {
+        alert('Service request deleted successfully!');
+        fetchServiceRequests();
+        refreshCalendar(); // Refresh calendar
+    }
+    // ... rest of the code ...
+}
+
+async function deleteCalibration(calibrationId, calibrationName) {
+    // ... existing code ...
+    
+    if (data.success) {
+        alert('Calibration deleted successfully!');
+        fetchCalibrations();
+        refreshCalendar(); // Refresh calendar
+    }
+    // ... rest of the code ...
+}
+
+// Calendar helper functions
+function goToToday() {
+    currentDate = new Date();
+    renderCalendar();
+}
+
+function exportCalendar() {
+    // Simple export functionality - you can enhance this later
+    const calendarTitle = document.getElementById('calendarTitle').textContent;
+    alert(`Exporting calendar for ${calendarTitle}\nThis feature can be enhanced to generate PDF/Excel reports.`);
+}
+
+function showQuickAddEvent() {
+    // Simple quick add - you can create a modal for this later
+    const choice = confirm('What would you like to schedule?\nClick OK for Service Request, Cancel for Calibration');
+    if (choice) {
+        openModal('newRequestModal');
+    } else {
+        openModal('scheduleCalibrationModal');
+    }
+}
+
+
+    // ========== MODAL FUNCTIONALITY ==========
+    
+    function initializeModals() {
+        setupModalListeners();
+        setupModalCloseHandlers();
+        setupFormSubmissions();
+    }
+    
+    function setupModalListeners() {
+        // Equipment modal buttons
+        const addEquipmentBtns = [
+            document.getElementById('addEquipmentBtn'),
+            document.getElementById('addEquipmentBtn2'),
+            document.getElementById('addEquipmentBtn3')
+        ];
+        
+        // Service request modal buttons
+        const newRequestBtns = [
+            document.getElementById('newRequestBtn'),
+            document.getElementById('newRequestBtn2')
+        ];
+        
+        // Calibration modal button
+        const scheduleCalibrationBtn = document.getElementById('scheduleCalibrationBtn');
+        
+        // Equipment modal listeners
+        addEquipmentBtns.forEach((btn, index) => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    openModal('addEquipmentModal');
+                    console.log('Equipment modal opened');
+                });
+            }
+        });
+        
+         // Service request modal listeners
+    newRequestBtns.forEach((btn, index) => {
+        if (btn) {
+            btn.addEventListener('click', () => {
+                openModal('newRequestModal');
+                loadEquipmentOptions();
+                console.log('Service request modal opened');
+                
+                // Set up the new submit button
+                setupServiceRequestSubmit();
+            });
+        }
+    });
+        
+        // Calibration modal listener
+if (scheduleCalibrationBtn) {
+    scheduleCalibrationBtn.addEventListener('click', () => {
+        openModal('scheduleCalibrationModal');
+        loadEquipmentOptions();
+        console.log('Calibration modal opened');
+        
+        // Set up the new submit button
+        setupCalibrationSubmit();
+    });
+}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Dashboard initialized');
+    
+    // Initialize all functionality
+    initializeSidebar();
+    initializeNavigation();
+    initializeModals();
+    initializeCalendar();
+    initializeAnimations();
+    
+    // Initialize dark mode - ADD THIS LINE
+    initDarkModeWithFallback();
+    
+    // Load initial data
+    loadInitialData();
+    
+    // Set up responsive handling
+    setupResponsiveHandling();
+});
+
+    function setupServiceRequestSubmit() {
+    const newSubmitBtn = document.getElementById('newSubmitRequestBtn');
+    const requestForm = document.getElementById('requestForm');
+    
+    if (newSubmitBtn && requestForm) {
+        // Remove any existing event listeners
+        newSubmitBtn.replaceWith(newSubmitBtn.cloneNode(true));
+        
+        // Get the fresh button reference
+        const freshSubmitBtn = document.getElementById('newSubmitRequestBtn');
+        
+        freshSubmitBtn.addEventListener('click', async function() {
+            console.log('🆕 New submit button clicked!');
+            await handleServiceRequestManual();
+        });
+        
+        console.log('✅ New service request submit button setup complete');
+    } else {
+        console.error('❌ New submit button or form not found');
+    }
+}
+
+    function setupModalCloseHandlers() {
+        // Close buttons
+        const closeEquipmentModal = document.getElementById('closeEquipmentModal');
+        const closeRequestModal = document.getElementById('closeRequestModal');
+        const closeCalibrationModal = document.getElementById('closeCalibrationModal');
+        
+        // Cancel buttons
+        const cancelEquipment = document.getElementById('cancelEquipment');
+        const cancelRequest = document.getElementById('cancelRequest');
+        const cancelCalibration = document.getElementById('cancelCalibration');
+        
+        // Close modal events
+        if (closeEquipmentModal) {
+            closeEquipmentModal.addEventListener('click', () => closeModal('addEquipmentModal'));
+        }
+        if (closeRequestModal) {
+            closeRequestModal.addEventListener('click', () => closeModal('newRequestModal'));
+        }
+        if (closeCalibrationModal) {
+            closeCalibrationModal.addEventListener('click', () => closeModal('scheduleCalibrationModal'));
+        }
+        
+        // Cancel button events
+        if (cancelEquipment) {
+            cancelEquipment.addEventListener('click', () => closeModal('addEquipmentModal'));
+        }
+        if (cancelRequest) {
+            cancelRequest.addEventListener('click', () => closeModal('newRequestModal'));
+        }
+        if (cancelCalibration) {
+            cancelCalibration.addEventListener('click', () => closeModal('scheduleCalibrationModal'));
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target.id);
+            }
+        });
+    }
+    
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+
+    function setupCalibrationSubmit() {
+    const newSubmitBtn = document.getElementById('newSubmitCalibrationBtn');
+    const calibrationForm = document.getElementById('calibrationForm');
+    
+    if (newSubmitBtn && calibrationForm) {
+        // Remove any existing event listeners to avoid duplicates
+        newSubmitBtn.replaceWith(newSubmitBtn.cloneNode(true));
+        
+        // Get the fresh button reference
+        const freshSubmitBtn = document.getElementById('newSubmitCalibrationBtn');
+        
+        freshSubmitBtn.addEventListener('click', async function() {
+            console.log('🆕 Calibration submit button clicked!');
+            await handleCalibrationManual();
+        });
+        
+        console.log('✅ Calibration submit button setup complete');
+    } else {
+        console.error('❌ Calibration submit button or form not found');
+    }
+}
+    // ========== DATA FETCHING FUNCTIONS ==========
+    
+    async function fetchDashboardStats() {
+        try {
+            console.log('Fetching dashboard stats...');
+            const response = await fetch('{{ route("dashboard.stats") }}');
+            const data = await response.json();
+            
+            if (data.success) {
+                updateDashboardStats(data.stats);
+                console.log('Dashboard stats loaded successfully');
+            } else {
+                console.error('Error fetching dashboard stats:', data.message);
+            }
+        } catch (error) {
+            console.error('Error fetching dashboard stats:', error);
+        }
+    }
+    
+    async function fetchEquipmentData() {
+        try {
+            showLoading('equipmentGrid', 'Loading equipment...');
+            console.log('Fetching equipment data...');
+            
+            const response = await fetch('{{ route("equipment.index") }}');
+            const data = await response.json();
+            
+            if (data.success) {
+                updateEquipmentUI(data.equipment);
+                updateEquipmentStats(data.stats);
+                console.log('Equipment data loaded successfully');
+            } else {
+                console.error('Error fetching equipment:', data.message);
+                showError('equipmentGrid', 'Failed to load equipment data');
+            }
+        } catch (error) {
+            console.error('Error fetching equipment:', error);
+            showError('equipmentGrid', 'Failed to load equipment data');
+        }
+    }
+    
+    async function fetchServiceRequests() {
+        try {
+            showLoading('serviceRequestsTableBody', 'Loading service requests...');
+            console.log('Fetching service requests...');
+            
+            const response = await fetch('{{ route("service-requests.index") }}');
+            const data = await response.json();
+            
+            if (data.success) {
+                updateServiceRequestsUI(data.requests);
+                updateServiceRequestsStats(data.stats);
+                console.log('Service requests loaded successfully');
+            } else {
+                console.error('Error fetching service requests:', data.message);
+                showError('serviceRequestsTableBody', 'Failed to load service requests');
+            }
+        } catch (error) {
+            console.error('Error fetching service requests:', error);
+            showError('serviceRequestsTableBody', 'Failed to load service requests');
+        }
+    }
+    
+    async function fetchCalibrations() {
+        try {
+            showLoading('calibrationsTableBody', 'Loading calibrations...');
+            console.log('Fetching calibrations...');
+            
+            const response = await fetch('{{ route("calibrations.index") }}');
+            const data = await response.json();
+            
+            if (data.success) {
+                updateCalibrationsUI(data.calibrations);
+                updateCalibrationsStats(data.stats);
+                console.log('Calibrations loaded successfully');
+            } else {
+                console.error('Error fetching calibrations:', data.message);
+                showError('calibrationsTableBody', 'Failed to load calibration data');
+            }
+        } catch (error) {
+            console.error('Error fetching calibrations:', error);
+            showError('calibrationsTableBody', 'Failed to load calibration data');
+        }
+    }
+    
+    async function loadEquipmentOptions() {
+    try {
+        console.log('Loading equipment options for dropdowns...');
+        
+        // Use the existing equipment index route instead of a special options route
+        const response = await fetch('{{ route("equipment.index") }}');
+        const data = await response.json();
+        
+        if (data.success && data.equipment) {
+            // Update equipment dropdowns in all modals
+            const equipmentSelects = document.querySelectorAll('select[name="equipment_id"]');
+            
+            equipmentSelects.forEach((select) => {
+                // Clear existing options except the first one
+                select.innerHTML = '<option value="">Choose equipment...</option>';
+                
+                data.equipment.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = `${item.name} - ${item.model} (${item.serial_number})`;
+                    select.appendChild(option);
+                });
+            });
+            
+            console.log(`Equipment options loaded successfully: ${data.equipment.length} items`);
+        } else {
+            console.error('Error loading equipment options:', data.message);
+            // Fallback: show error in dropdowns
+            const equipmentSelects = document.querySelectorAll('select[name="equipment_id"]');
+            equipmentSelects.forEach(select => {
+                select.innerHTML = '<option value="">Error loading equipment</option>';
+            });
+        }
+    } catch (error) {
+        console.error('Error loading equipment options:', error);
+        // Fallback on error
+        const equipmentSelects = document.querySelectorAll('select[name="equipment_id"]');
+        equipmentSelects.forEach(select => {
+            select.innerHTML = '<option value="">Failed to load equipment</option>';
+        });
+    }
+}
+async function viewServiceRequest(requestId) {
+    try {
+        console.log('Viewing service request details:', requestId);
+        
+        const response = await fetch(`/service-requests/${requestId}/edit`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const request = data.request;
+            
+            // Populate the view modal
+            document.getElementById('view_request_id').textContent = `Request #${request.request_id || request.id}`;
+            document.getElementById('view_request_created').textContent = `Created: ${formatDateTime(request.created_at)}`;
+            
+            // Status and priority badges
+            const statusBadge = document.getElementById('view_request_status');
+            statusBadge.textContent = formatStatus(request.status);
+            statusBadge.className = `status-badge text-sm ${getStatusBadgeClass(request.status)}`;
+            
+            const priorityBadge = document.getElementById('view_request_priority');
+            priorityBadge.textContent = formatPriority(request.priority);
+            priorityBadge.className = `priority-badge text-sm ${getPriorityBadgeClass(request.priority)}`;
+            
+            // Equipment details
+            document.getElementById('view_equipment_name').textContent = request.equipment?.name || 'N/A';
+            document.getElementById('view_equipment_details').textContent = 
+                request.equipment ? `${request.equipment.model} - ${request.equipment.serial_number}` : 'No equipment details';
+            
+            // Request details
+            document.getElementById('view_issue_type').textContent = formatIssueType(request.issue_type);
+            document.getElementById('view_issue_start').textContent = formatDateTime(request.issue_start_time);
+            document.getElementById('view_contact_person').textContent = request.contact_person;
+            document.getElementById('view_contact_phone').textContent = request.contact_phone;
+            document.getElementById('view_problem_description').textContent = request.problem_description;
+            document.getElementById('view_updated_at').textContent = formatDateTime(request.updated_at);
+            document.getElementById('view_created_at').textContent = formatDateTime(request.created_at);
+            document.getElementById('view_last_updated').textContent = formatDateTime(request.updated_at);
+            
+            // Set up the edit button in the view modal
+            setupViewModalEditButton(requestId);
+            
+            // Open the view modal
+            openModal('viewRequestModal');
+            
+        } else {
+            alert('Error loading service request details: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading service request details:', error);
+        alert('Error loading service request details');
+    }
+}
+
+async function viewEquipment(equipmentId) {
+    try {
+        console.log('Viewing equipment details:', equipmentId);
+        
+        const response = await fetch(`/equipment/${equipmentId}/edit`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const equipment = data.equipment;
+            
+            // Populate the view modal
+            document.getElementById('view_equipment_name').textContent = equipment.name;
+            document.getElementById('view_equipment_model').textContent = `Model: ${equipment.model}`;
+            document.getElementById('view_equipment_serial').textContent = `Serial: ${equipment.serial_number}`;
+            
+            // Status badge
+            const statusBadge = document.getElementById('view_equipment_status');
+            statusBadge.textContent = formatStatus(equipment.status);
+            statusBadge.className = `status-badge text-sm ${getStatusBadgeClass(equipment.status)}`;
+            
+            // Equipment details
+            document.getElementById('view_equipment_manufacturer').textContent = equipment.manufacturer || 'Not specified';
+            document.getElementById('view_equipment_location').textContent = equipment.location_department || 'Not specified';
+            document.getElementById('view_equipment_purchase_date').textContent = formatDate(equipment.purchase_date) || 'Not specified';
+            document.getElementById('view_equipment_warranty').textContent = formatDate(equipment.warranty_expiry) || 'No warranty';
+            document.getElementById('view_equipment_type').textContent = equipment.type || 'General Equipment';
+            document.getElementById('view_equipment_last_service').textContent = equipment.last_service_date ? formatDate(equipment.last_service_date) : 'No service recorded';
+            document.getElementById('view_equipment_notes').textContent = equipment.notes || 'No additional notes provided.';
+            
+            // Equipment health
+            document.getElementById('view_health_status').textContent = formatStatus(equipment.status);
+            const healthBar = document.getElementById('view_health_bar');
+            healthBar.className = `h-2 rounded-full ${getHealthBarClass(equipment.status)}`;
+            healthBar.style.width = getHealthBarWidth(equipment.status);
+            
+            // Quick stats (you can enhance these with real data later)
+            document.getElementById('view_service_requests').textContent = '0'; // Placeholder
+            document.getElementById('view_calibrations').textContent = '0'; // Placeholder
+            document.getElementById('view_uptime').textContent = '98%'; // Placeholder
+            
+            // Timeline
+            document.getElementById('view_created_at').textContent = formatDateTime(equipment.created_at);
+            document.getElementById('view_updated_at').textContent = formatDateTime(equipment.updated_at);
+            
+            // Set up the edit button in the view modal
+            setupEquipmentViewModalEditButton(equipmentId);
+            
+            // Open the view modal
+            openModal('viewEquipmentModal');
+            
+        } else {
+            alert('Error loading equipment details: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading equipment details:', error);
+        alert('Error loading equipment details');
+    }
+}
+
+// Helper functions for equipment health display
+function getHealthBarClass(status) {
+    const classes = {
+        'operational': 'bg-green-500',
+        'maintenance': 'bg-yellow-500',
+        'attention': 'bg-red-500'
+    };
+    return classes[status] || 'bg-gray-500';
+}
+
+function getHealthBarWidth(status) {
+    const widths = {
+        'operational': '90%',
+        'maintenance': '60%',
+        'attention': '30%'
+    };
+    return widths[status] || '50%';
+}
+
+function setupEquipmentViewModalEditButton(equipmentId) {
+    const editBtn = document.getElementById('editEquipmentFromViewBtn');
+    if (editBtn) {
+        // Remove existing listeners
+        editBtn.replaceWith(editBtn.cloneNode(true));
+        const freshEditBtn = document.getElementById('editEquipmentFromViewBtn');
+        
+        freshEditBtn.addEventListener('click', function() {
+            closeModal('viewEquipmentModal');
+            // Small delay to ensure modal is closed before opening edit modal
+            setTimeout(() => {
+                editEquipment(equipmentId);
+            }, 300);
+        });
+    }
+}
+function setupViewModalEditButton(requestId) {
+    const editBtn = document.getElementById('editFromViewBtn');
+    if (editBtn) {
+        // Remove existing listeners
+        editBtn.replaceWith(editBtn.cloneNode(true));
+        const freshEditBtn = document.getElementById('editFromViewBtn');
+        
+        freshEditBtn.addEventListener('click', function() {
+            closeModal('viewRequestModal');
+            // Small delay to ensure modal is closed before opening edit modal
+            setTimeout(() => {
+                editServiceRequest(requestId);
+            }, 300);
+        });
+    }
+}
+// Helper function for time slot formatting
+function formatTimeSlot(time) {
+    const times = {
+        'morning': 'Morning (8 AM - 12 PM)',
+        'afternoon': 'Afternoon (12 PM - 4 PM)',
+        'evening': 'Evening (4 PM - 7 PM)'
+    };
+    return times[time] || time;
+}
+// Calendar helper functions
+function goToToday() {
+    currentDate = new Date();
+    renderCalendar();
+}
+
+function exportCalendar() {
+    // Simple export functionality - you can enhance this later
+    const calendarTitle = document.getElementById('calendarTitle').textContent;
+    alert(`Exporting calendar for ${calendarTitle}\nThis feature can be enhanced to generate PDF/Excel reports.`);
+}
+
+function showQuickAddEvent() {
+    // Simple quick add - you can create a modal for this later
+    const choice = confirm('What would you like to schedule?\nClick OK for Service Request, Cancel for Calibration');
+    if (choice) {
+        openModal('newRequestModal');
+    } else {
+        openModal('scheduleCalibrationModal');
+    }
+}
+
+// Update event type styling in your CSS
+const calendarEventStyles = `
+    .calendar-event.service-request {
+        background: #e8a00f;
+        color: white;
+    }
+    .calendar-event.service-update {
+        background: #10b981;
+        color: white;
+    }
+    .calendar-event.calibration {
+        background: #3b82f6;
+        color: white;
+    }
+    .calendar-event.calibration-due {
+        background: #ef4444;
+        color: white;
+    }
+    .calendar-event {
+        font-size: 11px;
+        padding: 2px 4px;
+        margin: 1px 0;
+        border-radius: 3px;
+        cursor: pointer;
+        line-height: 1.2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+`;
+
+// Add the styles to the document
+const styleSheet = document.createElement('style');
+styleSheet.textContent = calendarEventStyles;
+document.head.appendChild(styleSheet);
+    // ========== UI UPDATE FUNCTIONS ==========
+    
+    function updateDashboardStats(stats) {
+        if (stats) {
+            // Update the stat cards in dashboard
+            const statValues = document.querySelectorAll('.stat-card .stat-value');
+            if (statValues.length >= 3) {
+                statValues[0].textContent = stats.total_equipment || 0;
+                statValues[1].textContent = stats.active_requests || 0;
+                statValues[2].textContent = stats.upcoming_calibrations || 0;
+            }
+        }
+    }
+    
+    function updateEquipmentUI(equipment) {
+        const equipmentGrid = document.getElementById('equipmentGrid');
+        
+        if (!equipmentGrid) return;
+        
+        hideLoading('equipmentGrid');
+        
+        if (!equipment || equipment.length === 0) {
+            equipmentGrid.innerHTML = `
+                <div class="col-span-3 text-center py-8 text-gray-500">
+                    <i class="fas fa-microscope fa-2x mb-2"></i>
+                    <p>No equipment found</p>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="openModal('addEquipmentModal')">
+                        <i class="fas fa-plus mr-1"></i>
+                        Add Your First Equipment
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        equipmentGrid.innerHTML = equipment.map(item => `
+            <div class="card">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 ${getEquipmentIconColor(item.status)} rounded-lg flex items-center justify-center mr-3">
+                        <i class="${getEquipmentIcon(item.type)} ${getEquipmentIconColorClass(item.status)}"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">${item.name}</h3>
+                        <p class="text-sm text-gray-500">${item.model}</p>
+                        <p class="text-xs text-gray-400">${item.serial_number}</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="status-badge ${getStatusBadgeClass(item.status)}">${formatStatus(item.status)}</span>
+                    <div class="flex gap-1">
+                        <button class="btn btn-outline btn-sm view-equipment" data-id="${item.id}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-outline btn-sm edit-equipment" data-id="${item.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function updateServiceRequestsUI(requests) {
+    const tableBody = document.getElementById('serviceRequestsTableBody');
+    
+    if (!tableBody) return;
+    
+    hideLoading('serviceRequestsTableBody');
+    
+    if (!requests || requests.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="text-center py-8 text-gray-500">
+                    <i class="fas fa-tools fa-2x mb-2"></i>
+                    <p>No service requests found</p>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="openModal('newRequestModal')">
+                        <i class="fas fa-plus mr-1"></i>
+                        Create Your First Request
+                    </button>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    tableBody.innerHTML = requests.map(request => `
+        <tr>
+            <td class="font-medium">${request.request_id || 'N/A'}</td>
+            <td>${request.equipment?.name || 'N/A'}</td>
+            <td>${formatIssueType(request.issue_type)}</td>
+            <td class="max-w-xs truncate" title="${request.problem_description}">${request.problem_description}</td>
+            <td><span class="priority-badge ${getPriorityBadgeClass(request.priority)}">${formatPriority(request.priority)}</span></td>
+            <td><span class="status-badge ${getStatusBadgeClass(request.status)}">${formatStatus(request.status)}</span></td>
+            <td>${formatDateTime(request.created_at)}</td>
+            <td>${formatDateTime(request.updated_at)}</td>
+            <td>
+                <div class="flex gap-1">
+                    <button class="btn btn-outline btn-sm view-request" data-id="${request.id}" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-outline btn-sm edit-request" data-id="${request.id}" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline btn-sm delete-request" data-id="${request.id}" data-title="Request ${request.request_id}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+    
+    // Add event listeners for service request buttons
+    attachServiceRequestEventListeners();
+}
+    
+    function updateCalibrationsUI(calibrations) {
+    const tableBody = document.getElementById('calibrationsTableBody');
+    
+    if (!tableBody) return;
+    
+    hideLoading('calibrationsTableBody');
+    
+    if (!calibrations || calibrations.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="8" class="text-center py-8 text-gray-500">
+                    <i class="fas fa-ruler-combined fa-2x mb-2"></i>
+                    <p>No calibrations scheduled</p>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="openModal('scheduleCalibrationModal')">
+                        <i class="fas fa-plus mr-1"></i>
+                        Schedule First Calibration
+                    </button>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    tableBody.innerHTML = calibrations.map(calibration => `
+        <tr>
+            <td class="font-medium">${calibration.equipment?.name || 'N/A'}</td>
+            <td>${formatCalibrationType(calibration.calibration_type)}</td>
+            <td>${formatDate(calibration.last_calibration_date)}</td>
+            <td>${formatDate(calibration.next_calibration_date)}</td>
+            <td><span class="status-badge ${getCalibrationStatusBadgeClass(calibration.status)}">${formatCalibrationStatus(calibration.status)}</span></td>
+            <td>${calibration.technician || 'Not assigned'}</td>
+            <td>${calibration.certificate_number || 'N/A'}</td>
+            <td>
+                <div class="flex gap-1">
+                    <button class="btn btn-outline btn-sm view-calibration" data-id="${calibration.id}" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-outline btn-sm edit-calibration" data-id="${calibration.id}" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline btn-sm delete-calibration" data-id="${calibration.id}" data-name="${calibration.equipment?.name || 'Calibration'}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+    
+    // Add event listeners for calibration buttons
+    attachCalibrationEventListeners();
+}
+    
+    function updateEquipmentStats(stats) {
+        if (stats) {
+            const totalEl = document.getElementById('totalEquipmentCount');
+            const operationalEl = document.getElementById('operationalEquipmentCount');
+            const maintenanceEl = document.getElementById('maintenanceEquipmentCount');
+            const attentionEl = document.getElementById('attentionEquipmentCount');
+            
+            if (totalEl) totalEl.textContent = stats.total || 0;
+            if (operationalEl) operationalEl.textContent = stats.operational || 0;
+            if (maintenanceEl) maintenanceEl.textContent = stats.maintenance || 0;
+            if (attentionEl) attentionEl.textContent = stats.attention || 0;
+        }
+    }
+    
+    function updateServiceRequestsStats(stats) {
+        if (stats) {
+            const totalEl = document.getElementById('totalRequestsCount');
+            const pendingEl = document.getElementById('pendingRequestsCount');
+            const inProgressEl = document.getElementById('inProgressRequestsCount');
+            const completedEl = document.getElementById('completedRequestsCount');
+            
+            if (totalEl) totalEl.textContent = stats.total || 0;
+            if (pendingEl) pendingEl.textContent = stats.pending || 0;
+            if (inProgressEl) inProgressEl.textContent = stats.in_progress || 0;
+            if (completedEl) completedEl.textContent = stats.completed || 0;
+        }
+    }
+    
+    function updateCalibrationsStats(stats) {
+        if (stats) {
+            const totalEl = document.getElementById('totalCalibrationsCount');
+            const dueSoonEl = document.getElementById('dueSoonCalibrationsCount');
+            const overdueEl = document.getElementById('overdueCalibrationsCount');
+            const completedEl = document.getElementById('completedCalibrationsCount');
+            
+            if (totalEl) totalEl.textContent = stats.total || 0;
+            if (dueSoonEl) dueSoonEl.textContent = stats.due_soon || 0;
+            if (overdueEl) overdueEl.textContent = stats.overdue || 0;
+            if (completedEl) completedEl.textContent = stats.completed || 0;
+        }
+    }
+
+
+   function attachServiceRequestEventListeners() {
+    // View service request buttons - now opens details modal
+    document.querySelectorAll('.view-request').forEach(button => {
+        button.addEventListener('click', function() {
+            const requestId = this.getAttribute('data-id');
+            viewServiceRequest(requestId);
+        });
+    });
+    
+    // Edit service request buttons
+    document.querySelectorAll('.edit-request').forEach(button => {
+        button.addEventListener('click', function() {
+            const requestId = this.getAttribute('data-id');
+            editServiceRequest(requestId);
+        });
+    });
+    
+    // Delete service request buttons
+    document.querySelectorAll('.delete-request').forEach(button => {
+        button.addEventListener('click', function() {
+            const requestId = this.getAttribute('data-id');
+            const requestTitle = this.getAttribute('data-title');
+            deleteServiceRequest(requestId, requestTitle);
+        });
+    });
+}
+
+async function editServiceRequest(requestId) {
+    try {
+        console.log('Editing service request:', requestId);
+        
+        const response = await fetch(`/service-requests/${requestId}/edit`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const request = data.request;
+            
+            // First load equipment options, THEN set the value
+            await loadEquipmentOptionsForEdit();
+            
+            // Now populate the form with the request data
+            document.getElementById('edit_request_id').value = request.id;
+            document.getElementById('edit_request_equipment').value = request.equipment_id; // This should now work
+            document.getElementById('edit_request_issue_type').value = request.issue_type;
+            document.getElementById('edit_request_priority').value = request.priority;
+            document.getElementById('edit_request_description').value = request.problem_description;
+            
+            // Format datetime for input (YYYY-MM-DDTHH:MM)
+            if (request.issue_start_time) {
+                const issueStartTime = new Date(request.issue_start_time);
+                const timezoneOffset = issueStartTime.getTimezoneOffset() * 60000;
+                const localTime = new Date(issueStartTime.getTime() - timezoneOffset);
+                const formattedTime = localTime.toISOString().slice(0, 16);
+                document.getElementById('edit_request_start_time').value = formattedTime;
+            }
+            
+            document.getElementById('edit_request_contact_person').value = request.contact_person;
+            document.getElementById('edit_request_contact_phone').value = request.contact_phone;
+            document.getElementById('edit_request_status').value = request.status;
+            
+            // Open the edit modal
+            openModal('editRequestModal');
+            
+            // Setup update button
+            setupServiceRequestUpdate();
+            
+        } else {
+            alert('Error loading service request data: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading service request for edit:', error);
+        alert('Error loading service request data');
+    }
+}
+
+async function loadEquipmentOptionsForEdit() {
+    try {
+        const response = await fetch('{{ route("equipment.options") }}');
+        const equipment = await response.json();
+        
+        const select = document.getElementById('edit_request_equipment');
+        select.innerHTML = '<option value="">Choose equipment...</option>';
+        
+        equipment.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            option.textContent = `${item.name} - ${item.model}`;
+            select.appendChild(option);
+        });
+        
+    } catch (error) {
+        console.error('Error loading equipment options for edit:', error);
+    }
+}
+
+function setupServiceRequestUpdate() {
+    const updateBtn = document.getElementById('updateRequestBtn');
+    const form = document.getElementById('editRequestForm');
+    
+    if (updateBtn && form) {
+        // Remove existing listeners
+        updateBtn.replaceWith(updateBtn.cloneNode(true));
+        const freshUpdateBtn = document.getElementById('updateRequestBtn');
+        
+        freshUpdateBtn.addEventListener('click', async function() {
+            await updateServiceRequest();
+        });
+    }
+}
+
+async function updateServiceRequest() {
+    const form = document.getElementById('editRequestForm');
+    const updateBtn = document.getElementById('updateRequestBtn');
+    const requestId = document.getElementById('edit_request_id').value;
+    
+    if (!form || !updateBtn || !requestId) {
+        alert('Error: Form data missing');
+        return;
+    }
+    
+    const originalText = updateBtn.innerHTML;
+    updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+    updateBtn.disabled = true;
+    
+    try {
+        const formData = {
+            equipment_id: document.getElementById('edit_request_equipment').value,
+            issue_type: document.getElementById('edit_request_issue_type').value,
+            priority: document.getElementById('edit_request_priority').value,
+            problem_description: document.getElementById('edit_request_description').value,
+            issue_start_time: document.getElementById('edit_request_start_time').value,
+            contact_person: document.getElementById('edit_request_contact_person').value,
+            contact_phone: document.getElementById('edit_request_contact_phone').value,
+            status: document.getElementById('edit_request_status').value,
+        };
+        
+        console.log('Updating service request:', requestId, formData);
+        
+        const response = await fetch(`/service-requests/${requestId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-HTTP-Method-Override': 'PUT'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('Service request updated successfully!');
+            closeModal('editRequestModal');
+            
+            // Refresh both service requests list AND calendar
+            fetchServiceRequests();
+            refreshCalendar();
+            
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error updating service request');
+            }
+        }
+    } catch (error) {
+        console.error('Error updating service request:', error);
+        alert('Error updating service request');
+    } finally {
+        updateBtn.innerHTML = originalText;
+        updateBtn.disabled = false;
+    }
+}
+async function viewCalibration(calibrationId) {
+    try {
+        console.log('Viewing calibration details:', calibrationId);
+        
+        const response = await fetch(`/calibrations/${calibrationId}/edit`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const calibration = data.calibration;
+            
+            // Populate the view modal
+            document.getElementById('view_calibration_equipment').textContent = calibration.equipment?.name || 'N/A';
+            document.getElementById('view_calibration_type').textContent = `Calibration Type: ${formatCalibrationType(calibration.calibration_type)}`;
+            
+            // Status and priority badges
+            const statusBadge = document.getElementById('view_calibration_status');
+            statusBadge.textContent = formatCalibrationStatus(calibration.status);
+            statusBadge.className = `status-badge text-sm ${getCalibrationStatusBadgeClass(calibration.status)}`;
+            
+            const priorityBadge = document.getElementById('view_calibration_priority');
+            priorityBadge.textContent = formatPriority(calibration.priority);
+            priorityBadge.className = `priority-badge text-sm ${getPriorityBadgeClass(calibration.priority)}`;
+            
+            // Calibration details
+            document.getElementById('view_calibration_date').textContent = formatDate(calibration.preferred_date) || 'Not specified';
+            document.getElementById('view_calibration_time').textContent = formatTimeSlot(calibration.preferred_time);
+            document.getElementById('view_last_calibration').textContent = formatDate(calibration.last_calibration_date) || 'No previous calibration';
+            document.getElementById('view_next_due').textContent = formatDate(calibration.next_calibration_date) || 'Not scheduled';
+            document.getElementById('view_calibration_technician').textContent = calibration.preferred_technician || 'Not assigned';
+            document.getElementById('view_certificate_number').textContent = calibration.certificate_number || 'No certificate';
+            document.getElementById('view_special_requirements').textContent = calibration.special_requirements || 'No special requirements specified.';
+            
+            // Urgent flag
+            const urgentIcon = document.getElementById('view_urgent_icon');
+            const urgentText = document.getElementById('view_urgent_text');
+            const urgentDescription = document.getElementById('view_urgent_description');
+            
+            if (calibration.is_urgent) {
+                urgentIcon.className = 'fas fa-exclamation-triangle text-red-500 mr-3';
+                urgentText.textContent = 'Urgent Calibration';
+                urgentText.className = 'font-medium text-red-600';
+                urgentDescription.textContent = 'This calibration requires immediate attention';
+            } else {
+                urgentIcon.className = 'fas fa-flag text-gray-500 mr-3';
+                urgentText.textContent = 'Standard Priority';
+                urgentText.className = 'font-medium text-gray-600';
+                urgentDescription.textContent = 'Routine calibration schedule';
+            }
+            
+            // Timeline
+            document.getElementById('view_created_at').textContent = formatDateTime(calibration.created_at);
+            document.getElementById('view_updated_at').textContent = formatDateTime(calibration.updated_at);
+            document.getElementById('view_completed_at').textContent = calibration.completed_at ? formatDateTime(calibration.completed_at) : 'Not completed';
+            document.getElementById('view_scheduled_date').textContent = formatDateTime(calibration.created_at);
+            document.getElementById('view_status_updated').textContent = formatDateTime(calibration.updated_at);
+            
+            // Set up the edit button in the view modal
+            setupCalibrationViewModalEditButton(calibrationId);
+            
+            // Open the view modal
+            openModal('viewCalibrationModal');
+            
+        } else {
+            alert('Error loading calibration details: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading calibration details:', error);
+        alert('Error loading calibration details');
+    }
+}
+
+// Helper function for time slot formatting
+function formatTimeSlot(time) {
+    const times = {
+        'morning': 'Morning (8 AM - 12 PM)',
+        'afternoon': 'Afternoon (12 PM - 4 PM)',
+        'evening': 'Evening (4 PM - 7 PM)'
+    };
+    return times[time] || time;
+}
+
+function setupCalibrationViewModalEditButton(calibrationId) {
+    const editBtn = document.getElementById('editCalibrationFromViewBtn');
+    if (editBtn) {
+        // Remove existing listeners
+        editBtn.replaceWith(editBtn.cloneNode(true));
+        const freshEditBtn = document.getElementById('editCalibrationFromViewBtn');
+        
+        freshEditBtn.addEventListener('click', function() {
+            closeModal('viewCalibrationModal');
+            // Small delay to ensure modal is closed before opening edit modal
+            setTimeout(() => {
+                editCalibration(calibrationId);
+            }, 300);
+        });
+    }
+}
+function attachCalibrationEventListeners() {
+    // View calibration buttons - now opens details modal
+    document.querySelectorAll('.view-calibration').forEach(button => {
+        button.addEventListener('click', function() {
+            const calibrationId = this.getAttribute('data-id');
+            viewCalibration(calibrationId);
+        });
+    });
+    
+    // Edit calibration buttons
+    document.querySelectorAll('.edit-calibration').forEach(button => {
+        button.addEventListener('click', function() {
+            const calibrationId = this.getAttribute('data-id');
+            editCalibration(calibrationId);
+        });
+    });
+    
+    // Delete calibration buttons
+    document.querySelectorAll('.delete-calibration').forEach(button => {
+        button.addEventListener('click', function() {
+            const calibrationId = this.getAttribute('data-id');
+            const calibrationName = this.getAttribute('data-name');
+            deleteCalibration(calibrationId, calibrationName);
+        });
+    });
+    
+    // REMOVED: Reschedule calibration buttons
+}
+async function editCalibration(calibrationId) {
+    try {
+        console.log('Editing calibration:', calibrationId);
+        
+        const response = await fetch(`/calibrations/${calibrationId}/edit`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const calibration = data.calibration;
+            
+            // First load equipment options, THEN set the value
+            await loadEquipmentOptionsForCalibrationEdit();
+            
+            // Now populate the form with the calibration data
+            document.getElementById('edit_calibration_id').value = calibration.id;
+            document.getElementById('edit_calibration_equipment').value = calibration.equipment_id; // This should now work
+            document.getElementById('edit_calibration_type').value = calibration.calibration_type;
+            document.getElementById('edit_calibration_priority').value = calibration.priority;
+            
+            // Format date for input (YYYY-MM-DD)
+            if (calibration.preferred_date) {
+                const preferredDate = new Date(calibration.preferred_date);
+                const formattedDate = preferredDate.toISOString().split('T')[0];
+                document.getElementById('edit_calibration_date').value = formattedDate;
+            }
+            
+            document.getElementById('edit_calibration_time').value = calibration.preferred_time;
+            document.getElementById('edit_calibration_requirements').value = calibration.special_requirements || '';
+            document.getElementById('edit_calibration_technician').value = calibration.preferred_technician || '';
+            document.getElementById('edit_calibration_status').value = calibration.status;
+            
+            // Handle checkbox
+            const urgentCheckbox = document.getElementById('edit_urgent_calibration');
+            if (urgentCheckbox) {
+                urgentCheckbox.checked = calibration.is_urgent == 1;
+            }
+            
+            // Open the edit modal
+            openModal('editCalibrationModal');
+            
+            // Setup update button
+            setupCalibrationUpdate();
+            
+        } else {
+            alert('Error loading calibration data: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading calibration for edit:', error);
+        alert('Error loading calibration data');
+    }
+}
+
+async function loadEquipmentOptionsForCalibrationEdit() {
+    try {
+        const response = await fetch('{{ route("equipment.options") }}');
+        const equipment = await response.json();
+        
+        const select = document.getElementById('edit_calibration_equipment');
+        select.innerHTML = '<option value="">Choose equipment...</option>';
+        
+        equipment.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            option.textContent = `${item.name} - ${item.model}`;
+            select.appendChild(option);
+        });
+        
+    } catch (error) {
+        console.error('Error loading equipment options for calibration edit:', error);
+    }
+}
+
+function setupCalibrationUpdate() {
+    const updateBtn = document.getElementById('updateCalibrationBtn');
+    const form = document.getElementById('editCalibrationForm');
+    
+    if (updateBtn && form) {
+        // Remove existing listeners
+        updateBtn.replaceWith(updateBtn.cloneNode(true));
+        const freshUpdateBtn = document.getElementById('updateCalibrationBtn');
+        
+        freshUpdateBtn.addEventListener('click', async function() {
+            await updateCalibration();
+        });
+    }
+}
+
+async function updateCalibration() {
+    const form = document.getElementById('editCalibrationForm');
+    const updateBtn = document.getElementById('updateCalibrationBtn');
+    const calibrationId = document.getElementById('edit_calibration_id').value;
+    
+    if (!form || !updateBtn || !calibrationId) {
+        alert('Error: Form data missing');
+        return;
+    }
+    
+    const originalText = updateBtn.innerHTML;
+    updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+    updateBtn.disabled = true;
+    
+    try {
+        const formData = {
+            equipment_id: document.getElementById('edit_calibration_equipment').value,
+            calibration_type: document.getElementById('edit_calibration_type').value,
+            priority: document.getElementById('edit_calibration_priority').value,
+            preferred_date: document.getElementById('edit_calibration_date').value,
+            preferred_time: document.getElementById('edit_calibration_time').value,
+            special_requirements: document.getElementById('edit_calibration_requirements').value,
+            preferred_technician: document.getElementById('edit_calibration_technician').value,
+            status: document.getElementById('edit_calibration_status').value,
+            is_urgent: document.getElementById('edit_urgent_calibration').checked ? 1 : 0,
+        };
+        
+        console.log('Updating calibration:', calibrationId, formData);
+        
+        const response = await fetch(`/calibrations/${calibrationId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-HTTP-Method-Override': 'PUT'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('Calibration updated successfully!');
+            closeModal('editCalibrationModal');
+            
+            // Refresh both calibrations list AND calendar
+            fetchCalibrations();
+            refreshCalendar(); // ADD THIS LINE
+            
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error updating calibration');
+            }
+        }
+    } catch (error) {
+        console.error('Error updating calibration:', error);
+        alert('Error updating calibration');
+    } finally {
+        updateBtn.innerHTML = originalText;
+        updateBtn.disabled = false;
+    }
+}
+
+// Additional helper functions for calibration actions
+async function completeCalibration(calibrationId) {
+    if (confirm('Mark this calibration as completed?')) {
+        try {
+            const response = await fetch(`/calibrations/${calibrationId}/complete`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                alert('Calibration marked as completed!');
+                fetchCalibrations(); // Refresh the list
+            } else {
+                alert(data.message || 'Error completing calibration');
+            }
+        } catch (error) {
+            console.error('Error completing calibration:', error);
+            alert('Error completing calibration');
+        }
+    }
+}
+
+async function rescheduleCalibration(calibrationId) {
+    // For now, we'll just open the edit modal for rescheduling
+    // You could create a dedicated reschedule modal if needed
+    editCalibration(calibrationId);
+}
+    // ========== FORM SUBMISSION HANDLERS ==========
+    
+    function setupFormSubmissions() {
+    console.log('🔧 Setting up form submissions...');
+    
+    // Service Request Form Submission
+    const requestForm = document.getElementById('requestForm');
+    if (requestForm) {
+        console.log('✅ Service request form found');
+        
+        // Remove any existing event listeners to avoid duplicates
+        requestForm.removeEventListener('submit', handleServiceRequestSubmit);
+        
+        // Add the event listener
+        requestForm.addEventListener('submit', handleServiceRequestSubmit);
+        console.log('✅ Service request form handler attached');
+        
+        // Debug: Check if form elements exist
+        console.log('📋 Form elements found:');
+        console.log('- equipment_id:', requestForm.elements['equipment_id']);
+        console.log('- issue_type:', requestForm.elements['issue_type']);
+        console.log('- priority:', requestForm.elements['priority']);
+        console.log('- problem_description:', requestForm.elements['problem_description']);
+        console.log('- issue_start_time:', requestForm.elements['issue_start_time']);
+        console.log('- contact_person:', requestForm.elements['contact_person']);
+        console.log('- contact_phone:', requestForm.elements['contact_phone']);
+        
+    } else {
+        console.error('❌ Service request form not found!');
+    }
+    
+    // Equipment Form Submission (keep this as is)
+    const equipmentForm = document.getElementById('equipmentForm');
+    if (equipmentForm) {
+        equipmentForm.addEventListener('submit', handleEquipmentSubmit);
+        console.log('✅ Equipment form handler attached');
+    }
+    
+    // Calibration Form Submission
+    const calibrationForm = document.getElementById('calibrationForm');
+    if (calibrationForm) {
+        calibrationForm.addEventListener('submit', handleCalibrationSubmit);
+        console.log('✅ Calibration form handler attached');
+    }
+// Add to setupModalCloseHandlers function
+const closeViewRequestModal = document.getElementById('closeViewRequestModal');
+const closeViewRequestBtn = document.getElementById('closeViewRequestBtn');
+
+if (closeViewRequestModal) {
+    closeViewRequestModal.addEventListener('click', () => closeModal('viewRequestModal'));
+}
+if (closeViewRequestBtn) {
+    closeViewRequestBtn.addEventListener('click', () => closeModal('viewRequestModal'));
+}
+// Add to setupModalCloseHandlers function
+const closeEditCalibrationModal = document.getElementById('closeEditCalibrationModal');
+const cancelEditCalibration = document.getElementById('cancelEditCalibration');
+
+if (closeEditCalibrationModal) {
+    closeEditCalibrationModal.addEventListener('click', () => closeModal('editCalibrationModal'));
+}
+if (cancelEditCalibration) {
+    cancelEditCalibration.addEventListener('click', () => closeModal('editCalibrationModal'));
+}
+    // Add to setupModalCloseHandlers function
+const closeEditRequestModal = document.getElementById('closeEditRequestModal');
+const cancelEditRequest = document.getElementById('cancelEditRequest');
+
+if (closeEditRequestModal) {
+    closeEditRequestModal.addEventListener('click', () => closeModal('editRequestModal'));
+}
+if (cancelEditRequest) {
+    cancelEditRequest.addEventListener('click', () => closeModal('editRequestModal'));
+}
+}
+// Add to setupModalCloseHandlers function
+const closeViewEquipmentModal = document.getElementById('closeViewEquipmentModal');
+const closeViewEquipmentBtn = document.getElementById('closeViewEquipmentBtn');
+
+if (closeViewEquipmentModal) {
+    closeViewEquipmentModal.addEventListener('click', () => closeModal('viewEquipmentModal'));
+}
+if (closeViewEquipmentBtn) {
+    closeViewEquipmentBtn.addEventListener('click', () => closeModal('viewEquipmentModal'));
+}
+
+// Add to setupModalCloseHandlers function
+const closeViewCalibrationModal = document.getElementById('closeViewCalibrationModal');
+const closeViewCalibrationBtn = document.getElementById('closeViewCalibrationBtn');
+
+if (closeViewCalibrationModal) {
+    closeViewCalibrationModal.addEventListener('click', () => closeModal('viewCalibrationModal'));
+}
+if (closeViewCalibrationBtn) {
+    closeViewCalibrationBtn.addEventListener('click', () => closeModal('viewCalibrationModal'));
+}
+
+// Add to setupModalCloseHandlers function
+const closeEditEquipmentModal = document.getElementById('closeEditEquipmentModal');
+const cancelEditEquipment = document.getElementById('cancelEditEquipment');
+
+if (closeEditEquipmentModal) {
+    closeEditEquipmentModal.addEventListener('click', () => closeModal('editEquipmentModal'));
+}
+if (cancelEditEquipment) {
+    cancelEditEquipment.addEventListener('click', () => closeModal('editEquipmentModal'));
+}
+
+async function handleServiceRequestManual() {
+    console.log('🔧 Manual service request submission triggered');
+    
+    const form = document.getElementById('requestForm');
+    const submitBtn = document.getElementById('newSubmitRequestBtn');
+    
+    if (!form || !submitBtn) {
+        console.error('❌ Form or submit button not found!');
+        alert('Error: Form elements not found');
+        return;
+    }
+    
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Get form values using querySelector to be safe
+        const formData = {
+            equipment_id: form.querySelector('[name="equipment_id"]').value,
+            issue_type: form.querySelector('[name="issue_type"]').value,
+            priority: form.querySelector('[name="priority"]').value,
+            problem_description: form.querySelector('[name="problem_description"]').value,
+            issue_start_time: form.querySelector('[name="issue_start_time"]').value,
+            contact_person: form.querySelector('[name="contact_person"]').value,
+            contact_phone: form.querySelector('[name="contact_phone"]').value,
+        };
+        
+        console.log('📦 Manual Service Request Form Data:', formData);
+        
+        // Validate required fields
+        if (!formData.equipment_id) {
+            alert('Please select equipment');
+            return;
+        }
+        if (!formData.issue_type) {
+            alert('Please select issue type');
+            return;
+        }
+        if (!formData.problem_description) {
+            alert('Please enter problem description');
+            return;
+        }
+        if (!formData.issue_start_time) {
+            alert('Please select when the issue started');
+            return;
+        }
+        if (!formData.contact_person) {
+            alert('Please enter contact person name');
+            return;
+        }
+        if (!formData.contact_phone) {
+            alert('Please enter contact phone number');
+            return;
+        }
+        
+        console.log('🚀 Sending manual service request to:', '{{ route("service-requests.store") }}');
+        
+        const response = await fetch('{{ route("service-requests.store") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        console.log('📨 Response status:', response.status);
+        
+        const data = await response.json();
+        console.log('📊 Response data:', data);
+        
+        if (data.success) {
+            alert(`Service request submitted successfully! Request ID: ${data.request_id}`);
+            closeModal('newRequestModal');
+            form.reset();
+            fetchServiceRequests(); // Refresh service requests list
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error submitting request');
+            }
+        }
+    } catch (error) {
+        console.error('❌ Manual Service Request Error:', error);
+        console.error('Error details:', error);
+        alert('Error submitting service request. Please check console for details.');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+    
+    async function handleEquipmentSubmit(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const submitBtn = document.getElementById('submitEquipment');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+    submitBtn.disabled = true;
+    
+    try {
+        const formData = new FormData(form);
+        
+        // Debug: Log form data
+        console.log('📦 Equipment Form Data:');
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+        
+        console.log('🚀 Sending request to:', '{{ route("equipment.store") }}');
+        
+        const response = await fetch('{{ route("equipment.store") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: formData
+        });
+        
+        console.log('📨 Response status:', response.status);
+        console.log('📨 Response OK:', response.ok);
+        
+        const data = await response.json();
+        console.log('📊 Response data:', data);
+        
+        if (data.success) {
+            alert('Equipment added successfully!');
+            closeModal('addEquipmentModal');
+            form.reset();
+            fetchEquipmentData(); // Refresh equipment list
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error adding equipment');
+            }
+        }
+    } catch (error) {
+        console.error('❌ Equipment Error:', error);
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        alert('Network error occurred. Please check console for details and try again.');
+    } finally {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+    
+   async function handleServiceRequestSubmit(e) {
+    e.preventDefault();
+    console.log('🔧 Service Request form submission triggered');
+    
+    const form = e.target;
+    const submitBtn = document.getElementById('submitRequest');
+    
+    if (!submitBtn) {
+        console.error('❌ Submit button not found!');
+        alert('Error: Submit button not found');
+        return;
+    }
+    
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Debug: Log all form values before creating the object
+        console.log('📋 Current form values:');
+        console.log('- equipment_id:', form.elements['equipment_id'].value);
+        console.log('- issue_type:', form.elements['issue_type'].value);
+        console.log('- priority:', form.elements['priority'].value);
+        console.log('- problem_description:', form.elements['problem_description'].value);
+        console.log('- issue_start_time:', form.elements['issue_start_time'].value);
+        console.log('- contact_person:', form.elements['contact_person'].value);
+        console.log('- contact_phone:', form.elements['contact_phone'].value);
+        
+        // Collect form data as object - using the actual form values
+        const formData = {
+            equipment_id: form.elements['equipment_id'].value,
+            issue_type: form.elements['issue_type'].value,
+            priority: form.elements['priority'].value,
+            problem_description: form.elements['problem_description'].value,
+            issue_start_time: form.elements['issue_start_time'].value,
+            contact_person: form.elements['contact_person'].value,
+            contact_phone: form.elements['contact_phone'].value,
+        };
+        
+        console.log('📦 Service Request Form Data (Actual Input):', formData);
+        
+        // Validate that we have actual data (not empty)
+        if (!formData.equipment_id) {
+            alert('Please select equipment');
+            return;
+        }
+        if (!formData.problem_description) {
+            alert('Please enter problem description');
+            return;
+        }
+        
+        console.log('🚀 Sending service request to:', '{{ route("service-requests.store") }}');
+        
+        const response = await fetch('{{ route("service-requests.store") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        console.log('📨 Response status:', response.status);
+        
+        const data = await response.json();
+        console.log('📊 Response data:', data);
+        
+        if (data.success) {
+            alert(`Service request submitted successfully! Request ID: ${data.request_id}`);
+            closeModal('newRequestModal');
+            form.reset();
+            fetchServiceRequests(); // Refresh service requests list
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error submitting request');
+            }
+        }
+    } catch (error) {
+        console.error('❌ Service Request Error:', error);
+        console.error('Error details:', error);
+        alert('Error submitting service request. Please check console for details.');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+   async function deleteEquipment(equipmentId, equipmentName) {
+    if (!confirm(`Are you sure you want to delete "${equipmentName}"? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        console.log('Deleting equipment:', equipmentId);
+        
+        const response = await fetch(`/equipment/${equipmentId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-HTTP-Method-Override': 'DELETE'
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert('Equipment deleted successfully!');
+            fetchEquipmentData(); // Refresh the equipment list
+        } else {
+            alert(data.message || 'Error deleting equipment');
+        }
+    } catch (error) {
+        console.error('Error deleting equipment:', error);
+        alert('Error deleting equipment');
+    }
+}
+async function deleteServiceRequest(requestId, requestTitle) {
+    if (!confirm(`Are you sure you want to delete ${requestTitle}? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        console.log('Deleting service request:', requestId);
+        
+        const response = await fetch(`/service-requests/${requestId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-HTTP-Method-Override': 'DELETE'
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert('Service request deleted successfully!');
+            fetchServiceRequests(); // Refresh the service requests list
+        } else {
+            alert(data.message || 'Error deleting service request');
+        }
+    } catch (error) {
+        console.error('Error deleting service request:', error);
+        alert('Error deleting service request');
+    }
+}
+
+async function deleteCalibration(calibrationId, calibrationName) {
+    if (!confirm(`Are you sure you want to delete the calibration for "${calibrationName}"? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        console.log('Deleting calibration:', calibrationId);
+        
+        const response = await fetch(`/calibrations/${calibrationId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-HTTP-Method-Override': 'DELETE'
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert('Calibration deleted successfully!');
+            fetchCalibrations(); // Refresh the calibrations list
+        } else {
+            alert(data.message || 'Error deleting calibration');
+        }
+    } catch (error) {
+        console.error('Error deleting calibration:', error);
+        alert('Error deleting calibration');
+    }
+}
+
+    // Add this function to handle calibration submission
+async function handleCalibrationManual() {
+    console.log('🔧 Manual calibration submission triggered');
+    
+    const form = document.getElementById('calibrationForm');
+    const submitBtn = document.getElementById('newSubmitCalibrationBtn');
+    
+    if (!form || !submitBtn) {
+        console.error('❌ Calibration form or submit button not found!');
+        alert('Error: Form elements not found');
+        return;
+    }
+    
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scheduling...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Get form values
+        const formData = {
+            equipment_id: form.querySelector('[name="equipment_id"]').value,
+            calibration_type: form.querySelector('[name="calibration_type"]').value,
+            priority: form.querySelector('[name="priority"]').value,
+            preferred_date: form.querySelector('[name="preferred_date"]').value,
+            preferred_time: form.querySelector('[name="preferred_time"]').value,
+            special_requirements: form.querySelector('[name="special_requirements"]').value,
+            preferred_technician: form.querySelector('[name="preferred_technician"]').value,
+            is_urgent: form.querySelector('[name="is_urgent"]').checked ? 1 : 0,
+        };
+        
+        console.log('📦 Calibration Form Data:', formData);
+        
+        // Validate required fields
+        if (!formData.equipment_id) {
+            alert('Please select equipment');
+            return;
+        }
+        if (!formData.calibration_type) {
+            alert('Please select calibration type');
+            return;
+        }
+        if (!formData.preferred_date) {
+            alert('Please select preferred date');
+            return;
+        }
+        if (!formData.preferred_time) {
+            alert('Please select preferred time');
+            return;
+        }
+        
+        console.log('🚀 Sending calibration request to:', '{{ route("calibrations.store") }}');
+        
+        const response = await fetch('{{ route("calibrations.store") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        console.log('📨 Response status:', response.status);
+        
+        const data = await response.json();
+        console.log('📊 Response data:', data);
+        
+        if (data.success) {
+            alert('Calibration scheduled successfully!');
+            closeModal('scheduleCalibrationModal');
+            form.reset();
+            fetchCalibrations(); // Refresh calibrations list
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error scheduling calibration');
+            }
+        }
+    } catch (error) {
+        console.error('❌ Calibration Error:', error);
+        console.error('Error details:', error);
+        alert('Error scheduling calibration. Please check console for details.');
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Update the existing handleCalibrationSubmit function
+async function handleCalibrationSubmit(e) {
+    e.preventDefault();
+    console.log('🔧 Calibration form submission triggered');
+    
+    const form = e.target;
+    const submitBtn = document.getElementById('submitCalibration');
+    
+    if (!submitBtn) {
+        console.error('❌ Calibration submit button not found!');
+        // Fall back to manual submission
+        await handleCalibrationManual();
+        return;
+    }
+    
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scheduling...';
+    submitBtn.disabled = true;
+    
+    try {
+        const formData = new FormData(form);
+        // Handle checkbox separately
+        const isUrgentCheckbox = document.getElementById('urgentCalibration');
+        if (isUrgentCheckbox) {
+            formData.set('is_urgent', isUrgentCheckbox.checked ? '1' : '0');
+        }
+        
+        console.log('📦 Calibration FormData:', Object.fromEntries(formData.entries()));
+        
+        const response = await fetch('{{ route("calibrations.store") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: formData
+        });
+        
+        console.log('📨 Response status:', response.status);
+        
+        const data = await response.json();
+        console.log('📊 Response data:', data);
+        
+        if (data.success) {
+            alert('Calibration scheduled successfully!');
+            closeModal('scheduleCalibrationModal');
+            form.reset();
+            fetchCalibrations();
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error scheduling calibration');
+            }
+        }
+    } catch (error) {
+        console.error('❌ Calibration Error:', error);
+        alert('Error scheduling calibration: ' + error.message);
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+    // ========== HELPER FUNCTIONS ==========
+    
+    function getEquipmentIcon(type) {
+        const icons = {
+            'analyzer': 'fas fa-microscope',
+            'centrifuge': 'fas fa-cogs',
+            'monitor': 'fas fa-heartbeat',
+            'ventilator': 'fas fa-wind',
+            'ultrasound': 'fas fa-wave-square',
+            'default': 'fas fa-cube'
+        };
+        return icons[type] || icons.default;
+    }
+    
+    function getEquipmentIconColor(status) {
+        const colors = {
+            'operational': 'bg-green-100',
+            'maintenance': 'bg-yellow-100',
+            'attention': 'bg-red-100',
+            'default': 'bg-blue-100'
+        };
+        return colors[status] || colors.default;
+    }
+    
+    function getEquipmentIconColorClass(status) {
+        const colors = {
+            'operational': 'text-green-600',
+            'maintenance': 'text-yellow-600',
+            'attention': 'text-red-600',
+            'default': 'text-blue-600'
+        };
+        return colors[status] || colors.default;
+    }
+    
+    function getStatusBadgeClass(status) {
+        const classes = {
+            'operational': 'status-operational',
+            'maintenance': 'status-maintenance',
+            'attention': 'status-attention',
+            'pending': 'status-attention',
+            'in_progress': 'status-maintenance',
+            'completed': 'status-operational',
+            'scheduled': 'status-maintenance',
+            'due_soon': 'status-attention',
+            'overdue': 'status-attention'
+        };
+        return classes[status] || 'status-attention';
+    }
+    
+    function formatStatus(status) {
+        const statusMap = {
+            'operational': 'Operational',
+            'maintenance': 'Under Maintenance',
+            'attention': 'Needs Attention',
+            'pending': 'Pending',
+            'in_progress': 'In Progress',
+            'completed': 'Completed',
+            'scheduled': 'Scheduled',
+            'due_soon': 'Due Soon',
+            'overdue': 'Overdue'
+        };
+        return statusMap[status] || status;
+    }
+    
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        try {
+            return new Date(dateString).toLocaleDateString();
+        } catch (e) {
+            return 'N/A';
+        }
+    }
+    
+    function formatDateTime(dateString) {
+        if (!dateString) return 'N/A';
+        try {
+            return new Date(dateString).toLocaleString();
+        } catch (e) {
+            return 'N/A';
+        }
+    }
+    
+    function formatIssueType(issueType) {
+        const types = {
+            'mechanical': 'Mechanical Failure',
+            'electrical': 'Electrical Issue',
+            'software': 'Software Problem',
+            'calibration': 'Calibration Required',
+            'performance': 'Performance Issue',
+            'other': 'Other'
+        };
+        return types[issueType] || issueType;
+    }
+    
+    function formatPriority(priority) {
+        return priority.charAt(0).toUpperCase() + priority.slice(1);
+    }
+    
+    function getPriorityBadgeClass(priority) {
+        const classes = {
+            'low': 'status-operational',
+            'medium': 'status-maintenance',
+            'high': 'status-attention',
+            'urgent': 'status-attention'
+        };
+        return classes[priority] || 'status-attention';
+    }
+    
+    function formatCalibrationType(type) {
+        const types = {
+            'routine': 'Routine Calibration',
+            'preventive': 'Preventive Maintenance',
+            'corrective': 'Corrective Calibration',
+            'certification': 'Certification Calibration'
+        };
+        return types[type] || type;
+    }
+    
+    function formatCalibrationStatus(status) {
+        const statusMap = {
+            'scheduled': 'Scheduled',
+            'in_progress': 'In Progress',
+            'completed': 'Completed',
+            'due_soon': 'Due Soon',
+            'overdue': 'Overdue'
+        };
+        return statusMap[status] || status;
+    }
+    
+    function getCalibrationStatusBadgeClass(status) {
+        const classes = {
+            'scheduled': 'status-maintenance',
+            'in_progress': 'status-maintenance',
+            'completed': 'status-operational',
+            'due_soon': 'status-attention',
+            'overdue': 'status-attention'
+        };
+        return classes[status] || 'status-attention';
+    }
+    
+    function showLoading(elementId, message = 'Loading...') {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.innerHTML = `
+                <div class="text-center py-4 text-gray-500">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    ${message}
+                </div>
+            `;
+        }
+    }
+    
+    function hideLoading(elementId) {
+        // Loading will be replaced by actual content
+    }
+    
+    function showError(elementId, message) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.innerHTML = `
+                <div class="text-center py-4 text-red-500">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    ${message}
+                </div>
+            `;
+        }
+    }
+
+    // ========== ANIMATION AND RESPONSIVE HANDLING ==========
+    
+    function initializeAnimations() {
         // Animation on scroll
         const observerOptions = {
             threshold: 0.1,
@@ -2409,155 +5772,378 @@
         }, observerOptions);
         
         // Observe elements with animation classes
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.slide-up, .fade-in');
-            animatedElements.forEach(el => {
-                // Set animation to paused initially
-                el.style.animationPlayState = 'paused';
-                observer.observe(el);
-            });
+        const animatedElements = document.querySelectorAll('.slide-up, .fade-in');
+        animatedElements.forEach(el => {
+            // Set animation to paused initially
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
         });
-        
-        // Responsive adjustments
-        function handleResize() {
-            if (window.innerWidth >= 1024) {
-                sidebar.classList.remove('mobile-open');
-                sidebarOverlay.classList.remove('active');
-            }
-        }
-        
+    }
+    
+    function setupResponsiveHandling() {
         window.addEventListener('resize', handleResize);
+    }
+    
+    function handleResize() {
+        if (window.innerWidth >= 1024) {
+            closeMobileSidebar();
+        }
+    }
 
-        // Modal Functionality
-        const addEquipmentModal = document.getElementById('addEquipmentModal');
-        const newRequestModal = document.getElementById('newRequestModal');
-        const scheduleCalibrationModal = document.getElementById('scheduleCalibrationModal');
+    // ========== GLOBAL FUNCTIONS (for HTML onclick handlers) ==========
+    
+    // Make these functions available globally for onclick handlers
+    window.openModal = openModal;
+    window.closeModal = closeModal;
 
-        // Get all buttons that should open modals
-        const addEquipmentBtns = [
-            document.getElementById('addEquipmentBtn'),
-            document.getElementById('addEquipmentBtn2'),
-            document.getElementById('addEquipmentBtn3')
-        ];
+    console.log('✅ Dashboard JavaScript loaded successfully');
+
+    // Temporary test function - remove after debugging
+async function testServiceRequestSubmission() {
+    console.log('🧪 Testing service request submission...');
+    
+    const form = document.getElementById('requestForm');
+    if (!form) {
+        console.error('❌ Service request form not found for test');
+        return;
+    }
+    
+    // Fill with test data
+    form.elements['equipment_id'].value = '1'; // Use an existing equipment ID
+    form.elements['issue_type'].value = 'mechanical';
+    form.elements['priority'].value = 'medium';
+    form.elements['problem_description'].value = 'Test problem description';
+    form.elements['issue_start_time'].value = '2024-01-23T10:00';
+    form.elements['contact_person'].value = 'Test User';
+    form.elements['contact_phone'].value = '123-456-7890';
+    
+    console.log('✅ Test data filled, triggering submission...');
+    
+    // Trigger form submission
+    const submitEvent = new Event('submit', { cancelable: true });
+    form.dispatchEvent(submitEvent);
+}
+
+function updateEquipmentUI(equipment) {
+    const equipmentGrid = document.getElementById('equipmentGrid');
+    
+    if (!equipmentGrid) return;
+    
+    hideLoading('equipmentGrid');
+    
+    if (!equipment || equipment.length === 0) {
+        equipmentGrid.innerHTML = `
+            <div class="col-span-3 text-center py-8 text-gray-500">
+                <i class="fas fa-microscope fa-2x mb-2"></i>
+                <p>No equipment found</p>
+                <button class="btn btn-primary btn-sm mt-2" onclick="openModal('addEquipmentModal')">
+                    <i class="fas fa-plus mr-1"></i>
+                    Add Your First Equipment
+                </button>
+            </div>
+        `;
+        return;
+    }
+    
+    equipmentGrid.innerHTML = equipment.map(item => `
+        <div class="card">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 ${getEquipmentIconColor(item.status)} rounded-lg flex items-center justify-center mr-3">
+                    <i class="${getEquipmentIcon(item.type)} ${getEquipmentIconColorClass(item.status)}"></i>
+                </div>
+                <div>
+                    <h3 class="font-semibold">${item.name}</h3>
+                    <p class="text-sm text-gray-500">${item.model}</p>
+                    <p class="text-xs text-gray-400">${item.serial_number}</p>
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="status-badge ${getStatusBadgeClass(item.status)}">${formatStatus(item.status)}</span>
+                <div class="flex gap-1">
+                    <button class="btn btn-outline btn-sm view-equipment" data-id="${item.id}" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-outline btn-sm edit-equipment" data-id="${item.id}" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline btn-sm delete-equipment" data-id="${item.id}" data-name="${item.name}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Add event listeners for equipment buttons
+    attachEquipmentEventListeners();
+}
+
+function attachEquipmentEventListeners() {
+    // View equipment buttons - now opens details modal
+    document.querySelectorAll('.view-equipment').forEach(button => {
+        button.addEventListener('click', function() {
+            const equipmentId = this.getAttribute('data-id');
+            viewEquipment(equipmentId);
+        });
+    });
+    
+    // Edit equipment buttons
+    document.querySelectorAll('.edit-equipment').forEach(button => {
+        button.addEventListener('click', function() {
+            const equipmentId = this.getAttribute('data-id');
+            editEquipment(equipmentId);
+        });
+    });
+    
+    // Delete equipment buttons
+    document.querySelectorAll('.delete-equipment').forEach(button => {
+        button.addEventListener('click', function() {
+            const equipmentId = this.getAttribute('data-id');
+            const equipmentName = this.getAttribute('data-name');
+            deleteEquipment(equipmentId, equipmentName);
+        });
+    });
+}
+
+async function editEquipment(equipmentId) {
+    try {
+        console.log('Editing equipment:', equipmentId);
         
-        const newRequestBtns = [
-            document.getElementById('newRequestBtn'),
-            document.getElementById('newRequestBtn2')
-        ];
+        const response = await fetch(`/equipment/${equipmentId}/edit`);
+        const data = await response.json();
         
-        const scheduleCalibrationBtn = document.getElementById('scheduleCalibrationBtn');
-
-        // Close buttons
-        const closeEquipmentModal = document.getElementById('closeEquipmentModal');
-        const closeRequestModal = document.getElementById('closeRequestModal');
-        const closeCalibrationModal = document.getElementById('closeCalibrationModal');
-
-        // Cancel buttons
-        const cancelEquipment = document.getElementById('cancelEquipment');
-        const cancelRequest = document.getElementById('cancelRequest');
-        const cancelCalibration = document.getElementById('cancelCalibration');
-
-        // Submit buttons
-        const submitEquipment = document.getElementById('submitEquipment');
-        const submitRequest = document.getElementById('submitRequest');
-        const submitCalibration = document.getElementById('submitCalibration');
-
-        // Function to open modal
-        function openModal(modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Function to close modal
-        function closeModal(modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Add event listeners for equipment modal
-        addEquipmentBtns.forEach(btn => {
-            if (btn) {
-                btn.addEventListener('click', () => openModal(addEquipmentModal));
+        if (data.success) {
+            const equipment = data.equipment;
+            
+            // Populate the edit form
+            document.getElementById('edit_equipment_id').value = equipment.id;
+            document.getElementById('edit_equipment_name').value = equipment.name;
+            document.getElementById('edit_equipment_model').value = equipment.model;
+            document.getElementById('edit_equipment_serial').value = equipment.serial_number;
+            document.getElementById('edit_equipment_manufacturer').value = equipment.manufacturer;
+            
+            // Format dates for HTML input (YYYY-MM-DD)
+            if (equipment.purchase_date) {
+                const purchaseDate = new Date(equipment.purchase_date);
+                const formattedPurchaseDate = purchaseDate.toISOString().split('T')[0];
+                document.getElementById('edit_equipment_purchase_date').value = formattedPurchaseDate;
             }
+            
+            if (equipment.warranty_expiry) {
+                const warrantyDate = new Date(equipment.warranty_expiry);
+                const formattedWarrantyDate = warrantyDate.toISOString().split('T')[0];
+                document.getElementById('edit_equipment_warranty').value = formattedWarrantyDate;
+            }
+            
+            document.getElementById('edit_equipment_location').value = equipment.location_department;
+            document.getElementById('edit_equipment_status').value = equipment.status;
+            document.getElementById('edit_equipment_notes').value = equipment.notes || '';
+            
+            // Open the edit modal
+            openModal('editEquipmentModal');
+            
+            // Setup update button
+            setupEquipmentUpdate();
+            
+        } else {
+            alert('Error loading equipment data: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading equipment for edit:', error);
+        alert('Error loading equipment data');
+    }
+}
+
+async function editServiceRequest(requestId) {
+    try {
+        console.log('🔄 Editing service request:', requestId);
+        
+        const response = await fetch(`/service-requests/${requestId}/edit`);
+        const data = await response.json();
+        
+        console.log('📦 Service request data received:', data);
+        
+        if (data.success) {
+            const request = data.request;
+            console.log('🔧 Request equipment_id:', request.equipment_id);
+            
+            // Load equipment options FIRST and wait for completion
+            console.log('📥 Loading equipment options...');
+            await loadEquipmentOptionsForEdit();
+            console.log('✅ Equipment options loaded');
+            
+            // Now populate the form
+            console.log('🔄 Populating form fields...');
+            document.getElementById('edit_request_id').value = request.id;
+            
+            // Set equipment value AFTER options are loaded
+            const equipmentSelect = document.getElementById('edit_request_equipment');
+            console.log('🎯 Equipment select element:', equipmentSelect);
+            console.log('🎯 Equipment options count:', equipmentSelect.options.length);
+            
+            equipmentSelect.value = request.equipment_id;
+            console.log('🎯 Equipment value set to:', equipmentSelect.value);
+            
+            document.getElementById('edit_request_issue_type').value = request.issue_type;
+            document.getElementById('edit_request_priority').value = request.priority;
+            document.getElementById('edit_request_description').value = request.problem_description;
+            
+            // Format datetime
+            if (request.issue_start_time) {
+                const issueStartTime = new Date(request.issue_start_time);
+                const timezoneOffset = issueStartTime.getTimezoneOffset() * 60000;
+                const localTime = new Date(issueStartTime.getTime() - timezoneOffset);
+                const formattedTime = localTime.toISOString().slice(0, 16);
+                document.getElementById('edit_request_start_time').value = formattedTime;
+            }
+            
+            document.getElementById('edit_request_contact_person').value = request.contact_person;
+            document.getElementById('edit_request_contact_phone').value = request.contact_phone;
+            document.getElementById('edit_request_status').value = request.status;
+            
+            console.log('✅ Form populated successfully');
+            
+            // Open the edit modal
+            openModal('editRequestModal');
+            setupServiceRequestUpdate();
+            
+        } else {
+            alert('Error loading service request data: ' + data.message);
+        }
+    } catch (error) {
+        console.error('❌ Error loading service request for edit:', error);
+        alert('Error loading service request data');
+    }
+}
+
+function setupEquipmentUpdate() {
+    const updateBtn = document.getElementById('updateEquipmentBtn');
+    const form = document.getElementById('editEquipmentForm');
+    
+    if (updateBtn && form) {
+        // Remove existing listeners
+        updateBtn.replaceWith(updateBtn.cloneNode(true));
+        const freshUpdateBtn = document.getElementById('updateEquipmentBtn');
+        
+        freshUpdateBtn.addEventListener('click', async function() {
+            await updateEquipment();
         });
+    }
+}
 
-        // Add event listeners for service request modal
-        newRequestBtns.forEach(btn => {
-            if (btn) {
-                btn.addEventListener('click', () => openModal(newRequestModal));
-            }
+async function updateEquipment() {
+    const form = document.getElementById('editEquipmentForm');
+    const updateBtn = document.getElementById('updateEquipmentBtn');
+    const equipmentId = document.getElementById('edit_equipment_id').value;
+    
+    if (!form || !updateBtn || !equipmentId) {
+        alert('Error: Form data missing');
+        return;
+    }
+    
+    const originalText = updateBtn.innerHTML;
+    updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+    updateBtn.disabled = true;
+    
+    try {
+        const formData = new FormData(form);
+        
+        console.log('Updating equipment:', equipmentId);
+        
+        const response = await fetch(`/equipment/${equipmentId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-HTTP-Method-Override': 'PUT'
+            },
+            body: formData
         });
-
-        // Add event listener for calibration modal
-        if (scheduleCalibrationBtn) {
-            scheduleCalibrationBtn.addEventListener('click', () => openModal(scheduleCalibrationModal));
-        }
-
-        // Close modal events
-        if (closeEquipmentModal) {
-            closeEquipmentModal.addEventListener('click', () => closeModal(addEquipmentModal));
-        }
-        if (closeRequestModal) {
-            closeRequestModal.addEventListener('click', () => closeModal(newRequestModal));
-        }
-        if (closeCalibrationModal) {
-            closeCalibrationModal.addEventListener('click', () => closeModal(scheduleCalibrationModal));
-        }
-
-        // Cancel button events
-        if (cancelEquipment) {
-            cancelEquipment.addEventListener('click', () => closeModal(addEquipmentModal));
-        }
-        if (cancelRequest) {
-            cancelRequest.addEventListener('click', () => closeModal(newRequestModal));
-        }
-        if (cancelCalibration) {
-            cancelCalibration.addEventListener('click', () => closeModal(scheduleCalibrationModal));
-        }
-
-        // Submit button events
-        if (submitEquipment) {
-            submitEquipment.addEventListener('click', (e) => {
-                e.preventDefault();
-                // In a real application, you would submit the form data here
-                alert('Equipment added successfully!');
-                closeModal(addEquipmentModal);
-                document.getElementById('equipmentForm').reset();
-            });
-        }
-
-        if (submitRequest) {
-            submitRequest.addEventListener('click', (e) => {
-                e.preventDefault();
-                // In a real application, you would submit the form data here
-                alert('Service request submitted successfully!');
-                closeModal(newRequestModal);
-                document.getElementById('requestForm').reset();
-            });
-        }
-
-        if (submitCalibration) {
-            submitCalibration.addEventListener('click', (e) => {
-                e.preventDefault();
-                // In a real application, you would submit the form data here
-                alert('Calibration scheduled successfully!');
-                closeModal(scheduleCalibrationModal);
-                document.getElementById('calibrationForm').reset();
-            });
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === addEquipmentModal) {
-                closeModal(addEquipmentModal);
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('Equipment updated successfully!');
+            closeModal('editEquipmentModal');
+            fetchEquipmentData(); // Refresh the list
+        } else {
+            if (data.errors) {
+                let errorMessage = 'Please fix the following errors:\n';
+                for (const field in data.errors) {
+                    errorMessage += `- ${data.errors[field][0]}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(data.message || 'Error updating equipment');
             }
-            if (e.target === newRequestModal) {
-                closeModal(newRequestModal);
-            }
-            if (e.target === scheduleCalibrationModal) {
-                closeModal(scheduleCalibrationModal);
-            }
-        });
-    </script>
+        }
+    } catch (error) {
+        console.error('Error updating equipment:', error);
+        alert('Error updating equipment');
+    } finally {
+        updateBtn.innerHTML = originalText;
+        updateBtn.disabled = false;
+    }
+}
+
+async function viewEquipment(equipmentId) {
+    try {
+        console.log('Viewing equipment details:', equipmentId);
+        
+        const response = await fetch(`/equipment/${equipmentId}/edit`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const equipment = data.equipment;
+            
+            // Populate the view modal
+            document.getElementById('view_equipment_name').textContent = equipment.name;
+            document.getElementById('view_equipment_model').textContent = `Model: ${equipment.model}`;
+            document.getElementById('view_equipment_serial').textContent = `Serial: ${equipment.serial_number}`;
+            
+            // Status badge
+            const statusBadge = document.getElementById('view_equipment_status');
+            statusBadge.textContent = formatStatus(equipment.status);
+            statusBadge.className = `status-badge text-sm ${getStatusBadgeClass(equipment.status)}`;
+            
+            // Equipment details
+            document.getElementById('view_equipment_manufacturer').textContent = equipment.manufacturer || 'Not specified';
+            document.getElementById('view_equipment_location').textContent = equipment.location_department || 'Not specified';
+            document.getElementById('view_equipment_purchase_date').textContent = formatDate(equipment.purchase_date) || 'Not specified';
+            document.getElementById('view_equipment_warranty').textContent = formatDate(equipment.warranty_expiry) || 'No warranty';
+            document.getElementById('view_equipment_type').textContent = equipment.type || 'General Equipment';
+            document.getElementById('view_equipment_last_service').textContent = equipment.last_service_date ? formatDate(equipment.last_service_date) : 'No service recorded';
+            document.getElementById('view_equipment_notes').textContent = equipment.notes || 'No additional notes provided.';
+            
+            // Equipment health
+            document.getElementById('view_health_status').textContent = formatStatus(equipment.status);
+            const healthBar = document.getElementById('view_health_bar');
+            healthBar.className = `h-2 rounded-full ${getHealthBarClass(equipment.status)}`;
+            healthBar.style.width = getHealthBarWidth(equipment.status);
+            
+            // Quick stats (you can enhance these with real data later)
+            document.getElementById('view_service_requests').textContent = '0'; // Placeholder
+            document.getElementById('view_calibrations').textContent = '0'; // Placeholder
+            document.getElementById('view_uptime').textContent = '98%'; // Placeholder
+            
+            // Timeline
+            document.getElementById('view_created_at').textContent = formatDateTime(equipment.created_at);
+            document.getElementById('view_updated_at').textContent = formatDateTime(equipment.updated_at);
+            
+            // Set up the edit button in the view modal
+            setupEquipmentViewModalEditButton(equipmentId);
+            
+            // Open the view modal
+            openModal('viewEquipmentModal');
+            
+        } else {
+            alert('Error loading equipment details: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error loading equipment details:', error);
+        alert('Error loading equipment details');
+    }
+}
+
+</script>
 </body>
 </html>
