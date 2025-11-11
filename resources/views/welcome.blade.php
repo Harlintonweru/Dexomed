@@ -740,17 +740,44 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .carousel-container {
-                height: 100px;
+                height: 500px;
             }
 
             .carousel-overlay {
-                background: linear-gradient(to bottom, rgba(59, 59, 59, 0.32) 0%, rgba(59, 59, 59, 0.3) 50%, rgba(59, 59, 59, 0.3) 100%);
-                align-items: flex-end;
-                padding-bottom: 0px;
+                background: linear-gradient(to bottom, rgba(59, 59, 59, 0.4) 0%, rgba(59, 59, 59, 0.3) 50%, rgba(59, 59, 59, 0.4) 100%);
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                padding-top: 80px;
+                /* Added padding to prevent content hiding behind nav */
             }
 
             .carousel-content {
                 text-align: center;
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .carousel-content h2 {
+                font-size: 1.75rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+
+            .carousel-content p {
+                font-size: 1rem;
+                line-height: 1.4;
+                margin-bottom: 1.5rem;
+            }
+
+            .carousel-content .flex {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .carousel-content .inline-block {
+                padding: 10px 16px;
+                font-size: 0.875rem;
             }
 
             .carousel-nav {
@@ -762,12 +789,12 @@
                 bottom: 15px;
                 right: 15px;
             }
-            
+
             .theme-toggle-btn {
                 width: 45px;
                 height: 45px;
             }
-            
+
             .theme-icon {
                 font-size: 16px;
             }
@@ -779,6 +806,98 @@
             .section-with-bg {
                 background-attachment: scroll;
             }
+
+            /* Quick Stats adjustments for mobile */
+            .page-container.px-6.-mt-10 {
+                margin-top: -20px;
+            }
+
+            .grid.grid-cols-2.md\\:grid-cols-4.gap-4 {
+                gap: 8px;
+            }
+
+            .stat-item {
+                padding: 12px 8px;
+            }
+
+            .stat-item .text-3xl {
+                font-size: 1.5rem;
+            }
+
+            .stat-item .text-sm {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-container {
+                height: 450px;
+            }
+
+            .carousel-overlay {
+                padding-top: 70px;
+                padding: 15px;
+            }
+
+            .carousel-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .carousel-content p {
+                font-size: 0.9rem;
+            }
+
+            .carousel-content .flex {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .carousel-content .inline-block {
+                width: 100%;
+                max-width: 200px;
+                text-align: center;
+            }
+
+            .fixed-theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .theme-toggle-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            /* Further adjustments for very small screens */
+            .carousel-indicators {
+                bottom: 10px;
+            }
+
+            .carousel-nav {
+                width: 35px;
+                height: 35px;
+            }
+
+            .carousel-prev {
+                left: 10px;
+            }
+
+            .carousel-next {
+                right: 10px;
+            }
+        }
+
+        /* Additional mobile-specific fixes */
+        @media (max-width: 640px) {
+            .carousel-content {
+                transform: translateY(0);
+                /* Reset any transforms that might cause hiding */
+            }
+
+            /* Ensure content doesn't get hidden behind navigation */
+            #home {
+                padding-top: 0;
+            }
         }
 
         @media (max-width: 480px) {
@@ -786,7 +905,7 @@
                 bottom: 10px;
                 right: 10px;
             }
-            
+
             .theme-toggle-btn {
                 width: 40px;
                 height: 40px;
@@ -842,9 +961,9 @@
                     <nav class="hidden md:flex items-center gap-4 text-sm">
                         <a class="nav-link active" href="#" onclick="showPage('home')">Home</a>
                         <a class="nav-link" href="#" onclick="showPage('about-us')">About Us</a>
-                        <a class="nav-link" href="#"
-                            onclick="showPage('home'); scrollToSection('services')">Products & Services</a>
-                            <a class="nav-link" href="#" onclick="showPage('health-systems')">Health Managment Systems</a>
+                        <a class="nav-link" href="#" onclick="showPage('home'); scrollToSection('services')">Products &
+                            Services</a>
+                        <a class="nav-link" href="#" onclick="showPage('health-systems')">Health Managment Systems</a>
                         <a class="nav-link" href="#" onclick="showPage('home'); scrollToSection('contact')">Contact
                             Us</a>
 
@@ -881,8 +1000,9 @@
                         Us</a>
                     <a class="text-sm py-2 border-b dark:border-gray-800" href="#"
                         onclick="showPage('home'); scrollToSection('services')">Products & Services</a>
-                    <a class="text-sm py-2 border-b dark:border-gray-800" href="#" onclick="showPage('health-systems')">Health Managment Systems</a>
-                    
+                    <a class="text-sm py-2 border-b dark:border-gray-800" href="#"
+                        onclick="showPage('health-systems')">Health Managment Systems</a>
+
                     <a class="text-sm py-2 border-b dark:border-gray-800" href="#"
                         onclick="showPage('home'); scrollToSection('calibration')">Calibration & Standardization</a>
                     <a class="text-sm py-2 border-b dark:border-gray-800" href="#"
@@ -918,11 +1038,13 @@
                             style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
-                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Calibration and Standardization</h2>
+                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Calibration and
+                                        Standardization</h2>
                                     <p class="mt-4 text-lg opacity-90">
-                                        We provide precise, standard-compliant calibration to ensure your equipment delivers consistent, accurate performance.
+                                        Ensure precision and compliance with our comprehensive calibration services. We
+                                        follow international standards to guarantee your equipment performs accurately
+                                        and consistently.
                                     </p>
-
                                     <div class="mt-6 flex flex-wrap gap-3">
                                         <a href="#calibration"
                                             class="inline-block px-6 py-3 rounded-md bg-white text-dexomed-700 font-medium shadow hover:bg-gray-100 transition-colors">Calibration
@@ -936,15 +1058,17 @@
                             <div class="loading-bar">
                                 <div class="loading-progress"></div>
                             </div>
-    </div>
                         </div>
 
                         <!-- Slide 2: Equipment Servicing and Preventive Maintenance -->
-                        <div class="carousel-slide" style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')">
+                        <div class="carousel-slide"
+                            style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
-                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Servicing and Preventive Maintenance</h2>
-                                    <p class="mt-4 text-lg opacity-90"> Extend equipment life and reduce downtime with our tailored servicing and preventive maintenance programs. </p>
+                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Servicing and
+                                        Preventive Maintenance</h2>
+                                    <p class="mt-4 text-lg opacity-90">Maximize equipment lifespan and minimize downtime with our comprehensive
+                                        servicing and preventive maintenance programs tailored to your specific needs.</p>
                                     <div class="mt-6 flex flex-wrap gap-3">
                                         <a href="#maintenance"
                                             class="inline-block px-6 py-3 rounded-md bg-white text-dexomed-700 font-medium shadow hover:bg-gray-100 transition-colors">Maintenance
@@ -991,7 +1115,8 @@
                             style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
-                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Supply of Medical Equipments and Consumables</h2>
+                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Supply of Medical Equipment
+                                        and Consumables</h2>
                                     <p class="mt-4 text-lg opacity-90">
                                         Source high-quality medical equipment from reputable manufacturers with
                                         professional installation services to ensure optimal performance from day one.
@@ -1010,6 +1135,7 @@
                                 <div class="loading-progress"></div>
                             </div>
                         </div>
+
 
                         <!-- Carousel Navigation -->
                         <div class="carousel-nav carousel-prev">
@@ -1076,7 +1202,16 @@
                                 <h3 class="text-3xl md:text-4xl font-bold text-white">About Dexomed Biologicals Group
                                 </h3>
                                 <p class="mt-4 text-lg text-gray-200 max-w-2xl mx-auto">
-                                    <strong>Dexomed Biologicals Group Ltd.</strong> is a leading provider of biomedical engineering, calibration, and diagnostic technology solutions in Kenya. We specialize in the servicing, repair, and calibration of medical and laboratory equipment to ensure accuracy, compliance, and optimal performance in healthcare and industrial environments. Our expertise extends across clinical, pharmaceutical, and research institutions, where we provide reliable systems that guarantee accurate results for improved service delivery. With a team of certified professionals and a deep understanding of both local and international standards, Dexomed ensures that every piece of equipment entrusted to us meets the highest benchmarks of precision and reliability.
+                                    <strong>Dexomed Biologicals Group Ltd.</strong> is a leading provider of biomedical
+                                    engineering, calibration, and diagnostic technology solutions in Kenya. We
+                                    specialize in the servicing, repair, and calibration of medical and laboratory
+                                    equipment to ensure accuracy, compliance, and optimal performance in healthcare and
+                                    industrial environments. Our expertise extends across clinical, pharmaceutical, and
+                                    research institutions, where we provide reliable systems that guarantee accurate
+                                    results for improved service delivery. With a team of certified professionals and a
+                                    deep understanding of both local and international standards, Dexomed ensures that
+                                    every piece of equipment entrusted to us meets the highest benchmarks of precision
+                                    and reliability.
 
                                 </p>
                             </div>
@@ -1084,12 +1219,13 @@
                             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
 
-                            <!-- Our Vision Card -->
+                                <!-- Our Vision Card -->
                                 <div
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
+                                    </div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-award"></i>
@@ -1097,7 +1233,9 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Vision</h4>
                                             <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                                To be Africa's leading partner in biomedical technology, quality systems, and health innovation, driving excellence, reliability, and sustainability in healthcare delivery.
+                                                To be Africa's leading partner in biomedical technology, quality
+                                                systems, and health innovation, driving excellence, reliability, and
+                                                sustainability in healthcare delivery.
 
                                             </p>
                                         </div>
@@ -1124,9 +1262,12 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Mission</h4>
                                             <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                                To empower healthcare and research institutions through high-quality biomedical engineering services, reliable equipment supply, and innovative health management systems that enhance accuracy, efficiency, and patient safety.
+                                                To empower healthcare and research institutions through high-quality
+                                                biomedical engineering services, reliable equipment supply, and
+                                                innovative health management systems that enhance accuracy, efficiency,
+                                                and patient safety.
                                             </p>
-                                            
+
                                         </div>
                                         <div class="about-card-button">
                                         </div>
@@ -1137,7 +1278,7 @@
                                     </a>
                                 </div>
 
-                                
+
 
                                 <!-- Our Values Card -->
                                 <div
@@ -1262,7 +1403,8 @@
                                                 class="enhanced-card-icon group-hover:bg-dexomed-500 group-hover:text-white transition-all duration-300">
                                                 <i class="fas fa-cube"></i>
                                             </div>
-                                            <h4 class="text-lg font-bold mb-4 text-center">Supply of Medical Equipments and Consumables</h4>
+                                            <h4 class="text-lg font-bold mb-4 text-center">Supply of Medical Equipments
+                                                and Consumables</h4>
                                             <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                                                 Source high-quality medical equipment from reputable manufacturers with
                                                 professional installation services to ensure optimal performance from
@@ -1280,160 +1422,216 @@
                             </div>
 
                             <!-- Equipment Categories Section -->
-<div class="mt-16">
-    <h4 class="text-2xl md:text-3xl font-bold text-center text-white mb-8">Equipments We Service</h4>
-    <div class="grid md:grid-cols-3 gap-8">
-        <!-- Medical Equipment Card -->
-        <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
-            </div>
-            <div class="enhanced-card-content">
-                <div class="enhanced-card-icon">
-                    <i class="fas fa-hospital"></i>
-                </div>
-                <h4 class="text-xl font-bold mb-6">Medical Equipment</h4>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-heartbeat text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Patient Monitors</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-lungs text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Ventilators</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-bolt text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Defibrillators</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-tint text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Infusion Pumps</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-procedures text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Anesthesia Machines</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-heart text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">ECG Machines</span>
-                    </div>
-                </div>
-                <!-- "And Many More" Button inside card -->
-                <div class="flex justify-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <a href="{{ route('login') }}" 
-                       class="inline-block px-4 py-2 rounded-md bg-dexomed-500 text-white text-sm font-medium shadow hover:bg-dexomed-600 transition-colors">
-                        And Many More
-                    </a>
-                </div>
-            </div>
-        </div>
+                            <div class="mt-16">
+                                <h4 class="text-2xl md:text-3xl font-bold text-center text-white mb-8">Equipments We
+                                    Service</h4>
+                                <div class="grid md:grid-cols-3 gap-8">
+                                    <!-- Medical Equipment Card -->
+                                    <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-cover bg-center opacity-30"
+                                            style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
+                                        </div>
+                                        <div class="enhanced-card-content">
+                                            <div class="enhanced-card-icon">
+                                                <i class="fas fa-hospital"></i>
+                                            </div>
+                                            <h4 class="text-xl font-bold mb-6">Medical Equipment</h4>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-heartbeat text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Patient
+                                                        Monitors</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-lungs text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Ventilators</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-bolt text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Defibrillators</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-tint text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Infusion
+                                                        Pumps</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-procedures text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Anesthesia
+                                                        Machines</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-heart text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">ECG
+                                                        Machines</span>
+                                                </div>
+                                            </div>
+                                            <!-- "And Many More" Button inside card -->
+                                            <div
+                                                class="flex justify-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <a href="{{ route('login') }}"
+                                                    class="inline-block px-4 py-2 rounded-md bg-dexomed-500 text-white text-sm font-medium shadow hover:bg-dexomed-600 transition-colors">
+                                                    And Many More
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <!-- Laboratory & Research Card -->
-        <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
-            </div>
-            <div class="enhanced-card-content">
-                <div class="enhanced-card-icon">
-                    <i class="fas fa-microscope"></i>
-                </div>
-                <h4 class="text-xl font-bold mb-6">Laboratory & Research</h4>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-vial text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Laboratory Analyzers</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-sync-alt text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Centrifuges</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-temperature-high text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Incubators</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-sterilization text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Autoclaves</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-balance-scale text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Analytical Balances</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-flask text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">DNA sequencers</span>
-                    </div>
-                </div>
-                <!-- "And Many More" Button inside card -->
-                <div class="flex justify-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <a href="{{ route('login') }}" 
-                       class="inline-block px-4 py-2 rounded-md bg-dexomed-500 text-white text-sm font-medium shadow hover:bg-dexomed-600 transition-colors">
-                        And Many More
-                    </a>
-                </div>
-            </div>
-        </div>
+                                    <!-- Laboratory & Research Card -->
+                                    <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-cover bg-center opacity-30"
+                                            style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
+                                        </div>
+                                        <div class="enhanced-card-content">
+                                            <div class="enhanced-card-icon">
+                                                <i class="fas fa-microscope"></i>
+                                            </div>
+                                            <h4 class="text-xl font-bold mb-6">Laboratory & Research</h4>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-vial text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Laboratory
+                                                        Analyzers</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-sync-alt text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Centrifuges</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-temperature-high text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Incubators</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-sterilization text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Autoclaves</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-balance-scale text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Analytical
+                                                        Balances</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-flask text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">DNA
+                                                        sequencers</span>
+                                                </div>
+                                            </div>
+                                            <!-- "And Many More" Button inside card -->
+                                            <div
+                                                class="flex justify-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <a href="{{ route('login') }}"
+                                                    class="inline-block px-4 py-2 rounded-md bg-dexomed-500 text-white text-sm font-medium shadow hover:bg-dexomed-600 transition-colors">
+                                                    And Many More
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <!-- Radiology and Imaging Card -->
-        <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')">
-            </div>
-            <div class="enhanced-card-content">
-                <div class="enhanced-card-icon">
-                    <i class="fas fa-x-ray"></i>
-                </div>
-                <h4 class="text-xl font-bold mb-6">Radiology and Imaging</h4>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-wave-square text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Ultrasound Machines</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-x-ray text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">X-ray Machines</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-magnet text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">MRI Systems</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-camera text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">CT Scanners</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-radiation text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Nuclear Medicine</span>
-                    </div>
-                    <div class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
-                        <i class="fas fa-image text-dexomed-500 mr-3"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Mammography Systems</span>
-                    </div>
-                </div>
-                <!-- "And Many More" Button inside card -->
-                <div class="flex justify-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <a href="{{ route('login') }}" 
-                       class="inline-block px-4 py-2 rounded-md bg-dexomed-500 text-white text-sm font-medium shadow hover:bg-dexomed-600 transition-colors">
-                        And Many More
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                    <!-- Radiology and Imaging Card -->
+                                    <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-cover bg-center opacity-30"
+                                            style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')">
+                                        </div>
+                                        <div class="enhanced-card-content">
+                                            <div class="enhanced-card-icon">
+                                                <i class="fas fa-x-ray"></i>
+                                            </div>
+                                            <h4 class="text-xl font-bold mb-6">Radiology and Imaging</h4>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-wave-square text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Ultrasound
+                                                        Machines</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-x-ray text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">X-ray
+                                                        Machines</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-magnet text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">MRI
+                                                        Systems</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-camera text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">CT
+                                                        Scanners</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-radiation text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Nuclear
+                                                        Medicine</span>
+                                                </div>
+                                                <div
+                                                    class="flex items-center bg-dexomed-50 dark:bg-dexomed-700 rounded-lg p-3">
+                                                    <i class="fas fa-image text-dexomed-500 mr-3"></i>
+                                                    <span
+                                                        class="text-gray-700 dark:text-gray-300 text-sm font-medium">Mammography
+                                                        Systems</span>
+                                                </div>
+                                            </div>
+                                            <!-- "And Many More" Button inside card -->
+                                            <div
+                                                class="flex justify-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <a href="{{ route('login') }}"
+                                                    class="inline-block px-4 py-2 rounded-md bg-dexomed-500 text-white text-sm font-medium shadow hover:bg-dexomed-600 transition-colors">
+                                                    And Many More
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- NEW SECTION: Supply of Medical Equipments and Consumables -->
-                <section id="medical-supplies" class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/services.png') }}')">
+                <section id="medical-supplies" class="py-20 section-with-bg"
+                    style="background-image: url('{{ asset('Img/services.png') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
-                            <h3 class="text-3xl md:text-4xl font-bold text-center text-white">Supply of Medical Equipment and Consumables</h3>
+                            <h3 class="text-3xl md:text-4xl font-bold text-center text-white">Supply of Medical
+                                Equipment and Consumables</h3>
                             <p class="mt-4 text-lg text-gray-200 text-center max-w-2xl mx-auto">
-                                We provide a comprehensive range of high-quality medical equipment, laboratory equipments, and consumables from reputable manufacturers worldwide.
+                                We provide a comprehensive range of high-quality medical equipment, laboratory
+                                equipments, and consumables from reputable manufacturers worldwide.
                             </p>
 
                             <div class="mt-12 grid md:grid-cols-3 gap-8">
@@ -1441,31 +1639,38 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
+                                    </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
                                             <i class="fas fa-stethoscope"></i>
                                         </div>
                                         <h4 class="text-xl font-bold mb-4">Medical Equipment</h4>
                                         <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                            We supply a wide range of medical equipment including patient monitors, ventilators, defibrillators, infusion pumps, anesthesia machines, and diagnostic imaging equipment.
+                                            We supply a wide range of medical equipment including patient monitors,
+                                            ventilators, defibrillators, infusion pumps, anesthesia machines, and
+                                            diagnostic imaging equipment.
                                         </p>
                                         <div class="grid grid-cols-2 gap-2 mt-4">
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Patient Monitors</span>
+                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Patient
+                                                    Monitors</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Ventilators</span>
+                                                <span
+                                                    class="text-gray-700 dark:text-gray-300 text-sm">Ventilators</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Defibrillators</span>
+                                                <span
+                                                    class="text-gray-700 dark:text-gray-300 text-sm">Defibrillators</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Infusion Pumps</span>
+                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Infusion
+                                                    Pumps</span>
                                             </div>
                                         </div>
                                         <a href="#contact"
@@ -1486,12 +1691,15 @@
                                         </div>
                                         <h4 class="text-xl font-bold mb-4">Laboratory Equipments</h4>
                                         <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                            Our laboratory equipment portfolio includes centrifuges, incubators, autoclaves, microscopes, spectrophotometers, and various analyzers for clinical and research applications.
+                                            Our laboratory equipment portfolio includes centrifuges, incubators,
+                                            autoclaves, microscopes, spectrophotometers, and various analyzers for
+                                            clinical and research applications.
                                         </p>
                                         <div class="grid grid-cols-2 gap-2 mt-4">
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Centrifuges</span>
+                                                <span
+                                                    class="text-gray-700 dark:text-gray-300 text-sm">Centrifuges</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
@@ -1524,24 +1732,30 @@
                                         </div>
                                         <h4 class="text-xl font-bold mb-4">Consumables & Supplies</h4>
                                         <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                            We provide a comprehensive range of medical consumables, laboratory reagents, disposables, and other supplies essential for healthcare operations and research activities.
+                                            We provide a comprehensive range of medical consumables, laboratory
+                                            reagents, disposables, and other supplies essential for healthcare
+                                            operations and research activities.
                                         </p>
                                         <div class="grid grid-cols-2 gap-2 mt-4">
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Laboratory Reagents</span>
+                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Laboratory
+                                                    Reagents</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Disposables</span>
+                                                <span
+                                                    class="text-gray-700 dark:text-gray-300 text-sm">Disposables</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Diagnostic Kits</span>
+                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Diagnostic
+                                                    Kits</span>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fas fa-check text-dexomed-500 mr-2 text-sm"></i>
-                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Protective Gear</span>
+                                                <span class="text-gray-700 dark:text-gray-300 text-sm">Protective
+                                                    Gear</span>
                                             </div>
                                         </div>
                                         <a href="#contact"
@@ -1560,7 +1774,8 @@
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
-                            <h3 class="text-3xl md:text-4xl font-bold text-center text-white">Calibration and Standardization Services</h3>
+                            <h3 class="text-3xl md:text-4xl font-bold text-center text-white">Calibration and
+                                Standardization Services</h3>
                             <p class="mt-4 text-lg text-gray-200 text-center max-w-2xl mx-auto">
                                 Our calibration services ensure that medical equipment performs accurately and
                                 consistently, meeting all regulatory standards.
@@ -1677,7 +1892,8 @@
                 </section>
 
                 <!-- ENHANCED MEDICAL SUPPLIES SECTION -->
-                <section id="supplies" class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/services.png') }}')">
+                <section id="supplies" class="py-20 section-with-bg"
+                    style="background-image: url('{{ asset('Img/services.png') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -1692,7 +1908,8 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
+                                    </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
                                             <i class="fas fa-stethoscope"></i>
@@ -1835,23 +2052,29 @@
                                 <div class="bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md">
                                     <h4 class="text-xl font-bold mb-6">Send us a Message</h4>
                                     <form action="" method="POST" class="space-y-4">
-    @csrf
-    <input type="text" name="name" placeholder="Enter your full name" class="contact-form-input" required>
-    <input type="email" name="email" placeholder="Enter your email address" class="contact-form-input" required>
-    <input type="text" name="subject" placeholder="What is this regarding?" class="contact-form-input" required>
-    <textarea name="message" rows="4" placeholder="Tell us about your requirements..." class="contact-form-input contact-form-textarea" required></textarea>
-    <button type="submit" class="w-full px-4 py-3 bg-dexomed-500 text-white rounded-md hover:bg-dexomed-600 transition-colors font-medium flex items-center justify-center">
-        <i class="fas fa-paper-plane mr-2"></i> Send Message
-    </button>
-</form>
+                                        @csrf
+                                        <input type="text" name="name" placeholder="Enter your full name"
+                                            class="contact-form-input" required>
+                                        <input type="email" name="email" placeholder="Enter your email address"
+                                            class="contact-form-input" required>
+                                        <input type="text" name="subject" placeholder="What is this regarding?"
+                                            class="contact-form-input" required>
+                                        <textarea name="message" rows="4"
+                                            placeholder="Tell us about your requirements..."
+                                            class="contact-form-input contact-form-textarea" required></textarea>
+                                        <button type="submit"
+                                            class="w-full px-4 py-3 bg-dexomed-500 text-white rounded-md hover:bg-dexomed-600 transition-colors font-medium flex items-center justify-center">
+                                            <i class="fas fa-paper-plane mr-2"></i> Send Message
+                                        </button>
+                                    </form>
 
-@if(session('success'))
-    <div class="text-green-500 mt-3">{{ session('success') }}</div>
-@endif
+                                    @if(session('success'))
+                                        <div class="text-green-500 mt-3">{{ session('success') }}</div>
+                                    @endif
 
-@if(session('error'))
-    <div class="text-red-500 mt-3">{{ session('error') }}</div>
-@endif
+                                    @if(session('error'))
+                                        <div class="text-red-500 mt-3">{{ session('error') }}</div>
+                                    @endif
 
                                 </div>
                             </div>
@@ -1879,15 +2102,31 @@
                     <div class="page-container px-6">
                         <div class="grid md:grid-cols-2 gap-12 items-center">
                             <div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-6">Company Overview</h2>
-    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-        <strong>Dexomed Biologicals Group Ltd</strong>is a leading provider of biomedical engineering, calibration, and diagnostic technology solutions in Kenya. We specialize in the servicing, repair, and calibration of medical and laboratory equipment to ensure accuracy, compliance, and optimal performance in healthcare and industrial environments. Our expertise extends across clinical, pharmaceutical, and research institutions, where we provide reliable systems that guarantee accurate results for improved service delivery. With a team of certified professionals and a deep understanding of both local and international standards, Dexomed ensures that every piece of equipment entrusted to us meets the highest benchmarks of precision and reliability.
+                                <h2 class="text-3xl md:text-4xl font-bold mb-6">Company Overview</h2>
+                                <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                                    <strong>Dexomed Biologicals Group Ltd</strong>is a leading provider of biomedical
+                                    engineering, calibration, and diagnostic technology solutions in Kenya. We
+                                    specialize in the servicing, repair, and calibration of medical and laboratory
+                                    equipment to ensure accuracy, compliance, and optimal performance in healthcare and
+                                    industrial environments. Our expertise extends across clinical, pharmaceutical, and
+                                    research institutions, where we provide reliable systems that guarantee accurate
+                                    results for improved service delivery. With a team of certified professionals and a
+                                    deep understanding of both local and international standards, Dexomed ensures that
+                                    every piece of equipment entrusted to us meets the highest benchmarks of precision
+                                    and reliability.
 
-    </p>
-    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-        At Dexomed, we are driven by a commitment to technical excellence, integrity, and innovation. We combine modern engineering techniques with industry best practices to deliver sustainable solutions that strengthen diagnostic quality and patient safety. Beyond equipment calibration, we support institutions through consultancy, capacity building, and system audits that promote quality assurance and regulatory compliance. Our guiding philosophy Reliable Systems • Accurate Results • Better Care reflects our belief that dependable technology is the foundation of better healthcare outcomes.
-    </p>
-</div>
+                                </p>
+                                <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                                    At Dexomed, we are driven by a commitment to technical excellence, integrity, and
+                                    innovation. We combine modern engineering techniques with industry best practices to
+                                    deliver sustainable solutions that strengthen diagnostic quality and patient safety.
+                                    Beyond equipment calibration, we support institutions through consultancy, capacity
+                                    building, and system audits that promote quality assurance and regulatory
+                                    compliance. Our guiding philosophy Reliable Systems • Accurate Results • Better Care
+                                    reflects our belief that dependable technology is the foundation of better
+                                    healthcare outcomes.
+                                </p>
+                            </div>
                             <div class="bg-dexomed-100 dark:bg-dexomed-800 rounded-xl p-8">
                                 <h3 class="text-2xl font-bold mb-4 text-dexomed-700 dark:text-dexomed-300">Our Core
                                     Focus Areas</h3>
@@ -1938,12 +2177,13 @@
 
                             <div class="grid md:grid-cols-3 gap-8">
 
-                            <!-- Vision -->
+                                <!-- Vision -->
                                 <div
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
+                                    </div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-award"></i>
@@ -1951,7 +2191,9 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Vision</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                To be Africa's leading partner in biomedical technology, quality systems, and health innovation, driving excellence, reliability, and sustainability in healthcare delivery.
+                                                To be Africa's leading partner in biomedical technology, quality
+                                                systems, and health innovation, driving excellence, reliability, and
+                                                sustainability in healthcare delivery.
                                             </p>
                                         </div>
                                     </div>
@@ -1971,7 +2213,10 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Mission</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                To empower healthcare and research institutions through high-quality biomedical engineering services, reliable equipment supply, and innovative health management systems that enhance accuracy, efficiency, and patient safety.
+                                                To empower healthcare and research institutions through high-quality
+                                                biomedical engineering services, reliable equipment supply, and
+                                                innovative health management systems that enhance accuracy, efficiency,
+                                                and patient safety.
                                             </p>
                                         </div>
                                     </div>
@@ -2121,11 +2366,13 @@
             <!-- Health Management Systems Page -->
             <div id="health-systems-page" class="page-section">
                 <!-- Health Systems Hero Section -->
-                <section class="about-us-hero" style="background-image: url('{{ asset('Img/medical-technology-blog-banner-7.jpg') }}')">
+                <section class="about-us-hero"
+                    style="background-image: url('{{ asset('Img/medical-technology-blog-banner-7.jpg') }}')">
                     <div class="page-container px-6 text-center">
                         <h1 class="text-4xl md:text-6xl font-bold mb-6">Health Management Systems Development</h1>
                         <p class="text-xl md:text-2xl max-w-3xl mx-auto">
-                            Comprehensive digital solutions to streamline healthcare operations, enhance patient care, and ensure regulatory compliance.
+                            Comprehensive digital solutions to streamline healthcare operations, enhance patient care,
+                            and ensure regulatory compliance.
                         </p>
                     </div>
                 </section>
@@ -2135,31 +2382,45 @@
                     <div class="page-container px-6">
                         <div class="grid md:grid-cols-2 gap-12 items-center">
                             <div>
-                                <h2 class="text-3xl md:text-4xl font-bold mb-6">Comprehensive Health Systems Solutions</h2>
+                                <h2 class="text-3xl md:text-4xl font-bold mb-6">Comprehensive Health Systems Solutions
+                                </h2>
                                 <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                                    At Dexomed Biologicals Group, we develop and implement cutting-edge health management systems that transform healthcare delivery. Our solutions are designed to optimize operations, improve patient outcomes, and ensure compliance with healthcare regulations.
+                                    At Dexomed Biologicals Group, we develop and implement cutting-edge health
+                                    management systems that transform healthcare delivery. Our solutions are designed to
+                                    optimize operations, improve patient outcomes, and ensure compliance with healthcare
+                                    regulations.
                                 </p>
                                 <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                                    We understand that modern healthcare facilities require integrated systems that can handle complex data, streamline workflows, and provide actionable insights. Our team of healthcare IT specialists works closely with medical professionals to create solutions that address real-world challenges.
+                                    We understand that modern healthcare facilities require integrated systems that can
+                                    handle complex data, streamline workflows, and provide actionable insights. Our team
+                                    of healthcare IT specialists works closely with medical professionals to create
+                                    solutions that address real-world challenges.
                                 </p>
                                 <p class="text-lg text-gray-600 dark:text-gray-300">
-                                    From electronic health records to laboratory information management systems, our solutions are scalable, secure, and designed to grow with your organization. We prioritize user experience, data security, and interoperability to ensure seamless integration with existing infrastructure.
+                                    From electronic health records to laboratory information management systems, our
+                                    solutions are scalable, secure, and designed to grow with your organization. We
+                                    prioritize user experience, data security, and interoperability to ensure seamless
+                                    integration with existing infrastructure.
                                 </p>
                             </div>
                             <div class="bg-dexomed-100 dark:bg-dexomed-800 rounded-xl p-8">
-                                <h3 class="text-2xl font-bold mb-4 text-dexomed-700 dark:text-dexomed-300">Key System Features</h3>
+                                <h3 class="text-2xl font-bold mb-4 text-dexomed-700 dark:text-dexomed-300">Key System
+                                    Features</h3>
                                 <ul class="space-y-3">
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-dexomed-500 mr-3 mt-1"></i>
-                                        <span class="text-gray-700 dark:text-gray-300">Electronic Health Records (EHR)</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Electronic Health Records
+                                            (EHR)</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-dexomed-500 mr-3 mt-1"></i>
-                                        <span class="text-gray-700 dark:text-gray-300">Laboratory Information Management (LIMS)</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Laboratory Information Management
+                                            (LIMS)</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-dexomed-500 mr-3 mt-1"></i>
-                                        <span class="text-gray-700 dark:text-gray-300">Hospital Management Systems</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Hospital Management
+                                            Systems</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-dexomed-500 mr-3 mt-1"></i>
@@ -2167,7 +2428,8 @@
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-dexomed-500 mr-3 mt-1"></i>
-                                        <span class="text-gray-700 dark:text-gray-300">Equipment Maintenance Tracking</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Equipment Maintenance
+                                            Tracking</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-dexomed-500 mr-3 mt-1"></i>
@@ -2183,20 +2445,23 @@
                 </section>
 
                 <!-- Health Systems Services -->
-                <section class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/Healthcare-Data-Management-KMS-2.webp') }}')">
+                <section class="py-20 section-with-bg"
+                    style="background-image: url('{{ asset('Img/Healthcare-Data-Management-KMS-2.webp') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
                             <div class="text-center mb-16">
                                 <h2 class="text-3xl md:text-4xl font-bold text-white">Our Health Systems Services</h2>
                                 <p class="mt-4 text-lg text-gray-200 max-w-2xl mx-auto">
-                                    Comprehensive digital solutions tailored to meet the unique needs of healthcare providers.
+                                    Comprehensive digital solutions tailored to meet the unique needs of healthcare
+                                    providers.
                                 </p>
                             </div>
 
                             <div class="grid md:grid-cols-3 gap-8">
                                 <!-- EHR System -->
-                                <div class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
+                                <div
+                                    class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
                                         style="background-image: url('{{ asset('Img/services.png') }}')"></div>
@@ -2207,14 +2472,17 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Electronic Health Records</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                Comprehensive EHR systems that centralize patient information, streamline clinical workflows, and improve care coordination across departments.
+                                                Comprehensive EHR systems that centralize patient information,
+                                                streamline clinical workflows, and improve care coordination across
+                                                departments.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- LIMS -->
-                                <div class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
+                                <div
+                                    class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
                                         style="background-image: url('{{ asset('Img/services.png') }}')">
@@ -2226,14 +2494,16 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Laboratory Information Management</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                Advanced LIMS solutions that optimize laboratory workflows, manage samples, track results, and ensure regulatory compliance.
+                                                Advanced LIMS solutions that optimize laboratory workflows, manage
+                                                samples, track results, and ensure regulatory compliance.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Hospital Management -->
-                                <div class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
+                                <div
+                                    class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
                                         style="background-image: url('{{ asset('Img/services.png') }}')"></div>
@@ -2244,7 +2514,8 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Hospital Management Systems</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                Integrated systems that manage patient admissions, billing, inventory, and staff scheduling for efficient hospital operations.
+                                                Integrated systems that manage patient admissions, billing, inventory,
+                                                and staff scheduling for efficient hospital operations.
                                             </p>
                                         </div>
                                     </div>
@@ -2255,7 +2526,7 @@
                 </section>
 
                 <!-- Implementation Process -->
-                <section class="py-20 bg-white dark:bg-dexomed-900 " >
+                <section class="py-20 bg-white dark:bg-dexomed-900 ">
                     <div class="page-container px-6">
                         <div class="text-center mb-16">
                             <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Implementation Process</h2>
@@ -2271,7 +2542,8 @@
                                     <h3 class="text-xl font-bold mb-2">Needs Assessment & Planning</h3>
                                     <p class="text-dexomed-500 mb-2">Phase 1</p>
                                     <p class="text-gray-600 dark:text-gray-300">
-                                        We begin with a comprehensive assessment of your current workflows, challenges, and objectives to design a solution that meets your specific needs.
+                                        We begin with a comprehensive assessment of your current workflows, challenges,
+                                        and objectives to design a solution that meets your specific needs.
                                     </p>
                                 </div>
 
@@ -2280,7 +2552,8 @@
                                     <h3 class="text-xl font-bold mb-2">System Design & Customization</h3>
                                     <p class="text-dexomed-500 mb-2">Phase 2</p>
                                     <p class="text-gray-600 dark:text-gray-300">
-                                        Our team designs and customizes the system based on your requirements, ensuring it integrates seamlessly with your existing infrastructure.
+                                        Our team designs and customizes the system based on your requirements, ensuring
+                                        it integrates seamlessly with your existing infrastructure.
                                     </p>
                                 </div>
 
@@ -2289,7 +2562,8 @@
                                     <h3 class="text-xl font-bold mb-2">Implementation & Integration</h3>
                                     <p class="text-dexomed-500 mb-2">Phase 3</p>
                                     <p class="text-gray-600 dark:text-gray-300">
-                                        We implement the system with minimal disruption to your operations, ensuring data migration and integration with existing systems.
+                                        We implement the system with minimal disruption to your operations, ensuring
+                                        data migration and integration with existing systems.
                                     </p>
                                 </div>
 
@@ -2298,7 +2572,8 @@
                                     <h3 class="text-xl font-bold mb-2">Training & Support</h3>
                                     <p class="text-dexomed-500 mb-2">Phase 4</p>
                                     <p class="text-gray-600 dark:text-gray-300">
-                                        Comprehensive training for your staff and ongoing technical support to ensure smooth adoption and optimal system utilization.
+                                        Comprehensive training for your staff and ongoing technical support to ensure
+                                        smooth adoption and optimal system utilization.
                                     </p>
                                 </div>
 
@@ -2307,7 +2582,8 @@
                                     <h3 class="text-xl font-bold mb-2">Continuous Improvement</h3>
                                     <p class="text-dexomed-500 mb-2">Phase 5</p>
                                     <p class="text-gray-600 dark:text-gray-300">
-                                        Regular system updates, performance monitoring, and feature enhancements to ensure your system evolves with your needs.
+                                        Regular system updates, performance monitoring, and feature enhancements to
+                                        ensure your system evolves with your needs.
                                     </p>
                                 </div>
                             </div>
@@ -2320,7 +2596,8 @@
                     <div class="page-container px-6 text-center">
                         <h2 class="text-3xl md:text-4xl font-bold mb-6">Transform Your Healthcare Operations</h2>
                         <p class="text-xl mb-8 max-w-2xl mx-auto">
-                            Ready to implement a comprehensive health management system that will streamline your operations and improve patient care?
+                            Ready to implement a comprehensive health management system that will streamline your
+                            operations and improve patient care?
                         </p>
                         <div class="flex flex-wrap justify-center gap-4">
                             <a href="#" onclick="showPage('home'); scrollToSection('contact')"
@@ -2670,6 +2947,53 @@
             enhanceResponsiveness();
             window.addEventListener('scroll', setActiveNavLink);
         });
+
+
+        // Responsive JavaScript enhancements
+        function enhanceResponsiveness() {
+            // Adjust carousel height based on viewport
+            function adjustCarouselHeight() {
+                const carousel = document.querySelector('.carousel-container');
+                if (carousel && window.innerWidth < 768) {
+                    carousel.style.height = '500px';
+                } else if (carousel && window.innerWidth < 480) {
+                    carousel.style.height = '450px';
+                } else if (carousel) {
+                    carousel.style.height = '600px';
+                }
+            }
+
+            // Adjust hero content for mobile
+            function adjustHeroContent() {
+                const carouselContent = document.querySelector('.carousel-content');
+                if (carouselContent && window.innerWidth < 768) {
+                    // Ensure proper spacing on mobile
+                    carouselContent.style.paddingTop = '20px';
+                }
+            }
+
+            // Adjust grid layouts for mobile
+            function adjustGridLayouts() {
+                const aboutCards = document.querySelectorAll('.about-card');
+                if (aboutCards.length > 0 && window.innerWidth < 768) {
+                    aboutCards.forEach(card => {
+                        card.style.marginBottom = '20px';
+                    });
+                }
+            }
+
+            // Initialize responsive adjustments
+            adjustCarouselHeight();
+            adjustHeroContent();
+            adjustGridLayouts();
+
+            // Add resize listener
+            window.addEventListener('resize', () => {
+                adjustCarouselHeight();
+                adjustHeroContent();
+                adjustGridLayouts();
+            });
+        }
     </script>
 </body>
 
