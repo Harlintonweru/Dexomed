@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dexomed Biologicals Group - Medical Equipment Services & Solutions</title>
-
+    <link rel="icon" href="{{ asset('Img/Logo.jpg') }}" type="image/jpeg">
+    <link rel="shortcut icon" href="{{ asset('Img/Logo.jpg') }}" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -273,7 +274,6 @@
 
         .partner-logo {
             max-height: 80px;
-
             filter: grayscale(100%);
             opacity: 0.7;
             transition: all 0.3s ease;
@@ -304,105 +304,60 @@
             animation: slideUp 0.8s ease-out;
         }
 
-        /* Fixed Dark/Light Mode Toggle */
+        /* Updated Mobile-Friendly Theme Toggle */
         .fixed-theme-toggle {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        }
+
+        .theme-toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 8px 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .dark .fixed-theme-toggle {
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .fixed-theme-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .fixed-theme-toggle-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #4a5568;
-            transition: color 0.3s ease;
-        }
-
-        .dark .fixed-theme-toggle-label {
-            color: #e2e8f0;
-        }
-
-        .fixed-theme-toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 26px;
-            background: #e2e8f0;
-            border-radius: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #cbd5e0;
-        }
-
-        .dark .fixed-theme-toggle-switch {
-            background: #4a5568;
-            border-color: #2d3748;
-        }
-
-        .fixed-theme-toggle-switch::before {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 16px;
-            height: 16px;
-            background: white;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .dark .fixed-theme-toggle-switch::before {
-            left: calc(100% - 19px);
-            background: #f7fafc;
-        }
-
-        .fixed-theme-toggle-icon {
-            position: absolute;
-            font-size: 8px;
+            cursor: pointer;
             transition: all 0.3s ease;
-            top: 50%;
-            transform: translateY(-50%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
-        .fixed-theme-toggle-icon.sun {
-            left: 8px;
+        .dark .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-icon {
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .sun-icon {
             color: #f6ad55;
+            opacity: 1;
         }
 
-        .fixed-theme-toggle-icon.moon {
-            right: 8px;
+        .moon-icon {
             color: #4a5568;
-        }
-
-        .dark .fixed-theme-toggle-icon.sun {
             opacity: 0;
         }
 
-        .dark .fixed-theme-toggle-icon.moon {
+        .dark .sun-icon {
+            opacity: 0;
+        }
+
+        .dark .moon-icon {
             opacity: 1;
             color: #f7fafc;
         }
@@ -653,46 +608,6 @@
             resize: vertical;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .carousel-container {
-                height: 500px;
-            }
-
-            .carousel-overlay {
-                background: linear-gradient(to bottom, rgba(59, 59, 59, 0.32) 0%, rgba(59, 59, 59, 0.3) 50%, rgba(59, 59, 59, 0.3) 100%);
-                align-items: flex-end;
-                padding-bottom: 60px;
-            }
-
-            .carousel-content {
-                text-align: center;
-            }
-
-            .carousel-nav {
-                width: 40px;
-                height: 40px;
-            }
-
-            .fixed-theme-toggle {
-                bottom: 20px;
-                left: 20px;
-                padding: 6px 12px;
-            }
-
-            .fixed-theme-toggle-label {
-                font-size: 0.7rem;
-            }
-
-            .modal-content {
-                width: 95%;
-            }
-
-            .section-with-bg {
-                background-attachment: scroll;
-            }
-        }
-
         /* Loading Animation */
         .loading-bar {
             height: 4px;
@@ -712,76 +627,6 @@
 
         .carousel-slide.active .loading-progress {
             width: 100%;
-        }
-
-        /* Section Backgrounds */
-        .section-with-bg {
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .section-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1;
-        }
-
-        .section-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Enhanced About Section Styles */
-        .about-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            background: rgba(232, 160, 15, 0.04);
-            color: var(--brand);
-            font-size: 28px;
-        }
-
-        .about-card-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .about-card-button {
-            margin-top: auto;
-            padding-top: 20px;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .section-with-bg {
-                background-attachment: scroll;
-            }
         }
 
         /* New styles for hover arrow */
@@ -819,7 +664,7 @@
 
         /* About Us Page Styles */
         .about-us-hero {
-            background: linear-gradient(135deg, rgba(59, 59, 59, 0.8) 0%, rgba(59, 59, 59, 0.6) 100%), url('Img/wmremove-transformed.jpeg');
+            background: linear-gradient(135deg, rgba(59, 59, 59, 0.8) 0%, rgba(59, 59, 59, 0.6) 100%), url("{{ asset('Img/wmremove-transformed.jpeg') }}");
             background-size: cover;
             background-position: center;
             height: 500px;
@@ -890,6 +735,62 @@
 
         .page-section.active {
             display: block;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 100px;
+            }
+
+            .carousel-overlay {
+                background: linear-gradient(to bottom, rgba(59, 59, 59, 0.32) 0%, rgba(59, 59, 59, 0.3) 50%, rgba(59, 59, 59, 0.3) 100%);
+                align-items: flex-end;
+                padding-bottom: 0px;
+            }
+
+            .carousel-content {
+                text-align: center;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .fixed-theme-toggle {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .theme-toggle-btn {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .theme-icon {
+                font-size: 16px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .section-with-bg {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fixed-theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .theme-toggle-btn {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -1014,16 +915,14 @@
                     <div class="carousel-container">
                         <!-- Slide 1: Equipment Calibration and Standardization -->
                         <div class="carousel-slide active"
-                            style="background-image: url('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg')">
+                            style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
-                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Calibration and
-                                        Standardization</h2>
+                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Calibration and Standardization</h2>
                                     <p class="mt-4 text-lg opacity-90">
-                                        Ensure precision and compliance with our comprehensive calibration services. We
-                                        follow international standards to guarantee your equipment performs accurately
-                                        and consistently.
+                                        We provide precise, standard-compliant calibration to ensure your equipment delivers consistent, accurate performance.
                                     </p>
+
                                     <div class="mt-6 flex flex-wrap gap-3">
                                         <a href="#calibration"
                                             class="inline-block px-6 py-3 rounded-md bg-white text-dexomed-700 font-medium shadow hover:bg-gray-100 transition-colors">Calibration
@@ -1037,18 +936,15 @@
                             <div class="loading-bar">
                                 <div class="loading-progress"></div>
                             </div>
+    </div>
                         </div>
 
                         <!-- Slide 2: Equipment Servicing and Preventive Maintenance -->
-                        <div class="carousel-slide" style="background-image: url('Img/medical_equipment.jpg')">
+                        <div class="carousel-slide" style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
-                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Servicing and
-                                        Preventive Maintenance</h2>
-                                    <p class="mt-4 text-lg opacity-90">
-                                        Maximize equipment lifespan and minimize downtime with our comprehensive
-                                        servicing and preventive maintenance programs tailored to your specific needs.
-                                    </p>
+                                    <h2 class="text-4xl md:text-5xl font-bold leading-tight">Equipment Servicing and Preventive Maintenance</h2>
+                                    <p class="mt-4 text-lg opacity-90"> Extend equipment life and reduce downtime with our tailored servicing and preventive maintenance programs. </p>
                                     <div class="mt-6 flex flex-wrap gap-3">
                                         <a href="#maintenance"
                                             class="inline-block px-6 py-3 rounded-md bg-white text-dexomed-700 font-medium shadow hover:bg-gray-100 transition-colors">Maintenance
@@ -1066,7 +962,7 @@
 
                         <!-- Slide 3: Health Management Systems -->
                         <div class="carousel-slide"
-                            style="background-image: url('Img/medical-technology-blog-banner-7.jpg')">
+                            style="background-image: url('{{ asset('Img/medical-technology-blog-banner-7.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
                                     <h2 class="text-4xl md:text-5xl font-bold leading-tight">Health Management Systems
@@ -1092,7 +988,7 @@
 
                         <!-- Slide 4: Supply and Installation of Equipment -->
                         <div class="carousel-slide"
-                            style="background-image: url('Img/The-Role-of-High-Quality-Medical.jpg')">
+                            style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
                             <div class="carousel-overlay">
                                 <div class="carousel-content">
                                     <h2 class="text-4xl md:text-5xl font-bold leading-tight">Supply of Medical Equipments and Consumables</h2>
@@ -1172,7 +1068,7 @@
 
                 <!-- ENHANCED ABOUT SECTION -->
                 <section id="about" class="py-20 section-with-bg"
-                    style="background-image: url('Img/wmremove-transformed.jpeg')">
+                    style="background-image: url('{{ asset('Img/wmremove-transformed.jpeg') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -1193,7 +1089,7 @@
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/The-Role-of-High-Quality-Medical.jpg')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-award"></i>
@@ -1201,7 +1097,7 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Vision</h4>
                                             <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                                To be Africa’s leading partner in biomedical technology, quality systems, and health innovation, driving excellence, reliability, and sustainability in healthcare delivery.
+                                                To be Africa's leading partner in biomedical technology, quality systems, and health innovation, driving excellence, reliability, and sustainability in healthcare delivery.
 
                                             </p>
                                         </div>
@@ -1219,7 +1115,7 @@
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp')">
+                                        style="background-image: url('{{ asset('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp') }}')">
                                     </div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
@@ -1228,7 +1124,7 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Mission</h4>
                                             <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                                To empower healthcare and research institutions through high-quality biomedical engineering services, reliable equipment supply, and innovative health management systems that enhance accuracy, efficiency, and patient safety.
+                                                To empower healthcare and research institutions through high-quality biomedical engineering services, reliable equipment supply, and innovative health management systems that enhance accuracy, efficiency, and patient safety.
                                             </p>
                                             
                                         </div>
@@ -1248,7 +1144,7 @@
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp')">
+                                        style="background-image: url('{{ asset('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp') }}')">
                                     </div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
@@ -1292,7 +1188,7 @@
 
                 <!-- ENHANCED SERVICES SECTION -->
                 <section id="services" class="py-20 section-with-bg"
-                    style="background-image: url('Img/Healthcare-Data-Management-KMS-2.webp')">
+                    style="background-image: url('{{ asset('Img/Healthcare-Data-Management-KMS-2.webp') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -1308,7 +1204,7 @@
                                     <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden h-full flex flex-col group cursor-pointer"
                                         onclick="window.location.href='{{ route('login') }}'">
                                         <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                            style="background-image: url('Img/services.png')"></div>
+                                            style="background-image: url('{{ asset('Img/services.png') }}')"></div>
                                         <div class="enhanced-card-content flex-1">
                                             <div
                                                 class="enhanced-card-icon group-hover:bg-dexomed-500 group-hover:text-white transition-all duration-300">
@@ -1334,7 +1230,7 @@
                                     <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden h-full flex flex-col group cursor-pointer"
                                         onclick="window.location.href='{{ route('login') }}'">
                                         <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                            style="background-image: url('Img/services.png')"></div>
+                                            style="background-image: url('{{ asset('Img/services.png') }}')"></div>
                                         <div class="enhanced-card-content flex-1">
                                             <div
                                                 class="enhanced-card-icon group-hover:bg-dexomed-500 group-hover:text-white transition-all duration-300">
@@ -1360,7 +1256,7 @@
                                     <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden h-full flex flex-col group cursor-pointer"
                                         onclick="window.location.href='{{ route('login') }}'">
                                         <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                            style="background-image: url('Img/services.png')"></div>
+                                            style="background-image: url('{{ asset('Img/services.png') }}')"></div>
                                         <div class="enhanced-card-content flex-1">
                                             <div
                                                 class="enhanced-card-icon group-hover:bg-dexomed-500 group-hover:text-white transition-all duration-300">
@@ -1390,7 +1286,7 @@
         <!-- Medical Equipment Card -->
         <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                style="background-image: url('Img/The-Role-of-High-Quality-Medical.jpg')">
+                style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')">
             </div>
             <div class="enhanced-card-content">
                 <div class="enhanced-card-icon">
@@ -1436,7 +1332,7 @@
         <!-- Laboratory & Research Card -->
         <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                style="background-image: url('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg')">
+                style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
             </div>
             <div class="enhanced-card-content">
                 <div class="enhanced-card-icon">
@@ -1482,7 +1378,7 @@
         <!-- Radiology and Imaging Card -->
         <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                style="background-image: url('Img/medical_equipment.jpg')">
+                style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')">
             </div>
             <div class="enhanced-card-content">
                 <div class="enhanced-card-icon">
@@ -1531,7 +1427,7 @@
                 </section>
 
                 <!-- NEW SECTION: Supply of Medical Equipments and Consumables -->
-                <section id="medical-supplies" class="py-20 section-with-bg" style="background-image: url('Img/services.png')">
+                <section id="medical-supplies" class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/services.png') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -1545,7 +1441,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/The-Role-of-High-Quality-Medical.jpg')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
                                             <i class="fas fa-stethoscope"></i>
@@ -1582,7 +1478,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg')">
+                                        style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
                                     </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
@@ -1620,7 +1516,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp')">
+                                        style="background-image: url('{{ asset('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp') }}')">
                                     </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
@@ -1660,7 +1556,7 @@
 
                 <!-- ENHANCED CALIBRATION SECTION -->
                 <section id="calibration" class="py-20 section-with-bg"
-                    style="background-image: url('Img/wmremove-transformed (1).jpeg')">
+                    style="background-image: url('{{ asset('Img/wmremove-transformed (1).jpeg') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -1674,7 +1570,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg')">
+                                        style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
                                     </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
@@ -1725,7 +1621,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/medical_equipment.jpg')"></div>
+                                        style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')"></div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
                                             <i class="fas fa-certificate"></i>
@@ -1781,7 +1677,7 @@
                 </section>
 
                 <!-- ENHANCED MEDICAL SUPPLIES SECTION -->
-                <section id="supplies" class="py-20 section-with-bg" style="background-image: url('Img/services.png')">
+                <section id="supplies" class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/services.png') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -1796,7 +1692,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/The-Role-of-High-Quality-Medical.jpg')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
                                             <i class="fas fa-stethoscope"></i>
@@ -1815,7 +1711,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg')">
+                                        style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
                                     </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
@@ -1835,7 +1731,7 @@
                                 <div class="enhanced-card bg-white dark:bg-dexomed-800 relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp')">
+                                        style="background-image: url('{{ asset('Img/comprehensive-medical-equipment-arrangement-precision-hygiene-clinical-setting-enhanced-healthcare-essential-medical-355575535.webp') }}')">
                                     </div>
                                     <div class="enhanced-card-content">
                                         <div class="enhanced-card-icon">
@@ -1860,7 +1756,7 @@
 
                 <!-- ENHANCED CONTACT SECTION -->
                 <section id="contact" class="py-20 section-with-bg"
-                    style="background-image: url('Img/wmremove-transformed.jpeg')">
+                    style="background-image: url('{{ asset('Img/wmremove-transformed.jpeg') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6 max-w-4xl mx-auto">
@@ -1938,39 +1834,25 @@
 
                                 <div class="bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md">
                                     <h4 class="text-xl font-bold mb-6">Send us a Message</h4>
-                                    <form class="space-y-4">
-                                        <div>
-                                            <label for="name"
-                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your
-                                                Name</label>
-                                            <input type="text" id="name" class="contact-form-input"
-                                                placeholder="Enter your full name">
-                                        </div>
-                                        <div>
-                                            <label for="email"
-                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email
-                                                Address</label>
-                                            <input type="email" id="email" class="contact-form-input"
-                                                placeholder="Enter your email address">
-                                        </div>
-                                        <div>
-                                            <label for="subject"
-                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
-                                            <input type="text" id="subject" class="contact-form-input"
-                                                placeholder="What is this regarding?">
-                                        </div>
-                                        <div>
-                                            <label for="message"
-                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
-                                            <textarea id="message" rows="4"
-                                                class="contact-form-input contact-form-textarea"
-                                                placeholder="Tell us about your requirements..."></textarea>
-                                        </div>
-                                        <button type="submit"
-                                            class="w-full px-4 py-3 bg-dexomed-500 text-white rounded-md hover:bg-dexomed-600 transition-colors font-medium flex items-center justify-center">
-                                            <i class="fas fa-paper-plane mr-2"></i> Send Message
-                                        </button>
-                                    </form>
+                                    <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
+    @csrf
+    <input type="text" name="name" placeholder="Enter your full name" class="contact-form-input" required>
+    <input type="email" name="email" placeholder="Enter your email address" class="contact-form-input" required>
+    <input type="text" name="subject" placeholder="What is this regarding?" class="contact-form-input" required>
+    <textarea name="message" rows="4" placeholder="Tell us about your requirements..." class="contact-form-input contact-form-textarea" required></textarea>
+    <button type="submit" class="w-full px-4 py-3 bg-dexomed-500 text-white rounded-md hover:bg-dexomed-600 transition-colors font-medium flex items-center justify-center">
+        <i class="fas fa-paper-plane mr-2"></i> Send Message
+    </button>
+</form>
+
+@if(session('success'))
+    <div class="text-green-500 mt-3">{{ session('success') }}</div>
+@endif
+
+@if(session('error'))
+    <div class="text-red-500 mt-3">{{ session('error') }}</div>
+@endif
+
                                 </div>
                             </div>
                         </div>
@@ -2003,7 +1885,7 @@
 
     </p>
     <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-        At Dexomed, we are driven by a commitment to technical excellence, integrity, and innovation. We combine modern engineering techniques with industry best practices to deliver sustainable solutions that strengthen diagnostic quality and patient safety. Beyond equipment calibration, we support institutions through consultancy, capacity building, and system audits that promote quality assurance and regulatory compliance. Our guiding philosophy Reliable Systems • Accurate Results • Better Care reflects our belief that dependable technology is the foundation of better healthcare outcomes.
+        At Dexomed, we are driven by a commitment to technical excellence, integrity, and innovation. We combine modern engineering techniques with industry best practices to deliver sustainable solutions that strengthen diagnostic quality and patient safety. Beyond equipment calibration, we support institutions through consultancy, capacity building, and system audits that promote quality assurance and regulatory compliance. Our guiding philosophy Reliable Systems • Accurate Results • Better Care reflects our belief that dependable technology is the foundation of better healthcare outcomes.
     </p>
 </div>
                             <div class="bg-dexomed-100 dark:bg-dexomed-800 rounded-xl p-8">
@@ -2042,7 +1924,7 @@
                 </section>
 
                 <!-- Mission, Vision & Values -->
-                <section class="py-20 section-with-bg" style="background-image: url('Img/services.png')">
+                <section class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/services.png') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -2061,7 +1943,7 @@
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/The-Role-of-High-Quality-Medical.jpg')"></div>
+                                        style="background-image: url('{{ asset('Img/The-Role-of-High-Quality-Medical.jpg') }}')"></div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-award"></i>
@@ -2069,7 +1951,7 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Vision</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                To be Africa’s leading partner in biomedical technology, quality systems, and health innovation, driving excellence, reliability, and sustainability in healthcare delivery.
+                                                To be Africa's leading partner in biomedical technology, quality systems, and health innovation, driving excellence, reliability, and sustainability in healthcare delivery.
                                             </p>
                                         </div>
                                     </div>
@@ -2080,7 +1962,7 @@
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg')">
+                                        style="background-image: url('{{ asset('Img/66c239e5a8b687fd51bc8523_AdobeStock 338447101.jpg') }}')">
                                     </div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
@@ -2089,7 +1971,7 @@
                                         <div class="about-card-content">
                                             <h4 class="text-xl font-bold mb-4">Our Mission</h4>
                                             <p class="text-gray-600 dark:text-gray-300">
-                                                To empower healthcare and research institutions through high-quality biomedical engineering services, reliable equipment supply, and innovative health management systems that enhance accuracy, efficiency, and patient safety.
+                                                To empower healthcare and research institutions through high-quality biomedical engineering services, reliable equipment supply, and innovative health management systems that enhance accuracy, efficiency, and patient safety.
                                             </p>
                                         </div>
                                     </div>
@@ -2101,7 +1983,7 @@
                                     class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/medical_equipment.jpg')"></div>
+                                        style="background-image: url('{{ asset('Img/medical_equipment.jpg') }}')"></div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-handshake"></i>
@@ -2144,7 +2026,7 @@
 
                 <!-- Company History -->
                 <section class="py-20 section-with-bg"
-                    style="background-image: url('Img/Healthcare-Data-Management-KMS-2.webp')">
+                    style="background-image: url('{{ asset('Img/Healthcare-Data-Management-KMS-2.webp') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -2239,7 +2121,7 @@
             <!-- Health Management Systems Page -->
             <div id="health-systems-page" class="page-section">
                 <!-- Health Systems Hero Section -->
-                <section class="about-us-hero" style="background-image: url('Img/medical-technology-blog-banner-7.jpg')">
+                <section class="about-us-hero" style="background-image: url('{{ asset('Img/medical-technology-blog-banner-7.jpg') }}')">
                     <div class="page-container px-6 text-center">
                         <h1 class="text-4xl md:text-6xl font-bold mb-6">Health Management Systems Development</h1>
                         <p class="text-xl md:text-2xl max-w-3xl mx-auto">
@@ -2301,7 +2183,7 @@
                 </section>
 
                 <!-- Health Systems Services -->
-                <section class="py-20 section-with-bg" style="background-image: url('Img/Healthcare-Data-Management-KMS-2.webp')">
+                <section class="py-20 section-with-bg" style="background-image: url('{{ asset('Img/Healthcare-Data-Management-KMS-2.webp') }}')">
                     <div class="section-overlay"></div>
                     <div class="section-content">
                         <div class="page-container px-6">
@@ -2317,7 +2199,7 @@
                                 <div class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/services.png')"></div>
+                                        style="background-image: url('{{ asset('Img/services.png') }}')"></div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-file-medical"></i>
@@ -2335,7 +2217,7 @@
                                 <div class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/services.png')">
+                                        style="background-image: url('{{ asset('Img/services.png') }}')">
                                     </div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
@@ -2354,7 +2236,7 @@
                                 <div class="about-card bg-white dark:bg-dexomed-800 rounded-xl p-8 shadow-md relative overflow-hidden">
                                     <!-- Background Image -->
                                     <div class="absolute inset-0 bg-cover bg-center opacity-30"
-                                        style="background-image: url('Img/services.png')"></div>
+                                        style="background-image: url('{{ asset('Img/services.png') }}')"></div>
                                     <div class="relative z-10">
                                         <div class="about-card-icon">
                                             <i class="fas fa-hospital"></i>
@@ -2516,12 +2398,12 @@
         </footer>
     </div>
 
-    <!-- Fixed Dark/Light Mode Toggle -->
+    <!-- Updated Mobile-Friendly Dark/Light Mode Toggle -->
     <div id="fixedThemeToggle" class="fixed-theme-toggle">
-        <div class="fixed-theme-toggle-switch">
-            <i class="fas fa-sun fixed-theme-toggle-icon sun"></i>
-            <i class="fas fa-moon fixed-theme-toggle-icon moon"></i>
-        </div>
+        <button class="theme-toggle-btn" aria-label="Toggle dark mode">
+            <i class="fas fa-sun theme-icon sun-icon"></i>
+            <i class="fas fa-moon theme-icon moon-icon"></i>
+        </button>
     </div>
 
     <!-- JavaScript -->
@@ -2581,7 +2463,7 @@
         }
 
         // Dark/Light Mode Toggle
-        const fixedThemeToggle = document.getElementById('fixedThemeToggle');
+        const themeToggleBtn = document.querySelector('.theme-toggle-btn');
         const htmlElement = document.documentElement;
 
         // Function to toggle theme
@@ -2607,9 +2489,9 @@
             }
         }
 
-        // Add event listener to fixed theme toggle
-        if (fixedThemeToggle) {
-            fixedThemeToggle.addEventListener('click', toggleTheme);
+        // Add event listener to theme toggle button
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', toggleTheme);
         }
 
         // Carousel Functionality
