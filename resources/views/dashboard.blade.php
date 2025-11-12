@@ -1282,261 +1282,171 @@
                     
                     <!-- Welcome Card -->
                     <div class="card slide-up">
-                        <div class="card-header">
-    <h2 class="card-title">Welcome, {{ Auth::user()->name }}!</h2>
+    <div class="card-header">
+        <h2 class="card-title">Welcome, {{ Auth::user()->name }}!</h2>
+    </div>
+    
+    <p class="text-gray-600 dark:text-gray-300 mb-4" id="welcomeMessage">
+        <i class="fas fa-spinner fa-spin mr-2"></i>
+        Loading dashboard overview...
+    </p>
+    
+    <div class="flex gap-3">
+        <button class="btn btn-primary" onclick="navigateToServiceRequests()">
+            <i class="fas fa-tools mr-2"></i>
+            View Service Requests
+        </button>
+        <button class="btn btn-outline" id="addEquipmentBtn">
+            <i class="fas fa-plus mr-2"></i>
+            Add New Equipment
+        </button>
+    </div>
 </div>
-
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">
-                            Here's an overview of your equipment and recent activities. You have <span class="font-semibold text-dexomed-500">2 pending service requests</span> and <span class="font-semibold text-dexomed-500">1 calibration due</span> this week.
-                        </p>
-                        <div class="flex gap-3">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-tools mr-2"></i>
-                                View Service Requests
-                            </button>
-                            <button class="btn btn-outline" id="addEquipmentBtn">
-                                <i class="fas fa-plus mr-2"></i>
-                                Add New Equipment
-                            </button>
-                        </div>
-                    </div>
                     
                     <!-- Quick Stats -->
-                    <div class="stats-grid">
-                        <div class="stat-card slide-up">
-                            <div class="stat-icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
-                                <i class="fas fa-microscope"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value">24</div>
-                                <div class="stat-label">Total Equipment</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card slide-up" style="animation-delay: 0.1s">
-                            <div class="stat-icon bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value">5</div>
-                                <div class="stat-label">Active Service Requests</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card slide-up" style="animation-delay: 0.2s">
-                            <div class="stat-icon bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
-                                <i class="fas fa-ruler-combined"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value">3</div>
-                                <div class="stat-label">Upcoming Calibrations</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card slide-up" style="animation-delay: 0.3s">
-                            <div class="stat-icon bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300">
-                                <i class="fas fa-file-invoice"></i>
-                            </div>
-                            <div class="stat-info">
-                                <div class="stat-value">2</div>
-                                <div class="stat-label">Recent Invoices</div>
-                            </div>
-                        </div>
-                    </div>
+<div class="stats-grid">
+    <div class="stat-card slide-up">
+        <div class="stat-icon bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+            <i class="fas fa-microscope"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value" id="totalEquipmentStat">0</div>
+            <div class="stat-label">Total Equipment</div>
+        </div>
+    </div>
+    
+    <div class="stat-card slide-up" style="animation-delay: 0.1s">
+        <div class="stat-icon bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300">
+            <i class="fas fa-tools"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value" id="activeServiceRequestsStat">0</div>
+            <div class="stat-label">Active Service Requests</div>
+        </div>
+    </div>
+    
+    <div class="stat-card slide-up" style="animation-delay: 0.2s">
+        <div class="stat-icon bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
+            <i class="fas fa-ruler-combined"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value" id="upcomingCalibrationsStat">0</div>
+            <div class="stat-label">Upcoming Calibrations</div>
+        </div>
+    </div>
+    
+    <div class="stat-card slide-up" style="animation-delay: 0.3s">
+        <div class="stat-icon bg-orange-100 text-orange-600 dark:bg-orange-900 dark:text-orange-300">
+            <i class="fas fa-cogs"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value" id="underMaintenanceStat">0</div>
+            <div class="stat-label">Under Maintenance</div>
+        </div>
+    </div>
+</div>
                     
                     <div class="grid-2">
                         <!-- Recent Activity -->
-                        <div class="card slide-up">
-                            <div class="card-header">
-                                <h2 class="card-title">Recent Activity</h2>
-                                <a href="#" class="card-action">View All</a>
-                            </div>
-                            <div class="activity-feed">
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-tools"></i>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Service request #SR-2023-045 submitted</div>
-                                        <div class="activity-time">2 hours ago</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-check-circle"></i>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Calibration completed for Hematology Analyzer</div>
-                                        <div class="activity-time">Yesterday, 3:45 PM</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-file-invoice"></i>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Invoice #INV-2023-128 generated</div>
-                                        <div class="activity-time">October 12, 2023</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Maintenance alert for Centrifuge CF-2000</div>
-                                        <div class="activity-time">October 10, 2023</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-shipping-fast"></i>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">New equipment registered: ECG Machine</div>
-                                        <div class="activity-time">October 8, 2023</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="card slide-up">
+    <div class="card-header">
+        <h2 class="card-title">Recent Activity</h2>
+        <a href="#" class="card-action" onclick="navigateToActivityLog()">View All</a>
+    </div>
+    <div class="activity-feed" id="recentActivityFeed">
+        <div class="activity-item">
+            <div class="activity-icon">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-title">Loading recent activities...</div>
+                <div class="activity-time">Please wait</div>
+            </div>
+        </div>
+    </div>
+</div>
                         
                         <!-- Equipment Health -->
-                        <div class="card slide-up" style="animation-delay: 0.2s">
-                            <div class="card-header">
-                                <h2 class="card-title">Equipment Health Overview</h2>
-                                <a href="#" class="card-action">Details</a>
-                            </div>
-                            <div class="health-indicators">
-                                <div class="health-indicator">
-                                    <span class="health-label">Operational</span>
-                                    <div class="health-bar">
-                                        <div class="health-progress bg-green-500" style="width: 75%"></div>
-                                    </div>
-                                    <span class="text-sm font-medium">18</span>
-                                </div>
-                                <div class="health-indicator">
-                                    <span class="health-label">Needs Attention</span>
-                                    <div class="health-bar">
-                                        <div class="health-progress bg-yellow-500" style="width: 16%"></div>
-                                    </div>
-                                    <span class="text-sm font-medium">4</span>
-                                </div>
-                                <div class="health-indicator">
-                                    <span class="health-label">Under Maintenance</span>
-                                    <div class="health-bar">
-                                        <div class="health-progress bg-red-500" style="width: 8%"></div>
-                                    </div>
-                                    <span class="text-sm font-medium">2</span>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-6">
-                                <h3 class="font-medium mb-3">Critical Alerts</h3>
-                                <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
-                                    <div class="flex items-start">
-                                        <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-2"></i>
-                                        <div>
-                                            <div class="font-medium text-red-800 dark:text-red-200">Ventilator V-200 requires immediate calibration</div>
-                                            <div class="text-sm text-red-600 dark:text-red-300 mt-1">Due date: October 20, 2023</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="card slide-up" style="animation-delay: 0.2s">
+    <div class="card-header">
+        <h2 class="card-title">Equipment Health Overview</h2>
+        <a href="#" class="card-action" onclick="navigateToEquipment()">Details</a>
+    </div>
+    <div class="health-indicators">
+        <div class="health-indicator">
+            <span class="health-label">Operational</span>
+            <div class="health-bar">
+                <div class="health-progress bg-green-500" id="operationalHealthBar" style="width: 0%"></div>
+            </div>
+            <span class="text-sm font-medium" id="operationalCount">0</span>
+        </div>
+        <div class="health-indicator">
+            <span class="health-label">Needs Attention</span>
+            <div class="health-bar">
+                <div class="health-progress bg-yellow-500" id="attentionHealthBar" style="width: 0%"></div>
+            </div>
+            <span class="text-sm font-medium" id="attentionCount">0</span>
+        </div>
+        <div class="health-indicator">
+            <span class="health-label">Under Maintenance</span>
+            <div class="health-bar">
+                <div class="health-progress bg-red-500" id="maintenanceHealthBar" style="width: 0%"></div>
+            </div>
+            <span class="text-sm font-medium" id="maintenanceCount">0</span>
+        </div>
+    </div>
+    
+    <div class="mt-6">
+        <h3 class="font-medium mb-3">Critical Alerts</h3>
+        <div id="criticalAlertsContainer">
+            <!-- Critical alerts will be populated dynamically -->
+            <div class="text-center py-4 text-gray-500">
+                <i class="fas fa-spinner fa-spin mr-2"></i>
+                Loading alerts...
+            </div>
+        </div>
+    </div>
+</div>
                     </div>
                     
                     <!-- Equipment List -->
-                    <div class="card slide-up mt-6">
-                        <div class="card-header">
-                            <h2 class="card-title">My Equipment</h2>
-                            <div class="flex gap-2">
-                                <button class="btn btn-outline btn-sm">
-                                    <i class="fas fa-filter mr-1"></i>
-                                    Filter
-                                </button>
-                                <button class="btn btn-primary btn-sm" id="addEquipmentBtn2">
-                                    <i class="fas fa-plus mr-1"></i>
-                                    Add Equipment
-                                </button>
-                            </div>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Equipment Name</th>
-                                        <th>Model</th>
-                                        <th>Serial No.</th>
-                                        <th>Status</th>
-                                        <th>Last Service</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="font-medium">Hematology Analyzer</td>
-                                        <td>HA-2200</td>
-                                        <td>SN-784512</td>
-                                        <td><span class="status-badge status-operational">Operational</span></td>
-                                        <td>Sep 15, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">Centrifuge</td>
-                                        <td>CF-2000</td>
-                                        <td>SN-451269</td>
-                                        <td><span class="status-badge status-attention">Needs Attention</span></td>
-                                        <td>Aug 22, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">ECG Machine</td>
-                                        <td>ECG-Pro</td>
-                                        <td>SN-963258</td>
-                                        <td><span class="status-badge status-operational">Operational</span></td>
-                                        <td>Oct 5, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">Patient Monitor</td>
-                                        <td>PM-450</td>
-                                        <td>SN-741852</td>
-                                        <td><span class="status-badge status-maintenance">Under Maintenance</span></td>
-                                        <td>Jul 30, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium">Ultrasound System</td>
-                                        <td>US-360</td>
-                                        <td>SN-159753</td>
-                                        <td><span class="status-badge status-operational">Operational</span></td>
-                                        <td>Sep 28, 2023</td>
-                                        <td>
-                                            <button class="btn btn-outline btn-sm">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+<div class="card slide-up mt-6">
+    <div class="card-header">
+        <h2 class="card-title">My Equipment</h2>
+        <div class="flex gap-2">
+            <button class="btn btn-outline btn-sm">
+                <i class="fas fa-filter mr-1"></i>
+                Filter
+            </button>
+            <button class="btn btn-primary btn-sm" id="addEquipmentBtn2">
+                <i class="fas fa-plus mr-1"></i>
+                Add Equipment
+            </button>
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Equipment Name</th>
+                    <th>Model</th>
+                    <th>Serial No.</th>
+                    <th>Status</th>
+                    <th>Last Service</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="dashboardEquipmentTableBody">
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>
+                        Loading equipment...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
                 </div>
                 
                 <!-- Equipment Section -->
@@ -3073,6 +2983,13 @@
         });
     }
     
+    function navigateToServiceRequests() {
+    // Find the service requests menu item and click it
+    const serviceRequestsMenuItem = document.querySelector('.menu-item[data-section="service-requests"]');
+    if (serviceRequestsMenuItem) {
+        serviceRequestsMenuItem.click();
+    }
+}
     function updatePageTitle(section) {
         const titles = {
             'dashboard': 'Dashboard Overview',
@@ -3916,22 +3833,78 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========== DATA FETCHING FUNCTIONS ==========
     
     async function fetchDashboardStats() {
-        try {
-            console.log('Fetching dashboard stats...');
-            const response = await fetch('{{ route("dashboard.stats") }}');
-            const data = await response.json();
-            
-            if (data.success) {
-                updateDashboardStats(data.stats);
-                console.log('Dashboard stats loaded successfully');
-            } else {
-                console.error('Error fetching dashboard stats:', data.message);
-            }
-        } catch (error) {
-            console.error('Error fetching dashboard stats:', error);
+    try {
+        console.log('Fetching dashboard stats...');
+        
+        // Fetch all dashboard data in parallel
+        const [statsResponse, equipmentResponse, serviceRequestsResponse, calibrationsResponse] = await Promise.all([
+            fetch('{{ route("dashboard.stats") }}'),
+            fetch('{{ route("equipment.index") }}'),
+            fetch('{{ route("service-requests.index") }}'),
+            fetch('{{ route("calibrations.index") }}')
+        ]);
+        
+        const statsData = await statsResponse.json();
+        const equipmentData = await equipmentResponse.json();
+        const serviceRequestsData = await serviceRequestsResponse.json();
+        const calibrationsData = await calibrationsResponse.json();
+        
+        if (statsData.success) {
+            updateDashboardStats(statsData.stats);
+            console.log('Dashboard stats loaded successfully');
+        } else {
+            console.error('Error fetching dashboard stats:', statsData.message);
+        }
+        
+        if (equipmentData.success) {
+            updateEquipmentHealthOverview(equipmentData.equipment);
+            updateDashboardEquipmentTable(equipmentData.equipment);
+            console.log('Equipment data loaded successfully for dashboard');
+        } else {
+            console.error('Error fetching equipment data for dashboard:', equipmentData.message);
+        }
+        
+        // Update quick stats with all data
+        updateQuickStats(
+            equipmentData.success ? equipmentData.equipment : [],
+            serviceRequestsData.success ? serviceRequestsData : { requests: [] },
+            calibrationsData.success ? calibrationsData : { calibrations: [] }
+        );
+        
+        // Update welcome message with all data
+        updateWelcomeMessage(
+            equipmentData.success ? equipmentData.equipment : [],
+            serviceRequestsData.success ? serviceRequestsData : { requests: [] },
+            calibrationsData.success ? calibrationsData : { calibrations: [] }
+        );
+        
+        // Process all data for recent activities
+        await updateRecentActivities();
+        
+    } catch (error) {
+        console.error('Error fetching dashboard stats:', error);
+        
+        // Show error in welcome message
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        if (welcomeMessage) {
+            welcomeMessage.innerHTML = `
+                <span class="text-red-500">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Unable to load dashboard data. Please try refreshing the page.
+                </span>
+            `;
         }
     }
-    
+}
+function refreshWelcomeMessage() {
+    console.log('🔄 Refreshing welcome message...');
+    // This will be called automatically when fetchDashboardStats is called
+}   
+function refreshQuickStats() {
+    console.log('🔄 Refreshing quick stats...');
+    // This will be called automatically when fetchDashboardStats is called
+}
+
     async function fetchEquipmentData() {
         try {
             showLoading('equipmentGrid', 'Loading equipment...');
@@ -5077,6 +5050,33 @@ if (cancelEditEquipment) {
     cancelEditEquipment.addEventListener('click', () => closeModal('editEquipmentModal'));
 }
 
+// In handleEquipmentSubmit, after successful equipment addition:
+if (data.success) {
+    alert('Equipment added successfully!');
+    closeModal('addEquipmentModal');
+    form.reset();
+    fetchEquipmentData();
+    refreshRecentActivities(); // Add this line
+}
+
+// In handleServiceRequestManual, after successful service request:
+if (data.success) {
+    alert(`Service request submitted successfully! Request ID: ${data.request_id}`);
+    closeModal('newRequestModal');
+    form.reset();
+    fetchServiceRequests();
+    refreshRecentActivities(); // Add this line
+}
+
+// In handleCalibrationManual, after successful calibration:
+if (data.success) {
+    alert('Calibration scheduled successfully!');
+    closeModal('scheduleCalibrationModal');
+    form.reset();
+    fetchCalibrations();
+    refreshRecentActivities(); // Add this line
+}
+
 async function handleServiceRequestManual() {
     console.log('🔧 Manual service request submission triggered');
     
@@ -6146,6 +6146,448 @@ async function viewEquipment(equipmentId) {
         alert('Error loading equipment details');
     }
 }
+function navigateToEquipment() {
+    // Find the equipment menu item and click it
+    const equipmentMenuItem = document.querySelector('.menu-item[data-section="equipment"]');
+    if (equipmentMenuItem) {
+        equipmentMenuItem.click();
+    }
+}
+
+function updateEquipmentHealthOverview(equipmentData) {
+    if (!equipmentData || !Array.isArray(equipmentData)) return;
+    
+    // Count equipment by status
+    const statusCounts = {
+        operational: 0,
+        attention: 0,
+        maintenance: 0
+    };
+    
+    const criticalAlerts = [];
+    
+    equipmentData.forEach(equipment => {
+        // Count by status
+        if (equipment.status === 'operational') {
+            statusCounts.operational++;
+        } else if (equipment.status === 'attention') {
+            statusCounts.attention++;
+        } else if (equipment.status === 'maintenance') {
+            statusCounts.maintenance++;
+        }
+        
+        // Check for critical alerts (equipment that needs attention or maintenance)
+        if (equipment.status === 'attention' || equipment.status === 'maintenance') {
+            criticalAlerts.push({
+                name: equipment.name,
+                model: equipment.model,
+                status: equipment.status,
+                issue: equipment.status === 'attention' ? 'Needs Attention' : 'Under Maintenance',
+                lastService: equipment.last_service_date
+            });
+        }
+    });
+    
+    const totalEquipment = equipmentData.length;
+    
+    // Update the counts
+    document.getElementById('operationalCount').textContent = statusCounts.operational;
+    document.getElementById('attentionCount').textContent = statusCounts.attention;
+    document.getElementById('maintenanceCount').textContent = statusCounts.maintenance;
+    
+    // Update the health bars with percentages
+    if (totalEquipment > 0) {
+        const operationalPercent = (statusCounts.operational / totalEquipment) * 100;
+        const attentionPercent = (statusCounts.attention / totalEquipment) * 100;
+        const maintenancePercent = (statusCounts.maintenance / totalEquipment) * 100;
+        
+        document.getElementById('operationalHealthBar').style.width = `${operationalPercent}%`;
+        document.getElementById('attentionHealthBar').style.width = `${attentionPercent}%`;
+        document.getElementById('maintenanceHealthBar').style.width = `${maintenancePercent}%`;
+    }
+    
+    // Update critical alerts
+    updateCriticalAlerts(criticalAlerts);
+}
+
+function updateCriticalAlerts(alerts) {
+    const container = document.getElementById('criticalAlertsContainer');
+    
+    if (!alerts || alerts.length === 0) {
+        container.innerHTML = `
+            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <div>
+                        <div class="font-medium text-green-800 dark:text-green-200">All equipment is operational</div>
+                        <div class="text-sm text-green-600 dark:text-green-300 mt-1">No critical alerts at this time</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        return;
+    }
+    
+    // Show only the first 3 critical alerts
+    const displayAlerts = alerts.slice(0, 3);
+    
+    container.innerHTML = displayAlerts.map(alert => {
+        // Determine styling based on status
+        const isAttention = alert.status === 'attention';
+        const bgColor = isAttention ? 'red' : 'yellow';
+        const icon = isAttention ? 'fa-exclamation-circle' : 'fa-tools';
+        const issueText = isAttention ? 'Needs Attention' : 'Under Maintenance';
+        
+        return `
+        <div class="bg-${bgColor}-50 dark:bg-${bgColor}-900/20 border border-${bgColor}-200 dark:border-${bgColor}-800 rounded-lg p-3 mb-3">
+            <div class="flex items-start">
+                <i class="fas ${icon} text-${bgColor}-500 mt-1 mr-2"></i>
+                <div>
+                    <div class="font-medium text-${bgColor}-800 dark:text-${bgColor}-200">${alert.name} (${alert.model}) ${issueText}</div>
+                    <div class="text-sm text-${bgColor}-600 dark:text-${bgColor}-300 mt-1">
+                        Status: ${formatStatus(alert.status)}${alert.lastService ? ` | Last Service: ${formatDate(alert.lastService)}` : ''}
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+    
+    // Show "show more" if there are more alerts
+    if (alerts.length > 3) {
+        container.innerHTML += `
+            <div class="text-center mt-2">
+                <button class="text-sm text-dexomed-500 hover:text-dexomed-600 font-medium" onclick="navigateToEquipment()">
+                    +${alerts.length - 3} more critical alerts
+                </button>
+            </div>
+        `;
+    }
+}
+
+function updateDashboardEquipmentTable(equipmentData) {
+    const tableBody = document.getElementById('dashboardEquipmentTableBody');
+    
+    if (!tableBody) return;
+    
+    if (!equipmentData || equipmentData.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center py-8 text-gray-500">
+                    <i class="fas fa-microscope fa-2x mb-2"></i>
+                    <p>No equipment found</p>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="openModal('addEquipmentModal')">
+                        <i class="fas fa-plus mr-1"></i>
+                        Add Your First Equipment
+                    </button>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    // Show only the first 5 equipment items for the dashboard
+    const displayEquipment = equipmentData.slice(0, 5);
+    
+    tableBody.innerHTML = displayEquipment.map(equipment => `
+        <tr>
+            <td class="font-medium">${equipment.name}</td>
+            <td>${equipment.model}</td>
+            <td>${equipment.serial_number}</td>
+            <td><span class="status-badge ${getStatusBadgeClass(equipment.status)}">${formatStatus(equipment.status)}</span></td>
+            <td>${equipment.last_service_date ? formatDate(equipment.last_service_date) : 'No service recorded'}</td>
+            <td>
+                <button class="btn btn-outline btn-sm view-equipment-dashboard" data-id="${equipment.id}">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+    
+    // Add event listeners for the view buttons
+    attachDashboardEquipmentEventListeners();
+}
+
+function attachDashboardEquipmentEventListeners() {
+    // View equipment buttons in dashboard
+    document.querySelectorAll('.view-equipment-dashboard').forEach(button => {
+        button.addEventListener('click', function() {
+            const equipmentId = this.getAttribute('data-id');
+            viewEquipment(equipmentId);
+        });
+    });
+}
+
+function navigateToActivityLog() {
+    // You can implement navigation to a full activity log page here
+    // For now, let's just show an alert
+    alert('Full activity log feature coming soon!');
+}
+
+async function updateRecentActivities() {
+    try {
+        console.log('Fetching recent activities...');
+        
+        // Fetch activities from multiple sources
+        const [equipmentResponse, serviceRequestsResponse, calibrationsResponse] = await Promise.all([
+            fetch('{{ route("equipment.index") }}'),
+            fetch('{{ route("service-requests.index") }}'),
+            fetch('{{ route("calibrations.index") }}')
+        ]);
+        
+        const equipmentData = await equipmentResponse.json();
+        const serviceRequestsData = await serviceRequestsResponse.json();
+        const calibrationsData = await calibrationsResponse.json();
+        
+        const activities = [];
+        
+        // Process equipment activities (new equipment added)
+        if (equipmentData.success && equipmentData.equipment) {
+            equipmentData.equipment.forEach(equipment => {
+                activities.push({
+                    type: 'equipment_added',
+                    title: `New equipment registered: ${equipment.name}`,
+                    description: `${equipment.model} - ${equipment.serial_number}`,
+                    timestamp: equipment.created_at,
+                    icon: 'fas fa-shipping-fast',
+                    color: 'text-blue-500'
+                });
+            });
+        }
+        
+        // Process service request activities
+        if (serviceRequestsData.success && serviceRequestsData.requests) {
+            serviceRequestsData.requests.forEach(request => {
+                let title = '';
+                let icon = 'fas fa-tools';
+                let color = 'text-orange-500';
+                
+                if (request.status === 'completed') {
+                    title = `Service request #${request.request_id || request.id} completed`;
+                    icon = 'fas fa-check-circle';
+                    color = 'text-green-500';
+                } else if (request.status === 'in_progress') {
+                    title = `Service request #${request.request_id || request.id} in progress`;
+                    icon = 'fas fa-tools';
+                    color = 'text-yellow-500';
+                } else {
+                    title = `Service request #${request.request_id || request.id} submitted`;
+                    icon = 'fas fa-tools';
+                    color = 'text-orange-500';
+                }
+                
+                activities.push({
+                    type: 'service_request',
+                    title: title,
+                    description: `Equipment: ${request.equipment?.name || 'Unknown'}`,
+                    timestamp: request.status === 'completed' ? request.updated_at : request.created_at,
+                    icon: icon,
+                    color: color
+                });
+            });
+        }
+        
+        // Process calibration activities
+        if (calibrationsData.success && calibrationsData.calibrations) {
+            calibrationsData.calibrations.forEach(calibration => {
+                let title = '';
+                let icon = 'fas fa-ruler-combined';
+                let color = 'text-purple-500';
+                
+                if (calibration.status === 'completed') {
+                    title = `Calibration completed for ${calibration.equipment?.name || 'Unknown Equipment'}`;
+                    icon = 'fas fa-check-circle';
+                    color = 'text-green-500';
+                } else if (calibration.status === 'overdue') {
+                    title = `Calibration overdue for ${calibration.equipment?.name || 'Unknown Equipment'}`;
+                    icon = 'fas fa-exclamation-triangle';
+                    color = 'text-red-500';
+                } else if (calibration.status === 'due_soon') {
+                    title = `Calibration due soon for ${calibration.equipment?.name || 'Unknown Equipment'}`;
+                    icon = 'fas fa-clock';
+                    color = 'text-yellow-500';
+                } else {
+                    title = `Calibration scheduled for ${calibration.equipment?.name || 'Unknown Equipment'}`;
+                    icon = 'fas fa-ruler-combined';
+                    color = 'text-purple-500';
+                }
+                
+                activities.push({
+                    type: 'calibration',
+                    title: title,
+                    description: `Type: ${formatCalibrationType(calibration.calibration_type)}`,
+                    timestamp: calibration.status === 'completed' ? calibration.updated_at : calibration.created_at,
+                    icon: icon,
+                    color: color
+                });
+            });
+        }
+        
+        // Sort activities by timestamp (newest first) and take only 6
+        activities.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        const recentActivities = activities.slice(0, 6);
+        
+        // Update the UI
+        updateRecentActivitiesUI(recentActivities);
+        
+    } catch (error) {
+        console.error('Error fetching recent activities:', error);
+        showError('recentActivityFeed', 'Failed to load recent activities');
+    }
+}
+
+function updateRecentActivitiesUI(activities) {
+    const activityFeed = document.getElementById('recentActivityFeed');
+    
+    if (!activities || activities.length === 0) {
+        activityFeed.innerHTML = `
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-info-circle text-gray-400"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">No recent activities</div>
+                    <div class="activity-time">Activities will appear here</div>
+                </div>
+            </div>
+        `;
+        return;
+    }
+    
+    activityFeed.innerHTML = activities.map(activity => `
+        <div class="activity-item">
+            <div class="activity-icon" style="color: ${getComputedStyle(document.documentElement).getPropertyValue('--' + activity.color.split('-')[1]) || '#6b7280'};">
+                <i class="${activity.icon}"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-title">${activity.title}</div>
+                <div class="activity-time">${formatRelativeTime(activity.timestamp)}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function formatRelativeTime(timestamp) {
+    if (!timestamp) return 'Unknown time';
+    
+    const now = new Date();
+    const activityTime = new Date(timestamp);
+    const diffInSeconds = Math.floor((now - activityTime) / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+    
+    if (diffInSeconds < 60) {
+        return 'Just now';
+    } else if (diffInMinutes < 60) {
+        return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+    } else if (diffInHours < 24) {
+        return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    } else if (diffInDays < 7) {
+        return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    } else {
+        return activityTime.toLocaleDateString();
+    }
+}
+
+function refreshRecentActivities() {
+    console.log('🔄 Refreshing recent activities...');
+    updateRecentActivities();
+}
+
+function updateWelcomeMessage(equipmentData, serviceRequestsData, calibrationsData) {
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    
+    if (!welcomeMessage) return;
+    
+    // Calculate counts
+    const totalEquipment = equipmentData?.length || 0;
+    
+    // Count pending service requests
+    const pendingRequests = serviceRequestsData?.requests?.filter(request => 
+        request.status === 'pending' || request.status === 'in_progress'
+    ).length || 0;
+    
+    // Count calibrations due this week
+    const calibrationsDueThisWeek = calibrationsData?.calibrations?.filter(calibration => {
+        if (!calibration.next_calibration_date) return false;
+        
+        const nextCalibrationDate = new Date(calibration.next_calibration_date);
+        const today = new Date();
+        const oneWeekFromNow = new Date(today);
+        oneWeekFromNow.setDate(today.getDate() + 7);
+        
+        return nextCalibrationDate >= today && nextCalibrationDate <= oneWeekFromNow;
+    }).length || 0;
+    
+    // Generate appropriate message based on the data
+    let message = "Here's an overview of your equipment and recent activities. ";
+    
+    if (totalEquipment === 0) {
+        message += "Get started by adding your first equipment to the system.";
+    } else {
+        message += `You have <span class="font-semibold text-dexomed-500">${totalEquipment} equipment item${totalEquipment !== 1 ? 's' : ''}</span>`;
+        
+        if (pendingRequests > 0) {
+            message += ` with <span class="font-semibold text-dexomed-500">${pendingRequests} pending service request${pendingRequests !== 1 ? 's' : ''}</span>`;
+        }
+        
+        if (calibrationsDueThisWeek > 0) {
+            if (pendingRequests > 0) {
+                message += ` and <span class="font-semibold text-dexomed-500">${calibrationsDueThisWeek} calibration${calibrationsDueThisWeek !== 1 ? 's' : ''} due</span> this week`;
+            } else {
+                message += ` and <span class="font-semibold text-dexomed-500">${calibrationsDueThisWeek} calibration${calibrationsDueThisWeek !== 1 ? 's' : ''} due</span> this week`;
+            }
+        } else {
+            message += " and no upcoming calibrations this week";
+        }
+        
+        message += ".";
+    }
+    
+    welcomeMessage.innerHTML = message;
+}
+
+
+function updateQuickStats(equipmentData, serviceRequestsData, calibrationsData) {
+    // Calculate Total Equipment
+    const totalEquipment = equipmentData?.length || 0;
+    document.getElementById('totalEquipmentStat').textContent = totalEquipment;
+    
+    // Calculate Active Service Requests (pending + in_progress)
+    const activeServiceRequests = serviceRequestsData?.requests?.filter(request => 
+        request.status === 'pending' || request.status === 'in_progress'
+    ).length || 0;
+    document.getElementById('activeServiceRequestsStat').textContent = activeServiceRequests;
+    
+    // Calculate Upcoming Calibrations - SIMPLIFIED AND GUARANTEED TO WORK
+    let upcomingCalibrations = 0;
+    
+    if (calibrationsData?.calibrations && Array.isArray(calibrationsData.calibrations)) {
+        const today = new Date();
+        
+        upcomingCalibrations = calibrationsData.calibrations.filter(calibration => {
+            // Count ALL calibrations that are not completed or cancelled
+            return calibration.status !== 'completed' && calibration.status !== 'cancelled';
+        }).length;
+    }
+    
+    document.getElementById('upcomingCalibrationsStat').textContent = upcomingCalibrations;
+    
+    // Calculate Under Maintenance Equipment
+    const underMaintenance = equipmentData?.filter(equipment => 
+        equipment.status === 'maintenance'
+    ).length || 0;
+    document.getElementById('underMaintenanceStat').textContent = underMaintenance;
+    
+    console.log('📊 Quick Stats Updated:', {
+        totalEquipment,
+        activeServiceRequests,
+        upcomingCalibrations,
+        underMaintenance
+    });
+}
+
 
 </script>
 </body>

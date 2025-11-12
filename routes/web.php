@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\CalibrationController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::post('/send-message', [ContactController::class, 'send'])->name('contact.send');
 
 // Temporary test route - remove after testing
 Route::get('/test-equipment-route', function() {
